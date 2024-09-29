@@ -1,101 +1,145 @@
 import Image from "next/image";
-
+import Logo from "/public/logo.svg";
+import Github from "/public/github.svg";
+import Discord from "/public/discord.svg";
+import X from "/public/x.svg";
+import Graph from "/public/graph.svg";
+import Search from "/public/search.svg";
+import MuonLogo from "/public/muon_logo.svg";
+import UnLock from "/public/unlock.svg";
+import Members from "/public/profile-2user.svg";
+import Link from "next/link";
+import SpaceCard from "./components/SpaceCard";
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div>
+      <header className="relative  w-full  flex-col justify-center">
+        <section className=" bg-[#121212] w-full p-8 flex items-center justify-between">
+          <Image src={Logo} width={100} height={26} alt="logo" />
+          <ul className="flex items-center gap-4">
+            <Link href={"https://x.com/IM3_live"}>
+              <Image src={X} width={24} height={24} alt="X" />
+            </Link>
+            {/* <li>
+              <Image src={Discord} width={32} height={32} alt="discord" />
+            </li> */}
+            <Link href={"https://github.com/Im3-protocol"}>
+              <Image src={Github} width={24} height={24} alt="Github" />
+            </Link>
+          </ul>
+        </section>
+        <h1 className="text-white absolute left-[10%] md:left-[13%] md:top-[30%] text-2xl md:text-5xl font-bold">
+          Spacehall
+        </h1>
+        <Image src={Graph} width={5000} height={1000} className="object-cover" alt="graph" />
+      </header>
+      <main className="grid my-10 w-11/12 md:w-[75%] gap-10 mx-auto grid-cols-8">
+        <section className="flex flex-col col-span-full gap-4">
+          <h1 className="text-white text-lg font-bold col-span-full">
+            Explore Spaces
+          </h1>
+          <form action="" className="col-span-full grid grid-cols-8 gap-2">
+            <div className="flex pl-3 items-center p-2 bg-[#1E1E1E] col-span-full md:col-span-6 rounded-2xl border border-[#ffffff] border-opacity-10">
+              <section className="flex  w-full items-center gap-4">
+                <Image src={Search} height={24} width={24} alt="search" />
+                <input
+                  type="text"
+                  placeholder="Search your space"
+                  className="w-full bg-transparent"
+                />
+              </section>
+              <button className="px-4 py-1 bg-black rounded-lg text-white">
+                Search
+              </button>
+            </div>
+            <button className="text-white py-4 col-span-4 md:col-span-1 text-center bg-[#1e1e1e] rounded-2xl border border-[#ffffff] border-opacity-10">
+              Newest
+            </button>
+            <button className="text-white py-4 col-span-4 md:col-span-1 text-center bg-[#1e1e1e] rounded-2xl border border-[#ffffff] border-opacity-10">
+              Oldest
+            </button>
+          </form>
+        </section>
+        <div className="grid col-span-full grid-cols-2 gap-4">
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
+          <SpaceCard
+            logo_URL={MuonLogo}
+            name_space={"Muon Network"}
+            members={"20"}
+            privateSpace={false}
+            className={"md:col-span-1 col-span-full"}
+          />
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
