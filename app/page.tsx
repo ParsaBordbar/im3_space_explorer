@@ -1,18 +1,14 @@
+"use client";
 import Image from "next/image";
-import Logo from "/public/logo.svg";
-import Github from "/public/github.svg";
-import Discord from "/public/discord.svg";
-import X from "/public/x.svg";
-import Graph from "/public/graph.svg";
 import Search from "/public/search.svg";
 import MuonLogo from "/public/muon_logo.svg";
-import UnLock from "/public/unlock.svg";
-import Members from "/public/profile-2user.svg";
-import Link from "next/link";
 import SpaceCard from "./components/SpaceCard";
 import Header from "./components/Header";
 import MainButton from "./components/MainButton";
+import useGetConfigData from "@/hooks/useGetConfig";
 export default function Home() {
+  const configData = useGetConfigData();
+  console.log(configData )
   return (
     <div>
       <Header />
@@ -50,12 +46,27 @@ export default function Home() {
           </form>
         </section>
         <div className="grid col-span-full grid-cols-2 gap-4">
+          {configData && configData.length > 0 &&
+            configData.map((space) => {
+              console.log(space)
+              return (
+                <SpaceCard
+                  logo_URL={MuonLogo}
+                  name_space={"Muon Network"}
+                  members={"20"}
+                  privateSpace={false}
+                  className={"md:col-span-1 col-span-full"}
+                  slug={"muon"}
+                />
+              );
+            })}
           <SpaceCard
             logo_URL={MuonLogo}
             name_space={"Muon Network"}
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
           <SpaceCard
             logo_URL={MuonLogo}
@@ -63,6 +74,7 @@ export default function Home() {
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
           <SpaceCard
             logo_URL={MuonLogo}
@@ -70,6 +82,7 @@ export default function Home() {
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
           <SpaceCard
             logo_URL={MuonLogo}
@@ -77,6 +90,7 @@ export default function Home() {
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
           <SpaceCard
             logo_URL={MuonLogo}
@@ -84,6 +98,7 @@ export default function Home() {
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
           <SpaceCard
             logo_URL={MuonLogo}
@@ -91,6 +106,7 @@ export default function Home() {
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
           <SpaceCard
             logo_URL={MuonLogo}
@@ -98,6 +114,7 @@ export default function Home() {
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
           <SpaceCard
             logo_URL={MuonLogo}
@@ -105,6 +122,7 @@ export default function Home() {
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
           <SpaceCard
             logo_URL={MuonLogo}
@@ -112,6 +130,7 @@ export default function Home() {
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
           <SpaceCard
             logo_URL={MuonLogo}
@@ -119,13 +138,7 @@ export default function Home() {
             members={"20"}
             privateSpace={false}
             className={"md:col-span-1 col-span-full"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
+            slug={"muon"}
           />
         </div>
       </main>
