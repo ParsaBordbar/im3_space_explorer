@@ -28,7 +28,7 @@ export type SocialInfoType = {
   height: number;
 };
 
-export type DetailMiniBox = {
+export type DetailMiniBoxType = {
   icon: string;
   value: string;
   className?: string;
