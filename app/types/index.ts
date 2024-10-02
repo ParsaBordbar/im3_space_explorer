@@ -1,0 +1,36 @@
+import { ButtonHTMLAttributes, FunctionComponent } from "react";
+
+export type SpaceCardProps = {
+  className: string;
+  logo_URL: any;
+  slug: string;
+  name_space: string;
+  members: string;
+  privateSpace: boolean;
+};
+
+export type TButton = ButtonHTMLAttributes<HTMLButtonElement> & {
+  value?: string;
+  className?: string;
+  iconSrc?: string;
+  submit?: boolean;
+  simple?: boolean;
+  freez?: boolean;
+  pro?: boolean;
+};
+
+export type SocialInfoType = {
+  icon: string;
+  value: string;
+  link: string;
+  width: number;
+  title: string;
+  height: number;
+};
+
+export type DetailMiniBox = {
+  icon: string;
+  value: string;
+  className?: string;
+  title: string;
+};
