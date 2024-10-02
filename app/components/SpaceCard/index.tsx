@@ -4,12 +4,14 @@ import UnLock from "/public/unlock.svg";
 import Lock from "/public/lock.svg";
 import Members from "/public/profile-2user.svg";
 import { Component } from "react";
+import Link from "next/link";
 
 type SpaceCardProps = {
   className: string;
   logo_URL: any;
   name_space: string;
   members: string;
+  slug: string;
   privateSpace: boolean;
 };
 
@@ -18,13 +20,16 @@ const SpaceCard = ({
   logo_URL,
   name_space,
   members,
+  slug,
   privateSpace,
 }: SpaceCardProps) => {
   return (
     <div
       className={`${className} hover:bg-[#2a2a2a] cursor-pointer bg-[#1E1E1E] rounded-2xl flex items-start gap-4 p-4`}
     >
-      <Image src={logo_URL} width={80} height={80} alt="logo_space" />
+      <Link href={`https://space.im3.live/${slug}`}>
+        <Image src={logo_URL} width={80} height={80} alt="logo_space" />
+      </Link>
       <div className="flex flex-col justify-between gap-2">
         <section className="flex items-center gap-2">
           <Image
@@ -34,7 +39,12 @@ const SpaceCard = ({
             height={16}
             alt={privateSpace ? "public" : "Private"}
           />
-          <h1 className="text-white overflow-clip whitespace-nowrap w-32 font-bold text-lg">{name_space}</h1>
+          <Link
+            href={`https://space.im3.live/${slug}`}
+            className="text-white overflow-clip whitespace-nowrap w-32 font-bold text-lg"
+          >
+            {name_space}
+          </Link>
         </section>
         <ul className="grid grid-cols-3 gap-4">
           <li className="flex items-center col-span-1 bg-[#373737] rounded-lg px-1 py-0.5 gap-1">
