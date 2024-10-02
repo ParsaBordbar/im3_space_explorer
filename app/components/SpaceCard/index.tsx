@@ -22,7 +22,7 @@ const SpaceCard = ({
 }: SpaceCardProps) => {
   return (
     <div
-      className={`${className} bg-[#1E1E1E] rounded-2xl flex items-start gap-4 p-4`}
+      className={`${className} hover:bg-[#2a2a2a] cursor-pointer bg-[#1E1E1E] rounded-2xl flex items-start gap-4 p-4`}
     >
       <Image src={logo_URL} width={80} height={80} alt="logo_space" />
       <div className="flex flex-col justify-between gap-2">
