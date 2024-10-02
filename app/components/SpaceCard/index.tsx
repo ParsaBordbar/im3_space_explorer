@@ -13,7 +13,6 @@ const SpaceCard = ({
   logo_URL,
   name_space,
   members,
-  slug,
   privateSpace,
 }: SpaceCardProps) => {
   return (
@@ -21,7 +20,7 @@ const SpaceCard = ({
       href={'/muon'}
       className={`${className} hover:bg-[#2a2a2a] cursor-pointer bg-[#1E1E1E] rounded-2xl flex items-start gap-4 p-4`}
     >
-      <Image src={logo_URL} width={80} height={80} alt="logo_space" />
+      <Image src={logo_URL} width={80} height={80} alt="logo_space" className="contain-size"/>
       <div className="flex flex-col justify-between gap-2">
         <section className="flex items-center gap-1">
           <Image
