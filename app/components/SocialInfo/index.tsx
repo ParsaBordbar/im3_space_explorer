@@ -1,14 +1,6 @@
+import { SocialInfoType } from "@/app/types";
 import Image from "next/image";
 import Link from "next/link";
-
-export type SocialInfoType = {
-  icon: string;
-  value: string;
-  link: string;
-  width: number;
-  title: string;
-  height: number;
-};
 
 const SocialInfo = ({
   icon,
