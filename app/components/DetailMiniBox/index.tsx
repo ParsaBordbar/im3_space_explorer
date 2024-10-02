@@ -1,13 +1,8 @@
+import { DetailMiniBoxType } from "@/app/types";
 import Image from "next/image";
 
-export type DetailMiniBox = {
-  icon: string;
-  value: string;
-  className?: string;
-  title: string;
-};
 
-const DetailMiniBox = ({ icon, value, className, title }: DetailMiniBox) => {
+const DetailMiniBox = ({ icon, value, className, title }: DetailMiniBoxType) => {
   return (
     <li
       title={`${title}`}
