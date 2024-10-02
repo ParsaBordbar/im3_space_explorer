@@ -10,29 +10,12 @@ import UnLock from "/public/unlock.svg";
 import Members from "/public/profile-2user.svg";
 import Link from "next/link";
 import SpaceCard from "./components/SpaceCard";
+import Header from "./components/Header";
+import MainButton from "./components/MainButton";
 export default function Home() {
   return (
     <div>
-      <header className="relative  w-full  flex-col justify-center">
-        <section className=" bg-[#121212] w-full p-8 flex items-center justify-between">
-          <Image src={Logo} width={100} height={26} alt="logo" />
-          <ul className="flex items-center gap-4">
-            <Link href={"https://x.com/IM3_live"}>
-              <Image src={X} width={24} height={24} alt="X" />
-            </Link>
-            {/* <li>
-              <Image src={Discord} width={32} height={32} alt="discord" />
-            </li> */}
-            <Link href={"https://github.com/Im3-protocol"}>
-              <Image src={Github} width={24} height={24} alt="Github" />
-            </Link>
-          </ul>
-        </section>
-        <h1 className="text-white absolute left-[10%] md:left-[13%] md:top-[30%] text-2xl md:text-5xl font-bold">
-          Spacehall
-        </h1>
-        <Image src={Graph} width={5000} height={1000} className="object-cover" alt="graph" />
-      </header>
+      <Header />
       <main className="grid my-10 w-11/12 md:w-[75%] gap-10 mx-auto grid-cols-8">
         <section className="flex flex-col col-span-full gap-4">
           <h1 className="text-white text-lg font-bold col-span-full">
@@ -43,21 +26,27 @@ export default function Home() {
               <section className="flex  w-full items-center gap-4">
                 <Image src={Search} height={24} width={24} alt="search" />
                 <input
-                  type="text"
+                  type="search"
                   placeholder="Search your space"
-                  className="w-full bg-transparent"
+                  className="w-full outline-none text-white bg-transparent"
                 />
               </section>
-              <button className="px-4 py-1 bg-black rounded-lg text-white">
-                Search
-              </button>
+              <MainButton
+                value={"Search"}
+                submit
+                className="px-4 py-1 rounded-lg"
+              />
             </div>
-            <button className="text-white py-4 col-span-4 md:col-span-1 text-center bg-[#1e1e1e] rounded-2xl border border-[#ffffff] border-opacity-10">
-              Newest
-            </button>
-            <button className="text-white py-4 col-span-4 md:col-span-1 text-center bg-[#1e1e1e] rounded-2xl border border-[#ffffff] border-opacity-10">
-              Oldest
-            </button>
+            <MainButton
+              value={"Newest"}
+              simple
+              className="col-span-4 md:col-span-1  rounded-2xl"
+            />
+            <MainButton
+              value={"Oldest"}
+              simple
+              className="col-span-4 md:col-span-1  rounded-2xl"
+            />
           </form>
         </section>
         <div className="grid col-span-full grid-cols-2 gap-4">
