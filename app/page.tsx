@@ -6,6 +6,7 @@ import SpaceCard from "./components/SpaceCard";
 import Header from "./components/Header";
 import MainButton from "./components/MainButton";
 import useGetConfigData from "@/hooks/useGetConfig";
+import SpaceSection from "./components/SpaceSection/inedx";
 export default function Home() {
   const configData = useGetConfigData();
   console.log(configData )
@@ -45,102 +46,7 @@ export default function Home() {
             />
           </form>
         </section>
-        <div className="grid col-span-full grid-cols-2 gap-4">
-          {configData && configData.length > 0 &&
-            configData.map((space) => {
-              console.log(space)
-              return (
-                <SpaceCard
-                  logo_URL={MuonLogo}
-                  name_space={"Muon Network"}
-                  members={"20"}
-                  privateSpace={false}
-                  className={"md:col-span-1 col-span-full"}
-                  slug={"muon"}
-                />
-              );
-            })}
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-          <SpaceCard
-            logo_URL={MuonLogo}
-            name_space={"Muon Network"}
-            members={"20"}
-            privateSpace={false}
-            className={"md:col-span-1 col-span-full"}
-            slug={"muon"}
-          />
-        </div>
+          <SpaceSection />
       </main>
     </div>
   );
