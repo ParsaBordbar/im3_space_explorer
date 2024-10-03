@@ -1,15 +1,20 @@
 "use client";
 import Image from "next/image";
 import Search from "/public/search.svg";
-import MuonLogo from "/public/muon_logo.svg";
-import SpaceCard from "./components/SpaceCard";
 import Header from "./components/Header";
 import MainButton from "./components/MainButton";
-import useGetConfigData from "@/hooks/useGetConfig";
-import SpaceSection from "./components/SpaceSection/inedx";
+import SpaceSection from "./components/SpaceSection";
+import { useState } from "react";
+
 export default function Home() {
-  const configData = useGetConfigData();
-  console.log(configData )
+  const [search, setSearch] = useState();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Event value:", event.target.value);
+    setSearch(event.target.value);
+  };
+
+  
   return (
     <div>
       <Header />
@@ -23,6 +28,7 @@ export default function Home() {
               <section className="flex  w-full items-center gap-4">
                 <Image src={Search} height={24} width={24} alt="search" />
                 <input
+                  onChange={handleChange}
                   type="search"
                   placeholder="Search your space"
                   className="w-full outline-none text-white bg-transparent"
@@ -46,7 +52,7 @@ export default function Home() {
             />
           </form>
         </section>
-          <SpaceSection />
+          <SpaceSection search={search}/>
       </main>
     </div>
   );
