@@ -2,84 +2,180 @@
 import Image from "next/image";
 import MuonLogo from "/public/muon_logo.svg";
 import MainButton from "@/app/components/MainButton";
-import Lock from "/public/unlock.svg";
+import UnLock from "/public/unlock.svg";
+import Lock from "/public/lock.svg";
 import Members from "/public/profile-2user.svg";
 import DetailMiniBox from "@/app/components/DetailMiniBox";
 import X from "/public/x.svg";
 import Discord from "/public/discord.svg";
 import Github from "/public/github.svg";
 import SocialInfo from "@/app/components/SocialInfo";
+import Link from "next/link";
+import useGetConfigData from "@/hooks/useGetConfig";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
 const ExploreSpace = ({ params }: { params: string }) => {
-  console.log(params); // {slug : "muon"}
+  const [data, setData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const uiData = useGetConfigData(
+    `/rooms/get-all-room-configs/sort?sort=${
+      params.slug == "im3" ? "default" : "all"
+    }`
+  );
+  console.log(params.slug);
+  useEffect(() => {
+    if (Array.isArray(uiData)) {
+      uiData?.map((conf) => {
+        if (conf.slug == params?.slug) {
+          setData(conf);
+          setIsLoading(false);
+        }
+      });
+    } else {
+      console.log(uiData);
+      setData(uiData);
+      setIsLoading(false);
+    }
+  }, [uiData]);
+
+  const showsPrivateRoom = useCallback(() => {
+    console.log(!!data?.config?.ui?.privateRoom);
+    return (
+      <>
+        <MainButton
+          className="rounded-2xl md:flex hidden py-3 px-4"
+          iconSrc={!!data?.config?.ui?.privateRoom ? Lock : UnLock}
+          freez
+          value={data?.config?.ui?.privateRoom ? "Private" : "Public"}
+        />
+      </>
+    );
+  }, [data]);
+
   return (
-    <>
-      <div className="flex justify-between items-start">
-        <div className="flex md:flex-row flex-col w-full  items-center gap-9 md:w-fit">
-          <Image className="md:inline-block hidden" src={MuonLogo} width={96} height={96} alt="logo" />
-          <Image className="md:hidden" src={MuonLogo} width={180} height={96} alt="logo" />
-          <section className="flex flex-col gap-2 self-start">
-            <div className="flex flex-wrap items-center gap-2">
-              <Image className="md:hidden" src={Lock} width={16} height={16} alt="" title="private"/>
-              <span className="text-white font-bold text-2xl md:text-4xl">
-                Muon Network
-              </span>
+    !isLoading && (
+      <>
+        <div className="flex justify-between items-start">
+          <div className="flex md:flex-row flex-col w-full  items-center gap-9 md:w-fit">
+            <Image
+              className="md:inline-block hidden"
+              src={data?.config?.ui?.logo}
+              width={96}
+              height={96}
+              alt="logo"
+            />
+            <Image
+              className="md:hidden"
+              src={data?.config?.ui?.logo}
+              width={250}
+              height={96}
+              alt="logo"
+            />
+            <section className="flex flex-col gap-2 self-start">
+              <div className="flex flex-wrap items-center gap-2">
+                {data?.config?.ui?.privateRoom ? (
+                  <Image
+                    className="md:hidden"
+                    src={Lock}
+                    width={16}
+                    height={16}
+                    alt=""
+                    title="private"
+                  />
+                ) : (
+                  <Image
+                    className="md:hidden"
+                    src={UnLock}
+                    width={16}
+                    height={16}
+                    alt=""
+                    title="public"
+                  />
+                )}
+                <span className="text-white font-bold text-2xl md:text-4xl">
+                  {data?.slug ?? "IM3"}
+                </span>
+                {showsPrivateRoom()}
+              </div>
+              <ul className="flex items-center gap-2">
+                <DetailMiniBox
+                  title="max_member"
+                  className="w-fit"
+                  value={data?.config?.maxParticipants}
+                  icon={Members}
+                />
+                {data?.config?.whiteListParticipants?.length > 0 && (
+                  <DetailMiniBox
+                    title="member"
+                    className="w-fit"
+                    value={data?.config?.whiteListParticipants?.length}
+                    icon={Members}
+                  />
+                )}
+              </ul>
+            </section>
+          </div>
+          <Link href={`https://space.im3.live/${data?.slug}`}>
+            {data?.slug && (
               <MainButton
-                className="rounded-2xl md:flex hidden py-3 px-4"
-                iconSrc={Lock}
-                freez
-                value={"Public"}
+                pro
+                className="py-3 md:static fixed z-20 md:bottom-auto md:left-auto md:w-auto w-full left-0 bottom-0  px-4 md:rounded-2xl"
+                value={"Join Room"}
               />
-            </div>
-            <ul>
-              <DetailMiniBox
-                title="max_member"
-                className="w-fit"
-                value="20"
-                icon={Members}
-              />
-            </ul>
-          </section>
+            )}
+          </Link>
         </div>
-        <MainButton pro className="py-3 md:static fixed z-20 md:bottom-auto md:left-auto md:w-auto w-full left-0 bottom-0  px-4 md:rounded-2xl" value={"Join Room"} />
-      </div>
-      <p className="mt-6 text-white">
-        Decentralize all Off-Chain Components of your dApp
-      </p>
-      <ul className="flex flex-wrap items-center gap-3 mt-3">
-        <SocialInfo
-          width={16}
-          height={16}
-          icon={X}
-          value="x.com/muon_net"
-          link={"https://x.com/muon_net"}
-          title={"X"}
-        />
-        <SocialInfo
-          width={24}
-          height={24}
-          icon={Discord}
-          value="discord.com/Muon"
-          link={"https://discord.com/invite/rcK4p8g7Ce"}
-          title={"Discord"}
-        />
-        <SocialInfo
-          width={16}
-          height={16}
-          icon={Github}
-          value="github.com/muon-protocol"
-          link={"https://github.com/muon-protocol"}
-          title={"Github"}
-        />
-        <SocialInfo
-          width={16}
-          height={16}
-          icon={MuonLogo}
-          value="www.muon.net"
-          link={"https://www.muon.net/"}
-          title={"Muon"}
-        />
-      </ul>
-    </>
+        <p className="mt-6 text-white">{data?.config?.ui?.desc}</p>
+        <ul className="flex flex-wrap items-center gap-3 mt-3">
+          {data?.config?.ui?.socials.x && (
+            <SocialInfo
+              width={16}
+              height={16}
+              icon={X}
+              value={`${data?.config?.ui?.socials.x}`}
+              link={`${data?.config?.ui?.socials.x}`}
+              title={"X"}
+            />
+          )}
+          {data?.config?.ui?.socials.discord && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={Discord}
+              value={`${data?.config?.ui?.socials.discord}`}
+              link={`${data?.config?.ui?.socials.discord}`}
+              title={"Discord"}
+            />
+          )}
+
+          {data?.config?.ui?.socials.github && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={Github}
+              value={`${data?.config?.ui?.socials.github}`}
+              link={`${data?.config?.ui?.socials.github}`}
+              title={"Github"}
+            />
+          )}
+          {data?.config?.ui?.socials.website && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={data?.config?.ui?.logo}
+              value={`${data?.config?.ui?.socials.website}`}
+              link={`${data?.config?.ui?.socials.website}`}
+              title={"Website"}
+            />
+          )}
+        </ul>
+      </>
+    )
   );
 };
 
