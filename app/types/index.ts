@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FunctionComponent } from "react";
+import { ButtonHTMLAttributes } from "react";
 
 export type SpaceCardProps = {
   className: string;
@@ -7,6 +7,7 @@ export type SpaceCardProps = {
   name_space: string;
   members: string;
   privateSpace: boolean;
+  roomUrl: string;
 };
 
 export type TButton = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -34,3 +35,7 @@ export type DetailMiniBoxType = {
   className?: string;
   title: string;
 };
+
+export interface SpaceSectionType {
+  search: any;
+}
