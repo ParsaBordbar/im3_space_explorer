@@ -1,9 +1,7 @@
 import Image from "next/image";
-import MuonLogo from "/public/muon_logo.svg";
 import UnLock from "/public/unlock.svg";
 import Lock from "/public/lock.svg";
 import Members from "/public/profile-2user.svg";
-import { Component } from "react";
 import { SpaceCardProps } from "@/app/types";
 import DetailMiniBox from "../DetailMiniBox";
 import Link from "next/link";
@@ -14,10 +12,11 @@ const SpaceCard = ({
   name_space,
   members,
   privateSpace,
+  roomUrl,
 }: SpaceCardProps) => {
   return (
     <Link
-      href={'/muon'}
+      href={ (!roomUrl) ? '/im3' : `/${roomUrl}`}
       className={`${className} hover:bg-[#2a2a2a] cursor-pointer bg-[#1E1E1E] rounded-2xl flex items-start gap-4 p-4`}
     >
       <Image src={logo_URL} width={80} height={80} alt="logo_space" className="contain-size"/>
