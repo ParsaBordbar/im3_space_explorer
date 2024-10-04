@@ -5,6 +5,7 @@ import Members from "/public/profile-2user.svg";
 import { SpaceCardProps } from "@/app/types";
 import DetailMiniBox from "../DetailMiniBox";
 import Link from "next/link";
+import Tag from "../Tag";
 
 const SpaceCard = ({
   className,
@@ -13,6 +14,7 @@ const SpaceCard = ({
   members,
   privateSpace,
   roomUrl,
+  tags,
 }: SpaceCardProps) => {
   return (
     <Link
@@ -21,7 +23,7 @@ const SpaceCard = ({
     >
       <Image src={logo_URL} width={80} height={80} alt="logo_space" className="contain-size"/>
       <div className="flex flex-col justify-between gap-2">
-        <section className="flex items-center gap-1">
+        <section className="flex items-center gap-2 mx-2">
           <Image
             title={`${privateSpace ? "Public" : "Private"}`}
             src={privateSpace ? Lock : UnLock}
@@ -41,6 +43,13 @@ const SpaceCard = ({
             icon={Members}
             title={"max_member"}
           />
+        </ul>
+        <ul className="grid grid-cols-6 gap-2">
+          {
+            tags?.map((tag: string) => (
+              <Tag tag={tag} key={tag} />
+            ))
+          }
         </ul>
       </div>
     </Link>
