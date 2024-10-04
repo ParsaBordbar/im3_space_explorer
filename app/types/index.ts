@@ -8,6 +8,7 @@ export type SpaceCardProps = {
   members: string;
   privateSpace: boolean;
   roomUrl: string;
+  tags: [string];
 };
 
 export type TButton = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -38,4 +39,8 @@ export type DetailMiniBoxType = {
 
 export interface SpaceSectionType {
   search: any;
-}
+};
+
+export interface TagType {
+  tag: string;
+};
