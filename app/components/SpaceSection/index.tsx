@@ -17,7 +17,7 @@ function SpaceSection({search}: SpaceSectionType) {
           const matchesSearch = regex.test(data.slug);
 
           return (
-            matchesSearch || search === '' ? (
+            matchesSearch || search === ''  ? (
               <SpaceCard
                 logo_URL={data?.config?.ui?.logo}
                 name_space={data?.slug || 'IM3'}
@@ -26,6 +26,7 @@ function SpaceSection({search}: SpaceSectionType) {
                 className={"md:col-span-1 col-span-full"}
                 key={data.slug}
                 slug={data?.slug} roomUrl={data?.slug} 
+                tags={data?.config?.ui?.tags}
                 />
             ) : null
           );

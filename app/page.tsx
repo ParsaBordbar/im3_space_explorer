@@ -34,11 +34,6 @@ export default function Home() {
                   className="w-full outline-none text-white bg-transparent"
                 />
               </section>
-              <MainButton
-                value={"Search"}
-                submit
-                className="px-4 py-1 rounded-lg"
-              />
             </div>
             <MainButton
               value={"Newest"}
