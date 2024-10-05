@@ -6,7 +6,7 @@ import { SpaceCardProps } from "@/app/types";
 import DetailMiniBox from "../DetailMiniBox";
 import Link from "next/link";
 import Tag from "../Tag";
-
+import Verify from "/public/verify.png";
 const SpaceCard = ({
   className,
   logo_URL,
@@ -15,6 +15,7 @@ const SpaceCard = ({
   privateSpace,
   roomUrl,
   tags,
+  verified,
 }: SpaceCardProps) => {
   return (
     <Link
@@ -38,9 +39,21 @@ const SpaceCard = ({
             height={16}
             alt={privateSpace ? "public" : "Private"}
           />
-          <h1 className="text-white overflow-clip whitespace-nowrap w-32 font-bold text-lg">
-            {name_space}
-          </h1>
+          <section className="flex items-center gap-1">
+            <h1 className="text-white overflow-clip whitespace-nowrap w-fit font-bold text-xl ">
+              {name_space}
+            </h1>
+            {verified && (
+              <Image
+                title="verify"
+                className=""
+                src={Verify}
+                width={20}
+                height={20}
+                alt="verify"
+              />
+            )}
+          </section>
         </section>
         <ul className="grid grid-cols-3 gap-4">
           <DetailMiniBox
