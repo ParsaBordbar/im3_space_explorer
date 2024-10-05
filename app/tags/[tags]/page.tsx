@@ -10,12 +10,12 @@ const TagsPage = ({ params }: { params: string }) => {
   return (
     <div className="flex flex-col my-10 w-11/12 md:w-[75%] mx-auto gap-4 items-start">
       <h1 className="text-white text-lg font-bold">{params.tags} Tags</h1>
-      <main className="grid gap-10 w-full mx-auto grid-cols-2">
+      <main className="grid gap-4 w-full mx-auto grid-cols-2">
         {uiData &&
           uiData.map((data: any) => {
             return (
               <SpaceCard
-                className={""}
+                className={"col-span-full md:col-span-1"}
                 logo_URL={data?.config?.ui?.logo}
                 slug={data?.slug}
                 key={data.slug}
