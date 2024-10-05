@@ -12,6 +12,8 @@ import Github from "/public/github.svg";
 import SocialInfo from "@/app/components/SocialInfo";
 import Link from "next/link";
 import useGetConfigData from "@/hooks/useGetConfig";
+import Verify from "/public/verify.png";
+
 import {
   useCallback,
   useEffect,
@@ -97,9 +99,21 @@ const ExploreSpace = ({ params }: { params: string }) => {
                     title="public"
                   />
                 )}
-                <span className="text-white font-bold text-2xl md:text-4xl">
-                  {data?.slug ?? "IM3"}
-                </span>
+                <section className="flex items-center gap-2">
+                  <span className="text-white font-bold text-2xl md:text-4xl">
+                    {data?.slug ?? "IM3"}
+                  </span>
+                  {data?.config?.verified && (
+                    <Image
+                      title="verify"
+                      className=""
+                      src={Verify}
+                      width={24}
+                      height={24}
+                      alt="verify"
+                    />
+                  )}
+                </section>
                 {showsPrivateRoom()}
               </div>
               <ul className="flex items-center gap-2">
@@ -142,16 +156,6 @@ const ExploreSpace = ({ params }: { params: string }) => {
               title={"X"}
             />
           )}
-          {data?.config?.ui?.socials.discord && (
-            <SocialInfo
-              width={24}
-              height={24}
-              icon={Discord}
-              value={`${data?.config?.ui?.socials.discord}`}
-              link={`${data?.config?.ui?.socials.discord}`}
-              title={"Discord"}
-            />
-          )}
 
           {data?.config?.ui?.socials.github && (
             <SocialInfo
@@ -171,6 +175,16 @@ const ExploreSpace = ({ params }: { params: string }) => {
               value={`${data?.config?.ui?.socials.website}`}
               link={`${data?.config?.ui?.socials.website}`}
               title={"Website"}
+            />
+          )}
+          {data?.config?.ui?.socials.discord && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={Discord}
+              value={`${data?.config?.ui?.socials.discord}`}
+              link={`${data?.config?.ui?.socials.discord}`}
+              title={"Discord"}
             />
           )}
         </ul>

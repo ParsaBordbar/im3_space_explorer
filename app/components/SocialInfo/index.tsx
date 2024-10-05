@@ -21,7 +21,7 @@ const SocialInfo = ({
       />
       <Link
         href={`${link}`}
-        className="text-sm cursor-pointer hover:underline-offset-4 hover:underline font-semibold text-white"
+        className="text-sm md:inline-block hidden cursor-pointer hover:underline-offset-4 hover:underline font-semibold text-white"
       >
         {value}
       </Link>
