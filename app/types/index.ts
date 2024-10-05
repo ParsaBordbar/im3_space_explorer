@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 
 export type SpaceCardProps = {
   className: string;
+  verified:boolean
   logo_URL: any;
   slug: string;
   name_space: string;
