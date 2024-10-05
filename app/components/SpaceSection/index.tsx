@@ -25,9 +25,8 @@ function SpaceSection({search}: SpaceSectionType) {
                 privateSpace={data?.config?.ui?.privateRoom}
                 className={"md:col-span-1 col-span-full"}
                 key={data.slug}
-                slug={data?.slug} roomUrl={data?.slug} 
-                tags={data?.config?.ui?.tags}
-                />
+                slug={data?.slug} roomUrl={data?.slug}
+                tags={data?.config?.ui?.tags} verified={data?.config?.verified}                />
             ) : null
           );
         })
