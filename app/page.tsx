@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import MainButton from "./components/MainButton";
 import SpaceSection from "./components/SpaceSection";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const [search, setSearch] = useState();
@@ -14,7 +15,6 @@ export default function Home() {
     setSearch(event.target.value);
   };
 
-  
   return (
     <div>
       <Header />
@@ -35,16 +35,20 @@ export default function Home() {
                 />
               </section>
             </div>
-            <MainButton
-              value={"Newest"}
-              simple
-              className="col-span-4 md:col-span-1  rounded-2xl"
-            />
-            <MainButton
-              value={"Oldest"}
-              simple
-              className="col-span-4 md:col-span-1  rounded-2xl"
-            />
+            <Link href={'/filters/newest'} className="col-span-4 md:col-span-1">
+              <MainButton
+                value={"Newest"}
+                simple
+                className="w-full rounded-2xl"
+              />
+            </Link>
+            <Link href={'/filters/oldest'} className="col-span-4 md:col-span-1">
+              <MainButton
+                value={"Oldest"}
+                simple
+                className="w-full rounded-2xl"
+              />
+            </Link>
           </form>
         </section>
           <SpaceSection search={search}/>
