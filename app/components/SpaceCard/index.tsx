@@ -18,12 +18,18 @@ const SpaceCard = ({
 }: SpaceCardProps) => {
   return (
     <Link
-      href={ (!roomUrl) ? '/im3' : `/${roomUrl}`}
-      className={`${className} hover:bg-[#2a2a2a] cursor-pointer bg-[#1E1E1E] rounded-2xl flex items-start gap-4 p-4`}
+      href={!roomUrl ? "/im3" : `/${roomUrl}`}
+      className={`${className} hover:bg-[#2a2a2a] cursor-pointer bg-[#1E1E1E] rounded-2xl flex items-center gap-4 p-4`}
     >
-      <Image src={logo_URL} width={80} height={80} alt="logo_space" className="contain-size"/>
-      <div className="flex flex-col justify-between gap-2">
-        <section className="flex items-center gap-2 mx-2">
+      <Image
+        src={logo_URL}
+        width={80}
+        height={80}
+        alt="logo_space"
+        className="contain-size"
+      />
+      <div className="flex flex-col w-full justify-between gap-2">
+        <section className="flex items-center gap-2 ">
           <Image
             title={`${privateSpace ? "Public" : "Private"}`}
             src={privateSpace ? Lock : UnLock}
@@ -44,12 +50,10 @@ const SpaceCard = ({
             title={"max_member"}
           />
         </ul>
-        <ul className="grid grid-cols-6 gap-2">
-          {
-            tags?.map((tag: string) => (
-              <Tag tag={tag} key={tag} />
-            ))
-          }
+        <ul className="flex flex-wrap gap-2">
+          {tags?.map((tag: string) => (
+            <Tag tag={tag} key={tag} />
+          ))}
         </ul>
       </div>
     </Link>
