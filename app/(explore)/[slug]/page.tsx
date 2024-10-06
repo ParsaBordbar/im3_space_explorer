@@ -21,6 +21,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import Tag from "@/app/components/Tag";
 const ExploreSpace = ({ params }: { params: string }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -132,6 +133,11 @@ const ExploreSpace = ({ params }: { params: string }) => {
                   />
                 )}
               </ul>
+              <ul className="flex items-center flex-wrap gap-2">
+                {data?.config?.ui?.tags?.map((tag: string) => (
+                  <Tag tag={tag} key={tag} />
+                ))}
+              </ul>
             </section>
           </div>
           <Link href={`https://space.im3.live/${data?.slug}`}>
@@ -144,6 +150,7 @@ const ExploreSpace = ({ params }: { params: string }) => {
             )}
           </Link>
         </div>
+
         <p className="mt-6 text-white">{data?.config?.ui?.desc}</p>
         <ul className="flex flex-wrap items-center gap-3 mt-3">
           {data?.config?.ui?.socials.x && (
