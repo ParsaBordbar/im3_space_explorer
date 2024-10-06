@@ -7,7 +7,7 @@ import Lock from "/public/lock.svg";
 import Members from "/public/profile-2user.svg";
 import DetailMiniBox from "@/app/components/DetailMiniBox";
 import X from "/public/x.svg";
-import Discord from "/public/discord.svg";
+import Discord from "/public/discord.png";
 import Github from "/public/github.svg";
 import SocialInfo from "@/app/components/SocialInfo";
 import Link from "next/link";
@@ -148,8 +148,8 @@ const ExploreSpace = ({ params }: { params: string }) => {
         <ul className="flex flex-wrap items-center gap-3 mt-3">
           {data?.config?.ui?.socials.x && (
             <SocialInfo
-              width={16}
-              height={16}
+              width={24}
+              height={24}
               icon={X}
               value={`${data?.config?.ui?.socials.x}`}
               link={`${data?.config?.ui?.socials.x}`}
