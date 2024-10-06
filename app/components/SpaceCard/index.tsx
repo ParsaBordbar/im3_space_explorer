@@ -64,14 +64,14 @@ const SpaceCard = ({
               title={"max_member"}
             />
           </ul>
-          <ul className="xl:flex hidden flex-wrap gap-2">
+          <ul className="xl:flex items-center hidden flex-wrap gap-2">
             {tags?.map((tag: string) => (
               <Tag tag={tag} key={tag} />
             ))}
           </ul>
         </div>
       </div>
-        <ul className="xl:hidden flex flex-wrap gap-2">
+        <ul className="xl:hidden items-center flex flex-wrap gap-2">
           {tags?.map((tag: string) => (
             <Tag tag={tag} key={tag} />
           ))}
