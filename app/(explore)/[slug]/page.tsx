@@ -50,7 +50,7 @@ const ExploreSpace = ({ params }: { params: string }) => {
     return (
       <>
         <MainButton
-          className="rounded-2xl md:flex hidden py-3 px-4"
+          className="rounded-2xl bg-[#2a2a2a] md:flex hidden py-3 px-4"
           iconSrc={!!data?.config?.ui?.privateRoom ? Lock : UnLock}
           freez
           value={data?.config?.ui?.privateRoom ? "Private" : "Public"}
@@ -61,7 +61,7 @@ const ExploreSpace = ({ params }: { params: string }) => {
 
   return (
     !isLoading && (
-      <>
+      <div className="flex flex-col bg-[#1E1E1E] p-4 rounded-2xl">
         <div className="flex justify-between items-start">
           <div className="flex md:flex-row flex-col w-full  items-center gap-9 md:w-fit">
             <Image
@@ -188,7 +188,7 @@ const ExploreSpace = ({ params }: { params: string }) => {
             />
           )}
         </ul>
-      </>
+      </div>
     )
   );
 };
