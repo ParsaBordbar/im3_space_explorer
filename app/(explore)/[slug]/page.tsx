@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import MuonLogo from "/public/muon_logo.svg";
 import MainButton from "@/app/components/MainButton";
 import UnLock from "/public/unlock.svg";
 import Lock from "/public/lock.svg";
@@ -20,8 +19,11 @@ import {
   useState,
 } from "react";
 import Tag from "@/app/components/Tag";
-const ExploreSpace = ({ params }: { params: string }) => {
-  const [data, setData] = useState();
+import { dataType, ParamsType } from "@/app/types";
+
+const ExploreSpace = ({ params }: { params: ParamsType }) => {
+  const [data, setData] = useState<dataType>();
+
   const [isLoading, setIsLoading] = useState(true);
   const handelParamsSlug = (url: string) => {
     return url.replace(/_/g, " ");
@@ -66,20 +68,19 @@ const ExploreSpace = ({ params }: { params: string }) => {
       <div className="flex flex-col bg-[#1E1E1E] p-4 rounded-2xl">
         <div className="flex justify-between items-start">
           <div className="flex md:flex-row flex-col w-full  items-center gap-9 md:w-fit">
-            <Image
-              className="md:inline-block hidden"
-              src={data?.config?.ui?.logo}
-              width={96}
-              height={96}
-              alt="logo"
-            />
-            <Image
-              className="md:hidden"
-              src={data?.config?.ui?.logo}
-              width={250}
-              height={96}
-              alt="logo"
-            />
+            {
+              data ? (<><Image
+                className="md:inline-block hidden"
+                src={data?.config?.ui?.logo}
+                width={96}
+                height={96}
+                alt="logo" /><Image
+                  className="md:hidden"
+                  src={data?.config?.ui?.logo}
+                  width={250}
+                  height={96}
+                  alt="logo" /></>) : null
+            }
             <section className="flex flex-col gap-2 self-start">
               <div className="flex flex-wrap items-center gap-2">
                 {data?.config?.ui?.privateRoom ? (
@@ -119,20 +120,23 @@ const ExploreSpace = ({ params }: { params: string }) => {
                 {showsPrivateRoom()}
               </div>
               <ul className="flex items-center gap-2">
-                <DetailMiniBox
-                  title="max_member"
-                  className="w-fit"
-                  value={data?.config?.maxParticipants}
-                  icon={Members}
-                />
-                {data?.config?.whiteListParticipants?.length > 0 && (
+                {
+                  data ? (<DetailMiniBox
+                    title="max_member"
+                    className="w-fit"
+                    value={data?.config?.maxParticipants}
+                    icon={Members}
+                  />) : null
+                }
+                { data?
+                data?.config?.whiteListParticipants?.length > 0 && (
                   <DetailMiniBox
                     title="member"
                     className="w-fit"
                     value={data?.config?.whiteListParticipants?.length}
                     icon={Members}
                   />
-                )}
+                ): null}
               </ul>
               <ul className="flex items-center flex-wrap gap-2">
                 {data?.config?.ui?.tags?.map((tag: string) => (
