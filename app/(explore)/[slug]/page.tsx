@@ -25,16 +25,19 @@ import Tag from "@/app/components/Tag";
 const ExploreSpace = ({ params }: { params: string }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const handelParamsSlug = (url: string) => {
+    return url.replace(/_/g, " ");
+  };
+  const validParamsSlug = handelParamsSlug(params?.slug)
   const uiData = useGetConfigData(
     `/rooms/get-all-room-configs/sort?sort=${
-      params.slug == "im3" ? "default" : "all"
+      validParamsSlug == "im3" ? "default" : "all"
     }`
   );
-  console.log(params.slug);
   useEffect(() => {
     if (Array.isArray(uiData)) {
       uiData?.map((conf) => {
-        if (conf.slug == params?.slug) {
+        if (conf.slug == validParamsSlug) {
           setData(conf);
           setIsLoading(false);
         }
