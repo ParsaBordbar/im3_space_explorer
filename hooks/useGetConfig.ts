@@ -3,7 +3,7 @@ import { spaceApi } from "../api/base";
 
 
 const useGetConfigData = (slug: string) => {
-    const [ configData, setConfigData ] = useState<dataType>();
+    const [ configData, setConfigData ] = useState<any>();
     
     useEffect(() => {
         fetchConfigData(slug);
