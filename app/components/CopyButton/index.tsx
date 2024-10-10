@@ -2,8 +2,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { CopyButtonType } from '@/app/types';
 
-const CopyButton = ({className}) => {
+
+const CopyButton = ({className}:CopyButtonType) => {
   const [isCLick, setIsClick] = useState(false);
   const [url, setUrl] = useState('Copy Space Url');
 
