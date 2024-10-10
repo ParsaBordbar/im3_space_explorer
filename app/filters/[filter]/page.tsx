@@ -1,9 +1,10 @@
 "use client";
 import SpaceCard from "@/app/components/SpaceCard";
+import { dataType } from "@/app/types";
 import useGetConfigData from "@/hooks/useGetConfig";
 import React from "react";
 
-function Filter({ params }: { params: string }) {
+function Filter({ params }: { params: {filter: string} }) {
   const u = `/rooms/get-all-room-configs/sort?sort=${params.filter}`;
   console.log(u);
   const uiData = useGetConfigData(u);
@@ -12,7 +13,7 @@ function Filter({ params }: { params: string }) {
       <h1 className="text-white text-lg font-bold capitalize">{params.filter} Spaces</h1>
       <main className="grid gap-4 w-full mx-auto grid-cols-2">
         {uiData &&
-          uiData.map((data: any) => {
+          uiData.map((data: dataType) => {
             return (
               <SpaceCard
                 className={"col-span-full md:col-span-1"}
