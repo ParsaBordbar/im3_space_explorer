@@ -17,9 +17,13 @@ const SpaceCard = ({
   tags,
   verified,
 }: SpaceCardProps) => {
+  const handelRoomURL = (url: string) => {
+    console.log(roomUrl)
+    return url?.replace(/ /g, "_");
+  };
   return (
     <Link
-      href={!roomUrl ? "/im3" : `/${roomUrl}`}
+      href={!roomUrl ? "/im3" : `/${handelRoomURL(roomUrl)}`}
       className={`${className} hover:bg-[#2a2a2a] cursor-pointer bg-[#1E1E1E] rounded-2xl flex flex-col gap-4 p-4`}
     >
       <div className="flex items-center gap-4">
@@ -71,11 +75,11 @@ const SpaceCard = ({
           </ul>
         </div>
       </div>
-        <ul className="xl:hidden items-center flex flex-wrap gap-2">
-          {tags?.map((tag: string) => (
-            <Tag tag={tag} key={tag} />
-          ))}
-        </ul>
+      <ul className="xl:hidden items-center flex flex-wrap gap-2">
+        {tags?.map((tag: string) => (
+          <Tag tag={tag} key={tag} />
+        ))}
+      </ul>
     </Link>
   );
 };
