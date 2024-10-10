@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { spaceApi } from "../api/base";
-import { dataType } from "@/app/types";
 
 
 const useGetConfigData = (slug: string) => {
