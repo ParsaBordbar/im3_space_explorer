@@ -17,8 +17,6 @@ import Verify from "/public/verify.png";
 import {
   useCallback,
   useEffect,
-  useLayoutEffect,
-  useMemo,
   useState,
 } from "react";
 import Tag from "@/app/components/Tag";
