@@ -1,8 +1,9 @@
 "use client";
 import SpaceCard from "@/app/components/SpaceCard";
+import { dataType } from "@/app/types";
 import useGetConfigData from "@/hooks/useGetConfig";
 
-const TagsPage = ({ params }: { params: string }) => {
+const TagsPage = ({ params }: { params: {tags:[string]} }) => {
   const uiData = useGetConfigData(
     `/rooms/get-all-room-configs/sort?sort=${params.tags}`
   );
@@ -12,7 +13,7 @@ const TagsPage = ({ params }: { params: string }) => {
       <h1 className="text-white text-lg font-bold">{params.tags} Tags</h1>
       <main className="grid gap-4 w-full mx-auto grid-cols-2">
         {uiData &&
-          uiData.map((data: any) => {
+          uiData.map((data: dataType) => {
             return (
               <SpaceCard
                 className={"col-span-full md:col-span-1"}
