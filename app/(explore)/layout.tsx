@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import NavBar from "../components/Navbar";
 import NoiseEffect from "/public/noiseEffect.svg";
-import Image from "next/image";
+
 const LayoutOfExploreSpace = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex flex-col gap-[50px]">
