@@ -1,17 +1,18 @@
 import Image from "next/image";
 import Graph from "/public/graph.svg?url";
 import NavBar from "../Navbar";
+import NoiseEffect from "/public/noiseEffect.svg";
 
 const Header = () => {
-    return(
-        <header className="relative  w-full  flex-col justify-center">
-        <NavBar/>
-        <h1 className="text-white absolute left-[10%] md:left-[13%] md:top-[30%] text-2xl md:text-5xl font-bold">
-          Spacehall
-        </h1>
-        <Image src={Graph} width={5000} height={1000} className="object-cover" alt="graph" />
-      </header>
-    )
-}
+  return (
+    <header className="relative top-0  w-full h-[170px]  flex-col justify-center">
+      <NoiseEffect className="w-fit max-md:hidden mx-auto absolute left-[12.2%] -z-10 top-0" />
+      <NavBar />
+      <h1 className="font-SpaceGrotesk text-white absolute left-[4%] md:left-[12%] top-[100%] md:top-[90%] text-4xl md:text-6xl font-bold">
+        Spacehall
+      </h1>
+    </header>
+  );
+};
 
-export default Header
+export default Header;

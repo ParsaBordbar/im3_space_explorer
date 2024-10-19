@@ -8,7 +8,7 @@ const MainButton = (props: TButton) => {
     if (props.submit) {
       return "bg-black hover:bg-[#121212]";
     } else if (props.simple) {
-      return "hover:bg-[#2a2a2a] py-2 md:py-4 bg-[#1e1e1e] border border-[#ffffff] border-opacity-10";
+      return "py-2  bg-[#1e1e1e] border border-[#ffffff] border-opacity-10";
     }else if(props.freez){
       return "bg-[#1E1E1E] cursor-default"
     } else if(props.pro){
@@ -23,7 +23,7 @@ const MainButton = (props: TButton) => {
     <button
       {...props}
       className={`${props.className}  ${declearModleOfButton} ${
-        props.iconSrc && "flex items-center gap-1"
+        props.iconSrc && "flex justify-center items-center gap-1"
       } text-center text-white `}
     >
       {checkIcon()}

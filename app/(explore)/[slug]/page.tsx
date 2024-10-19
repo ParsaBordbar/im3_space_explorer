@@ -52,7 +52,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
       <>
         <DetailMiniBox
           className="[&>p]:opacity-60 [&>p]:!text-base [&>img]:w-2  !py-0.5"
-          icon={!!data?.config?.ui?.privateRoom ? Lock : UnLock}
+          icon={!!data?.config?.ui?.privateRoom ? UnLock : Lock}
           value={data?.config?.ui?.privateRoom ? "Private" : "Public"}
           title={data?.config?.ui?.privateRoom ? "Private" : "Public"}
         />
@@ -92,25 +92,6 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
             ) : null}
             <section className="flex flex-col gap-6 justify-between ">
               <div className="flex flex-wrap items-center gap-2">
-                {data?.config?.ui?.privateRoom ? (
-                  <Image
-                    className="md:hidden"
-                    src={Lock}
-                    width={16}
-                    height={16}
-                    alt=""
-                    title="private"
-                  />
-                ) : (
-                  <Image
-                    className="md:hidden"
-                    src={UnLock}
-                    width={16}
-                    height={16}
-                    alt=""
-                    title="public"
-                  />
-                )}
                 <section className="flex items-center gap-2">
                   <h1 className="text-white capitalize font-SpaceGrotesk font-bold text-2xl md:text-4xl">
                     {data?.slug ?? "IM3"}
@@ -150,7 +131,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
             {data?.slug && (
               <MainButton
                 pro
-                className="py-3 md:static fixed z-20 md:bottom-auto md:left-auto md:w-auto w-full left-0 bottom-0  px-4 md:rounded-xl"
+                className="py-3 md:static fixed z-50 md:bottom-auto md:left-auto md:w-auto w-full left-0 bottom-0  px-4 md:rounded-xl"
                 value={"Join Room"}
               />
             )}
@@ -158,10 +139,10 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
         </div>
 
         <section className="flex  items-center flex-wrap justify-between">
-          <p className=" z-20 font-Nunito text-2xl text-white">
+          <p className=" z-10 font-Nunito text-2xl text-white">
             {data?.config?.ui?.desc}
           </p>
-          <ul className="flex z-20 flex-wrap items-center gap-4">
+          <ul className="flex z-10 flex-wrap items-center gap-4">
             {data?.config?.ui?.socials.x && (
               <SocialInfo
                 width={24}

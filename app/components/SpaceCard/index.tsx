@@ -25,7 +25,7 @@ const SpaceCard = ({
   return (
     <Link
       href={!roomUrl ? "/im3" : `/${handelRoomURL(roomUrl)}`}
-      className={`${className} relative hover:bg-[#2a2a2a] cursor-pointer bg-box-space rounded-2xl flex flex-col gap-7 p-8`}
+      className={`${className} relative cursor-pointer bg-box-space rounded-2xl flex flex-col gap-7 p-8`}
     >
       <div className="flex items-center gap-4">
         <div className="bg-[#131313] bg-opacity-70 w-[80px] h-full  flex justify-center items-center  rounded-2xl ">
@@ -49,12 +49,12 @@ const SpaceCard = ({
               )}
             </section>
             <Image
-              title={`${privateSpace ? "Public" : "Private"}`}
-              src={privateSpace ? Lock : UnLock}
+              title={`${!privateSpace ? "Public" : "Private"}`}
+              src={!privateSpace ? Lock : UnLock}
               width={14}
               className=""
               height={14}
-              alt={privateSpace ? "public" : "Private"}
+              alt={!privateSpace ? "public" : "Private"}
             />
           </section>
           <ul className="grid grid-cols-3 gap-4">

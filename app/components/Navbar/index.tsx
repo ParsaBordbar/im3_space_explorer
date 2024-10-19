@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const NavBar = () => {
   return (
-    <section className="absolute top-0 z-10 bg-transparent w-11/12 md:w-full py-14 md:px-28 mx-auto flex items-center justify-between">
+    <section className="absolute top-0 px-4 z-10 bg-transparent w-11/12 md:w-full py-14 md:px-28 mx-auto flex items-center justify-between">
       <Link href={"/"}>
         <Logo />
       </Link>
