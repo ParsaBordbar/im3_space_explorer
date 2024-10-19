@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Graph from "/public/graph.svg?url";
 import NavBar from "../Navbar";
 import NoiseEffect from "/public/noiseEffect.svg";
 
