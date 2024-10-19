@@ -4,7 +4,6 @@ import Link from "next/link";
 
 const SocialInfo = ({
   icon,
-  value,
   width,
   height,
   link,
