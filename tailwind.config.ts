@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        SpaceGrotesk: ["SpaceGrotesk-Regular", "sans-serif"],
+        Nunito: ["Nunito-Regular", "sans-serif"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

@@ -1,5 +1,4 @@
-"use client";
-import Image from "next/image";
+"use client";;
 import Search from "/public/search.svg";
 import Header from "./components/Header";
 import MainButton from "./components/MainButton";
@@ -26,7 +25,7 @@ export default function Home() {
           <form action="" className="col-span-full grid grid-cols-8 gap-2">
             <div className="flex pl-3 items-center p-2 bg-[#1E1E1E] col-span-full md:col-span-6 rounded-2xl border border-[#ffffff] border-opacity-10">
               <section className="flex  w-full items-center gap-4">
-                <Image src={Search} height={24} width={24} alt="search" />
+                <Search/>
                 <input
                   onChange={handleChange}
                   type="search"

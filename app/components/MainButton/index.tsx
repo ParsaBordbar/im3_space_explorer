@@ -12,7 +12,7 @@ const MainButton = (props: TButton) => {
     }else if(props.freez){
       return "bg-[#1E1E1E] cursor-default"
     } else if(props.pro){
-      return "bg-[#1F8CF9] hover:bg-sky-700 font-bold"
+      return "bg-[#036DE7] hover:bg-sky-700 font-bold"
     }
   }, []);
 
@@ -27,7 +27,7 @@ const MainButton = (props: TButton) => {
       } text-center text-white `}
     >
       {checkIcon()}
-      <span className={``}>{props.value}</span>
+      <span className={`font-Nunito`}>{props.value}</span>
     </button>
   );
 };

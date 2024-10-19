@@ -6,7 +6,7 @@ function Tag({ tag }: TagType) {
   return (
     <Link href={`/tags/${tag}`}>
       <li
-        className={`text-sm w-fit hover:underline underline-offset-4 text-[#918f8f]`}
+        className={`text-sm w-fit font-Nunito hover:underline underline-offset-4 opacity-70 text-[#F4F4F4]`}
       >
         #{tag}
       </li>

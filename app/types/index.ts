@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes } from "react";
 
 export type SpaceCardProps = {
   className: string;
-  verified:boolean
+  verified: boolean;
   logo_URL: string;
   slug: string;
   name_space: string;
@@ -24,6 +24,7 @@ export type TButton = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export type SocialInfoType = {
+  className?: string;
   icon: string | StaticImageData;
   value: string;
   link: string;
@@ -41,35 +42,35 @@ export type DetailMiniBoxType = {
 
 export interface SpaceSectionType {
   search: string;
-};
+}
 
 export interface TagType {
   tag: string;
-};
+}
 
 export interface ParamsType {
   slug: string;
 }
 
 export interface dataType {
-  slug: string,
+  slug: string;
   config: {
-    verified: boolean
+    verified: boolean;
     ui: {
-      logo: string,
-      privateRoom: boolean,
-      desc: string,
+      logo: string;
+      privateRoom: boolean;
+      desc: string;
       socials: {
-        x: string,
-        discord: string,
-        website: string,
-        github: string,
-      }
-      tags : [string]
-    }
-    whiteListParticipants: [string],
-    maxParticipants: string,
-  }
+        x: string;
+        discord: string;
+        website: string;
+        github: string;
+      };
+      tags: [string];
+    };
+    whiteListParticipants: [string];
+    maxParticipants: string;
+  };
 }
 
 export interface CopyButtonType {

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Graph from "/public/graph.svg";
+import Graph from "/public/graph.svg?url";
 import NavBar from "../Navbar";
 
 const Header = () => {

@@ -9,9 +9,10 @@ const SocialInfo = ({
   height,
   link,
   title,
+  className
 }: SocialInfoType) => {
   return (
-    <li className="flex  items-center gap-1.5">
+    <Link href={`${link}`} className={`${className} flex items-center gap-1.5`}>
       <Image
         title={`${title}`}
         src={icon}
@@ -19,13 +20,13 @@ const SocialInfo = ({
         height={height}
         alt=""
       />
-      <Link
+      {/* <Link
         href={`${link}`}
-        className="text-sm md:inline-block hidden cursor-pointer hover:underline-offset-4 hover:underline font-semibold text-white"
+        className="text-sm  md:inline-block hidden cursor-pointer hover:underline-offset-4 hover:underline font-semibold text-white"
       >
         {value}
-      </Link>
-    </li>
+      </Link> */}
+    </Link>
   );
 };
 

@@ -1,12 +1,13 @@
 import Image from "next/image";
-import UnLock from "/public/unlock.svg";
-import Lock from "/public/lock.svg";
-import Members from "/public/profile-2user.svg";
+import UnLock from "/public/unlock.svg?url";
+import Lock from "/public/lock.svg?url";
+import Members from "/public/profile-2user.svg?url";
 import { SpaceCardProps } from "@/app/types";
 import DetailMiniBox from "../DetailMiniBox";
 import Link from "next/link";
 import Tag from "../Tag";
-import Verify from "/public/verify.png";
+import Verify from "/public/verify.svg?url";
+
 const SpaceCard = ({
   className,
   logo_URL,
@@ -18,34 +19,22 @@ const SpaceCard = ({
   verified,
 }: SpaceCardProps) => {
   const handelRoomURL = (url: string) => {
-    console.log(roomUrl)
+    console.log(roomUrl);
     return url?.replace(/ /g, "_");
   };
   return (
     <Link
       href={!roomUrl ? "/im3" : `/${handelRoomURL(roomUrl)}`}
-      className={`${className} hover:bg-[#2a2a2a] cursor-pointer bg-[#1E1E1E] rounded-2xl flex flex-col gap-4 p-4`}
+      className={`${className} relative hover:bg-[#2a2a2a] cursor-pointer bg-box-space rounded-2xl flex flex-col gap-7 p-8`}
     >
       <div className="flex items-center gap-4">
-        <Image
-          src={logo_URL}
-          width={80}
-          height={80}
-          alt="logo_space"
-          className="contain-size"
-        />
-        <div className="flex flex-col w-full justify-between gap-2">
+        <div className="bg-[#131313] bg-opacity-70 w-[80px] h-full  flex justify-center items-center  rounded-2xl ">
+          <Image src={logo_URL} width={48} height={48} alt="logo" />
+        </div>
+        <div className="flex flex-col w-full justify-between gap-3">
           <section className="flex items-center gap-2 ">
-            <Image
-              title={`${privateSpace ? "Public" : "Private"}`}
-              src={privateSpace ? Lock : UnLock}
-              width={16}
-              className=""
-              height={16}
-              alt={privateSpace ? "public" : "Private"}
-            />
-            <section className="flex items-center gap-1">
-              <h1 className="text-white overflow-clip whitespace-nowrap w-fit font-bold text-xl ">
+            <section className="flex items-center gap-2">
+              <h1 className="text-white font-SpaceGrotesk overflow-clip whitespace-nowrap w-fit font-bold text-xl ">
                 {name_space}
               </h1>
               {verified && (
@@ -59,6 +48,14 @@ const SpaceCard = ({
                 />
               )}
             </section>
+            <Image
+              title={`${privateSpace ? "Public" : "Private"}`}
+              src={privateSpace ? Lock : UnLock}
+              width={14}
+              className=""
+              height={14}
+              alt={privateSpace ? "public" : "Private"}
+            />
           </section>
           <ul className="grid grid-cols-3 gap-4">
             <DetailMiniBox
@@ -68,14 +65,9 @@ const SpaceCard = ({
               title={"max_member"}
             />
           </ul>
-          <ul className="xl:flex items-center hidden flex-wrap gap-2">
-            {tags?.map((tag: string) => (
-              <Tag tag={tag} key={tag} />
-            ))}
-          </ul>
         </div>
       </div>
-      <ul className="xl:hidden items-center flex flex-wrap gap-2">
+      <ul className="items-center flex flex-wrap gap-2">
         {tags?.map((tag: string) => (
           <Tag tag={tag} key={tag} />
         ))}

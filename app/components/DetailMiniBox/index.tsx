@@ -1,15 +1,19 @@
 import { DetailMiniBoxType } from "@/app/types";
 import Image from "next/image";
 
-
-const DetailMiniBox = ({ icon, value, className, title }: DetailMiniBoxType) => {
+const DetailMiniBox = ({
+  icon,
+  value,
+  className,
+  title,
+}: DetailMiniBoxType) => {
   return (
     <li
       title={`${title}`}
-      className={`flex items-center ${className}  bg-[#373737] rounded-lg px-1 py-0.5 gap-1 w-fit `}
+      className={`flex items-center ${className}  bg-[rgba(19,19,19,0.3)] rounded-md px-3 py-1 gap-2 w-fit `}
     >
-      <Image src={icon} width={14} height={14} alt="" />
-      <p className="text-white">{value}</p>
+      <Image src={icon} width={16} height={16} alt="" />
+      <p className="text-white text-xl font-SpaceGrotesk">{value}</p>
     </li>
   );
 };
