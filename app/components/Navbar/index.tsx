@@ -1,7 +1,4 @@
-import Image from "next/image";
 import Logo from "/public/logo.svg";
-import Github from "/public/github.svg";
-import X from "/public/x.svg";
 import Link from "next/link";
 
 const NavBar = () => {
