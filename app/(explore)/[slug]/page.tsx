@@ -64,7 +64,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
     !isLoading && (
       <div className="flex relative gap-[60px] flex-col bg-box-slug p-10 rounded-[40px]">
         <Image
-          className="absolute object-cover h-full w-full  z-20 bottom-0 top-0 left-0 "
+          className="absolute object-cover h-full w-full  z-0 bottom-0 top-0 left-0 "
           width={5000}
           height={5000}
           src={NoiseEffect}
@@ -138,7 +138,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
           </Link>
         </div>
 
-        <section className="flex  items-center flex-wrap justify-between">
+        <section className="flex gap-4 items-center flex-wrap justify-between">
           <p className=" z-10 font-Nunito text-2xl text-white">
             {data?.config?.ui?.desc}
           </p>
