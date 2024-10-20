@@ -57,9 +57,9 @@ const SpaceCard = ({
               alt={!privateSpace ? "public" : "Private"}
             />
           </section>
-          <ul className="grid grid-cols-3 gap-4">
+          <ul className="grid grid-cols-4 gap-4">
             <DetailMiniBox
-              className=" col-span-2 sm:col-span-1"
+              className=" col-span-2 xl:col-span-1"
               value={members}
               icon={Members}
               title={"max_member"}
