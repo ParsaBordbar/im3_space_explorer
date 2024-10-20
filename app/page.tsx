@@ -44,7 +44,7 @@ export default function Home() {
                   value={"Newest"}
                   simple
                   iconSrc={Star}
-                  className="w-full bg-[#9C9898] text-black font-Nunito rounded-lg"
+                  className="w-full bg-[#9C9898] !text-black font-Nunito rounded-lg"
                 />
               </Link>
               <Link
@@ -55,7 +55,7 @@ export default function Home() {
                   value={"Oldest"}
                   simple
                   iconSrc={Oldest}
-                  className="w-full bg-[#9C9898] text-black font-Nunito rounded-lg"
+                  className="w-full bg-[#9C9898] !text-black font-Nunito rounded-lg"
                 />
               </Link>
             </div>
