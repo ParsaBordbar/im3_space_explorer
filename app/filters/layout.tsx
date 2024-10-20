@@ -1,15 +1,13 @@
 import { ReactNode } from "react";
-import NavBar from "../components/Navbar";
-import NoiseEffect from "/public/noiseEffect.svg";
+import Header from "../components/Header";
 
-const LayoutOfTagsPage = ({ children }: { children: ReactNode }) => {
+const LayoutOfFiltersPage = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <NoiseEffect className="w-fit max-md:hidden mx-auto absolute left-[12.2%] -z-10 top-0" />
-      <NavBar />
+      <Header mode="justNavbar"/>
       {children}
     </>
   );
 };
 
-export default LayoutOfTagsPage;
+export default LayoutOfFiltersPage;
