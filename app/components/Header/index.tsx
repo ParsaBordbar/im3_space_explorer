@@ -3,7 +3,7 @@ import NavBar from "../Navbar";
 import NoiseEffect from "/public/noiseEffect.svg?url";
 import NoiseEffect3 from "/public/noiseEffect3.svg?url";
 
-const Header = ({ mode }: { mode: "justNavbar" }) => {
+const Header = ({ mode }: { mode?: "justNavbar" }) => {
   return (
     <header className="relative  w-full h-[170px]  flex-col justify-center">
       {/* <NoiseEffect className=" mx-auto  absolute left-0 right-0 bottom-0 transform translate-x-50  -z-10 top-0" /> */}
