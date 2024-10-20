@@ -62,7 +62,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
 
   return (
     !isLoading && (
-      <div className="flex relative gap-[60px] flex-col bg-box-slug p-10 rounded-[40px]">
+      <div className="flex relative flex-col max-md:gap-10 bg-box-slug p-6 md:p-10 rounded-[40px]">
         <Image
           className="absolute object-cover h-full w-full  z-0 bottom-0 top-0 left-0 "
           width={5000}
@@ -70,10 +70,10 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
           src={NoiseEffect}
           alt=""
         />
-        <div className="flex z-20 justify-between items-start">
-          <div className="flex md:flex-row  flex-col w-full  items-center gap-9 md:w-fit">
+        <div className="flex max-md:flex-col z-20 justify-between items-start">
+          <div className="flex flex-row w-full  items-center gap-4 md:gap-9 md:w-fit">
             {data ? (
-              <div className="bg-[#131313] w-[300px] h-[300px] md:h-[150px] md:w-[150px] flex justify-center items-center  rounded-3xl ">
+              <div className="bg-[#131313] p-4 h-full md:h-[150px] md:w-[150px] flex justify-center items-center  rounded-[10px] ">
                 <Image
                   className="md:inline-block hidden"
                   src={data?.config?.ui?.logo}
@@ -84,27 +84,27 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                 <Image
                   className="md:hidden"
                   src={data?.config?.ui?.logo}
-                  width={250}
-                  height={96}
+                  width={40}
+                  height={40}
                   alt="logo"
                 />
               </div>
             ) : null}
-            <section className="flex flex-col gap-6 justify-between ">
+            <section className="flex flex-col gap-2 md:gap-6 justify-between ">
               <div className="flex flex-wrap items-center gap-2">
                 <section className="flex items-center gap-2">
-                  <h1 className="text-white capitalize font-SpaceGrotesk font-bold text-2xl md:text-4xl">
+                  <h1 className="text-white capitalize font-SpaceGrotesk font-bold text-xl md:text-4xl">
                     {data?.slug ?? "IM3"}
                   </h1>
                   {data?.config?.verified && <Verify />}
                 </section>
                 {showsPrivateRoom()}
               </div>
-              <ul className="flex items-center gap-2">
+              <ul className="grid grid-cols-4 gap-2">
                 {data ? (
                   <DetailMiniBox
                     title="max_member"
-                    className="!w-20 justify-center"
+                    className="!col-span-1 justify-center"
                     value={data?.config?.maxParticipants}
                     icon={Members}
                   />
@@ -113,14 +113,14 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                   ? data?.config?.whiteListParticipants?.length > 0 && (
                       <DetailMiniBox
                         title="member"
-                        className="!w-20 justify-center"
+                        className="!col-span-1 justify-center"
                         value={data?.config?.whiteListParticipants?.length}
                         icon={Members}
                       />
                     )
                   : null}
               </ul>
-              <ul className="flex items-center flex-wrap gap-1.5">
+              <ul className="flex max-md:hidden items-center flex-wrap gap-1.5">
                 {data?.config?.ui?.tags?.map((tag: string) => (
                   <Tag tag={tag} key={tag} />
                 ))}
@@ -131,18 +131,18 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
             {data?.slug && (
               <MainButton
                 pro
-                className="py-3 md:static fixed z-50 md:bottom-auto md:left-auto md:w-auto w-full left-0 bottom-0  px-4 md:rounded-xl"
+                className="py-3 max-md:hidden w-auto px-4 rounded-xl"
                 value={"Join Room"}
               />
             )}
           </Link>
         </div>
 
-        <section className="flex gap-4 items-center flex-wrap justify-between">
-          <p className=" z-10 font-Nunito text-2xl text-white">
+        <section className="flex gap-4 md:mt-10 items-center flex-wrap justify-between">
+          <p className=" z-10 font-Nunito text-xl md:text-2xl text-white">
             {data?.config?.ui?.desc}
           </p>
-          <ul className="flex z-10 flex-wrap items-center gap-4">
+          <ul className="flex z-10 flex-wrap max-md:hidden items-center gap-4">
             {data?.config?.ui?.socials.x && (
               <SocialInfo
                 width={24}
@@ -187,6 +187,64 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
             )}
           </ul>
         </section>
+        <ul className="flex md:hidden items-center flex-wrap gap-1.5">
+          {data?.config?.ui?.tags?.map((tag: string) => (
+            <Tag tag={tag} key={tag} />
+          ))}
+        </ul>
+        <ul className="flex z-10 md:hidden self-center flex-wrap items-center gap-4">
+          {data?.config?.ui?.socials.x && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={X}
+              value={`${data?.config?.ui?.socials.x}`}
+              link={`${data?.config?.ui?.socials.x}`}
+              title={"X"}
+            />
+          )}
+
+          {data?.config?.ui?.socials.github && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={Github}
+              value={`${data?.config?.ui?.socials.github}`}
+              link={`${data?.config?.ui?.socials.github}`}
+              title={"Github"}
+            />
+          )}
+          {data?.config?.ui?.socials.website && data?.slug == "muon" && (
+            <SocialInfo
+              className="bg-[#F4F4F4]  rounded-full py-1.5 p-1"
+              width={16}
+              height={16}
+              icon={data?.config?.ui?.logo}
+              value={`${data?.config?.ui?.socials.website}`}
+              link={`${data?.config?.ui?.socials.website}`}
+              title={"Website"}
+            />
+          )}
+          {data?.config?.ui?.socials.discord && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={Discord}
+              value={`${data?.config?.ui?.socials.discord}`}
+              link={`${data?.config?.ui?.socials.discord}`}
+              title={"Discord"}
+            />
+          )}
+        </ul>
+        <Link className="self-center" href={`https://space.im3.live/${data?.slug}`}>
+          {data?.slug && (
+            <MainButton
+              pro
+              className="py-3 md:hidden w-auto px-4 rounded-xl"
+              value={"Join Room"}
+            />
+          )}
+        </Link>
       </div>
     )
   );
