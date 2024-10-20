@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header/>
       <main className="grid my-40 w-11/12 md:w-[75%] gap-10 mx-auto grid-cols-8">
         <section className="flex flex-col col-span-full gap-4">
           <h1 className="text-white font-Nunito text-lg font-bold col-span-full">
