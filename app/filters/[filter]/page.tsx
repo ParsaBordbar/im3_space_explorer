@@ -9,7 +9,7 @@ function Filter({ params }: { params: {filter: string} }) {
   console.log(u);
   const uiData = useGetConfigData(u);
   return (
-    <div className="flex flex-col my-40 w-11/12 md:w-[75%] mx-auto gap-4 items-start">
+    <div className="flex flex-col my-40 w-11/12 lg:w-[75%] mx-auto gap-4 items-start">
       <h1 className="text-white text-lg font-bold font-SpaceGrotesk capitalize">{params.filter} Spaces</h1>
       <main className="grid gap-4 w-full mx-auto grid-cols-2">
         {uiData &&
