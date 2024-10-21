@@ -237,13 +237,13 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
           )}
         </ul>
         <Link
-          className="self-center z-10"
+          className="self-center md:hidden z-10"
           href={`https://space.im3.live/${data?.slug}`}
         >
           {data?.slug && (
             <MainButton
               pro
-              className="py-3 md:hidden w-auto px-4 rounded-xl"
+              className="py-3  w-auto px-4 rounded-xl"
               value={"Join Room"}
             />
           )}
