@@ -35,7 +35,7 @@ export default function Home() {
                 />
               </section>
             </div>
-            <div className="flex px-4 py-2 bg-box-space rounded-[11px] items-center  w-full md:w-fit gap-2">
+            <div className="md:flex hidden px-4 py-2 bg-box-space rounded-[11px] items-center  w-full md:w-fit gap-2">
               <Link
                 href={"/filters/newest"}
                 className="w-full md:w-[104px]"
@@ -60,6 +60,30 @@ export default function Home() {
               </Link>
             </div>
           </form>
+          <div className="flex md:hidden rounded-[11px] items-center self-end w-fit gap-2">
+              <Link
+                href={"/filters/newest"}
+                className="w-[78px]"
+              >
+                <MainButton
+                  value={"Newest"}
+                  simple
+                  iconSrc={Star}
+                  className="w-full [&>span]:text-xs [&>img]:h-3 [&>img]:w-3 bg-[#9C9898] !text-black font-Nunito rounded-lg"
+                />
+              </Link>
+              <Link
+                href={"/filters/oldest"}
+                className="w-[78px]"
+              >
+                <MainButton
+                  value={"Oldest"}
+                  simple
+                  iconSrc={Oldest}
+                  className="w-full [&>span]:text-xs [&>img]:h-3 [&>img]:w-3 bg-[#9C9898] !text-black font-Nunito rounded-lg"
+                />
+              </Link>
+            </div>
         </section>  
         <SpaceSection search={search} />
       </main>
