@@ -71,18 +71,18 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
           alt=""
         />
         <div className="flex max-md:flex-col z-20 justify-between items-start">
-          <div className="flex flex-row max-md:w-full  items-start gap-4 md:gap-9">
+          <div className="flex flex-row max-md:w-full  items-start gap-2 sm:gap-4 md:gap-9">
             {data ? (
-              <div className="bg-[#131313] flex justify-center h-[60px] w-[30%] md:h-[150px] md:w-[150px] md:rounded-3xl rounded-[10px] ">
+              <div className="bg-[#131313] flex justify-center h-[60px] w-[25%] sm:w-[30%] md:h-[150px] md:w-[150px] md:rounded-3xl rounded-[10px] ">
                 <Image
-                  className="sm:inline-block h-full hidden"
+                  className="md:inline-block h-full hidden"
                   src={data?.config?.ui?.logo}
                   width={96}
                   height={96}
                   alt="logo"
                 />
                 <Image
-                  className="sm:hidden h-full"
+                  className="md:hidden h-full"
                   src={data?.config?.ui?.logo}
                   width={40}
                   height={40}
@@ -90,7 +90,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                 />
               </div>
             ) : null}
-            <section className="flex flex-col w-[70%] gap-2 md:gap-6 justify-between ">
+            <section className="flex flex-col w-[85%] sm:w-[70%] gap-2 md:gap-6 justify-between ">
               <div className="flex flex-wrap items-center gap-2">
                 <section className="flex items-center gap-2">
                   <h1 className="text-white capitalize font-SpaceGrotesk font-bold text-xl md:text-4xl">
