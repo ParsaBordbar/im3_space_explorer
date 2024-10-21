@@ -51,7 +51,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
     return (
       <>
         <DetailMiniBox
-          className="[&>p]:opacity-60 [&>p]:!text-base [&>img]:w-2  !py-0.5"
+          className="[&>p]:opacity-60 [&>p]:md:!text-base [&>img]:w-2  !py-0.5"
           icon={!!data?.config?.ui?.privateRoom ? UnLock : Lock}
           value={data?.config?.ui?.privateRoom ? "Private" : "Public"}
           title={data?.config?.ui?.privateRoom ? "Private" : "Public"}
@@ -73,7 +73,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
         <div className="flex max-md:flex-col z-20 justify-between items-start">
           <div className="flex flex-row max-md:w-full  items-start gap-2 sm:gap-4 md:gap-9">
             {data ? (
-              <div className="bg-[#131313] flex justify-center h-[60px] w-[25%] sm:w-[30%] md:h-[150px] md:w-[150px] md:rounded-3xl rounded-[10px] ">
+              <div className="bg-[#131313] flex justify-center h-[64px] w-[25%] sm:w-[15%] md:h-[150px] md:w-[150px] md:rounded-3xl rounded-[10px] ">
                 <Image
                   className="md:inline-block h-full hidden"
                   src={data?.config?.ui?.logo}
@@ -90,10 +90,10 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                 />
               </div>
             ) : null}
-            <section className="flex flex-col w-[85%] sm:w-[70%] gap-2 md:gap-6 justify-between ">
+            <section className="flex flex-col w-[85%] sm:w-[75%] gap-2 md:gap-6 justify-between ">
               <div className="flex flex-wrap items-center gap-2">
                 <section className="flex items-center gap-2">
-                  <h1 className="text-white capitalize font-SpaceGrotesk font-bold text-xl md:text-4xl">
+                  <h1 className="text-white  capitalize font-SpaceGrotesk font-bold text-xl md:text-4xl">
                     {data?.slug ?? "IM3"}
                   </h1>
                   {data?.config?.verified && <Verify />}
