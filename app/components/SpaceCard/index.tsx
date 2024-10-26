@@ -25,7 +25,7 @@ const SpaceCard = ({
   return (
     <Link
       href={!roomUrl ? "/im3" : `/${handelRoomURL(roomUrl)}`}
-      className={`${className} relative cursor-pointer bg-box-space rounded-2xl flex flex-col gap-7 p-4 md:p-8`}
+      className={`${className} relative cursor-pointer bg-box-space rounded-3xl flex flex-col gap-7 p-4 md:p-8`}
     >
       <div className="flex items-center gap-4">
         <div className="bg-[#131313] bg-opacity-70 w-[95px] h-[80px] flex items-center justify-center rounded-2xl ">
