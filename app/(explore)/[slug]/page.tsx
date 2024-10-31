@@ -51,7 +51,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
     return (
       <>
         <DetailMiniBox
-          className="[&>*]:opacity-60 max-md:hidden [&>p]:md:!text-base [&>img]:w-2"
+          className="[&>*]:opacity-60 max-sm:hidden [&>p]:md:!text-base [&>img]:w-2"
           icon={!!data?.config?.ui?.privateRoom ? UnLock : Lock}
           value={data?.config?.ui?.privateRoom ? "Private" : "Public"}
           title={data?.config?.ui?.privateRoom ? "Private" : "Public"}
@@ -87,8 +87,8 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                   width={60}
                   height={500}
                   alt="logo"
-                  />
-                  </>
+                />
+              </>
             ) : null}
             <section className="flex flex-col w-[85%] sm:w-[75%] gap-2 md:gap-6 justify-between ">
               <div className="flex flex-wrap items-center gap-2">
@@ -96,7 +96,24 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                   <h1 className="text-white font-bold md:text-4xl text-xl line-clamp-1 break-all capitalize font-SpaceGrotesk">
                     {data?.slug ?? "IM3"}
                   </h1>
-                  {data?.config?.verified && <Verify className='w-8'/>}
+                  {data?.config?.verified && <Verify className="md:w-8" />}
+                  {data?.config.ui?.privateRoom ? (
+                    <Image
+                      className="sm:hidden"
+                      src={Lock}
+                      width={16}
+                      height={16}
+                      alt="public_icon"
+                    />
+                  ) : (
+                    <Image
+                      className="sm:hidden"
+                      src={UnLock}
+                      width={16}
+                      height={16}
+                      alt="private_icon"
+                    />
+                  )}
                 </section>
                 {showsPrivateRoom()}
               </div>
@@ -119,7 +136,6 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                       />
                     )
                   : null}
-                  
               </ul>
               <ul className="flex max-md:hidden items-center flex-wrap gap-1.5">
                 {data?.config?.ui?.tags?.map((tag: string) => (
