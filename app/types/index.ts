@@ -17,10 +17,7 @@ export type TButton = ButtonHTMLAttributes<HTMLButtonElement> & {
   value?: string;
   className?: string;
   iconSrc?: string;
-  submit?: boolean;
-  simple?: boolean;
-  freez?: boolean;
-  pro?: boolean;
+  mode: "freez" | "simple" | "pro" | "submit";
 };
 
 export type SocialInfoType = {
