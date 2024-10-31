@@ -37,20 +37,23 @@ export default function Home() {
               </section>
             </div>
             <div className="md:flex hidden px-4 py-2 bg-box-space rounded-[11px] items-center  w-full md:w-fit gap-2">
-              <Link href={"/filters/newest"} className="w-full md:w-[104px]">
+              <Link
+                href={"/filters/newest"}
+                className="w-full group md:w-[104px]"
+              >
                 <MainButton
                   value={"Newest"}
-                  simple
+                  mode="simple"
                   iconSrc={Star}
-                  className="w-full bg-[#9C9898] !text-black font-Nunito rounded-lg"
+                  className="w-full bg-[#9C9898] group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
                 />
               </Link>
-              <Link href={"/filters/oldest"} className="w-full md:w-[104px]">
+              <Link href={"/filters/oldest"} className="w-full group md:w-[104px]">
                 <MainButton
                   value={"Oldest"}
-                  simple
+                  mode="simple"
                   iconSrc={Oldest}
-                  className="w-full bg-[#9C9898] !text-black font-Nunito rounded-lg"
+                  className="w-full bg-[#9C9898] group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
                 />
               </Link>
             </div>
@@ -59,17 +62,17 @@ export default function Home() {
             <Link href={"/filters/newest"} className="w-[78px]">
               <MainButton
                 value={"Newest"}
-                simple
+                mode="simple"
                 iconSrc={Star}
                 className="w-full [&>span]:text-xs [&>img]:h-3 [&>img]:w-3 bg-[#9C9898] !text-black font-Nunito rounded-lg"
               />
             </Link>
-            <Link href={"/filters/oldest"} className="w-[78px]">
+            <Link href={"/filters/oldest"} className=" w-[78px]">
               <MainButton
                 value={"Oldest"}
-                simple
+                mode="simple"
                 iconSrc={Oldest}
-                className="w-full [&>span]:text-xs [&>img]:h-3 [&>img]:w-3 bg-[#9C9898] !text-black font-Nunito rounded-lg"
+                className="w-full  [&>span]:text-xs [&>img]:h-3 [&>img]:w-3 bg-[#9C9898] !text-black font-Nunito rounded-lg"
               />
             </Link>
           </div>
