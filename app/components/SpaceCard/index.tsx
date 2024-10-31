@@ -34,7 +34,7 @@ const SpaceCard = ({
         <div className="flex flex-col w-full justify-between gap-3">
           <section className="flex items-center gap-2 ">
             <section className="flex items-center gap-2">
-              <h1 className="text-white font-SpaceGrotesk overflow-clip whitespace-nowrap w-fit font-bold text-xl ">
+              <h1 className="font-bold text-white font-SpaceGrotesk tracking-tight text-xl md:text-2xl line-clamp-1 break-all leading-tight sm:leading-tight">
                 {name_space}
               </h1>
               {verified && (
