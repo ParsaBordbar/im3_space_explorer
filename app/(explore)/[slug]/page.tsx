@@ -51,7 +51,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
     return (
       <>
         <DetailMiniBox
-          className="[&>p]:opacity-60 [&>p]:md:!text-base [&>img]:w-2  !py-0.5"
+          className="[&>*]:opacity-60 max-md:hidden [&>p]:md:!text-base [&>img]:w-2"
           icon={!!data?.config?.ui?.privateRoom ? UnLock : Lock}
           value={data?.config?.ui?.privateRoom ? "Private" : "Public"}
           title={data?.config?.ui?.privateRoom ? "Private" : "Public"}
@@ -73,34 +73,34 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
         <div className="flex max-md:flex-col z-20 justify-between items-start">
           <div className="flex flex-row max-md:w-full  items-start gap-2 sm:gap-4 md:gap-9">
             {data ? (
-              <div className="bg-[#131313] flex justify-center h-[64px] w-[25%] sm:w-[15%] md:h-[150px] md:w-[150px] md:rounded-3xl rounded-[10px] ">
+              <>
                 <Image
-                  className="md:inline-block h-full hidden"
+                  className="min-[400px]:inline-block p-4 bg-black  rounded-2xl h-[96px] hidden"
                   src={data?.config?.ui?.logo}
                   width={96}
                   height={96}
                   alt="logo"
                 />
                 <Image
-                  className="md:hidden h-full"
+                  className="min-[400px]:hidden p-4 bg-black  rounded-2xl h-[60px]"
                   src={data?.config?.ui?.logo}
-                  width={40}
-                  height={40}
+                  width={60}
+                  height={500}
                   alt="logo"
-                />
-              </div>
+                  />
+                  </>
             ) : null}
             <section className="flex flex-col w-[85%] sm:w-[75%] gap-2 md:gap-6 justify-between ">
               <div className="flex flex-wrap items-center gap-2">
                 <section className="flex items-center gap-2">
-                  <h1 className="text-white  capitalize font-SpaceGrotesk font-bold text-xl md:text-4xl">
+                  <h1 className="text-white font-bold md:text-4xl text-xl line-clamp-1 break-all capitalize font-SpaceGrotesk">
                     {data?.slug ?? "IM3"}
                   </h1>
-                  {data?.config?.verified && <Verify />}
+                  {data?.config?.verified && <Verify className='w-8'/>}
                 </section>
                 {showsPrivateRoom()}
               </div>
-              <ul className="grid grid-cols-4 gap-2">
+              <ul className="flex items-center gap-2 flex-wrap">
                 {data ? (
                   <DetailMiniBox
                     title="max_member"
@@ -119,6 +119,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                       />
                     )
                   : null}
+                  
               </ul>
               <ul className="flex max-md:hidden items-center flex-wrap gap-1.5">
                 {data?.config?.ui?.tags?.map((tag: string) => (
@@ -130,8 +131,8 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
           <Link href={`https://space.im3.live/${data?.slug}`}>
             {data?.slug && (
               <MainButton
-                pro
-                className="py-3 max-md:hidden w-auto px-4 rounded-xl"
+                mode="pro"
+                className="py-3 max-md:hidden w-max px-4 rounded-xl"
                 value={"Join Room"}
               />
             )}
