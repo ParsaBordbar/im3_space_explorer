@@ -259,7 +259,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
         >
           {data?.slug && (
             <MainButton
-              pro
+              mode="pro"
               className="py-3  w-auto px-4 rounded-xl"
               value={"Join Room"}
             />

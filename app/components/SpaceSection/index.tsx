@@ -30,6 +30,14 @@ function SpaceSection({search}: SpaceSectionType) {
           );
         })
       }
+      {/* <SpaceCard
+        logo_URL={'http://localhost:3000/api/v1/rooms/slugLogo/muon.svg'}
+        name_space={'PB'}
+        members={'20'}
+        privateSpace={true}
+        className={"md:col-span-1 col-span-full"}
+        slug={'pb'} roomUrl={'pb'}
+        tags={['web3']} verified={true}/> */}
     </section>
   )
 }
