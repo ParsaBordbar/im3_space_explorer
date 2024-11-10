@@ -97,7 +97,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                     {data?.slug ?? "IM3"}
                   </h1>
                   {data?.config?.verified && <Verify className="md:w-8" />}
-                  {data?.config.ui?.privateRoom ? (
+                  {!data?.config.ui?.privateRoom ? (
                     <Image
                       className="sm:hidden"
                       src={Lock}

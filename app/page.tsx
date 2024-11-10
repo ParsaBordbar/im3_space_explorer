@@ -45,7 +45,7 @@ export default function Home() {
                   value={"Newest"}
                   mode="simple"
                   iconSrc={Star}
-                  className="w-full bg-[#9C9898] group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
+                  className="w-full bg-[#9C9898] transition-all duration-300 ease-in-out group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
                 />
               </Link>
               <Link href={"/filters/oldest"} className="w-full group md:w-[104px]">
@@ -53,7 +53,7 @@ export default function Home() {
                   value={"Oldest"}
                   mode="simple"
                   iconSrc={Oldest}
-                  className="w-full bg-[#9C9898] group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
+                  className="w-full bg-[#9C9898] transition-all duration-300 ease-in-out group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
                 />
               </Link>
             </div>

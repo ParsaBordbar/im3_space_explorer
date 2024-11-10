@@ -71,7 +71,7 @@ body {
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#D5D5D5", endColorstr="#9C9898", GradientType=1 );
 }
 
-.bg-box-space:hover {
+a.bg-box-space:hover {
   transition: all ease-in-out 5000ms;
 
   background: hsla(0, 0%, 84%, 0.5);
@@ -92,6 +92,30 @@ body {
     0deg,
     hsla(0, 0%, 84%, 0.5) 0%,
     hsla(0, 2%, 60%, 0.5) 100%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#D5D5D5", endColorstr="#9C9898", GradientType=1 );
+}
+
+div.bg-box-space > a > button:hover {
+  background: hsla(0, 0%, 84%, 1);
+
+  background: linear-gradient(
+    0deg,
+    hsla(0, 0%, 84%, 1) 100%,
+    hsla(0, 2%, 60%, 1) 100%
+  );
+
+  background: -moz-linear-gradient(
+    0deg,
+    hsla(0, 0%, 84%, 1) 100%,
+    hsla(0, 2%, 60%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    0deg,
+    hsla(0, 0%, 84%, 1) 100%,
+    hsla(0, 2%, 60%, 1) 100%
   );
 
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#D5D5D5", endColorstr="#9C9898", GradientType=1 );
