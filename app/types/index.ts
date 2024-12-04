@@ -73,3 +73,11 @@ export interface dataType {
 export interface CopyButtonType {
   className: string;
 }
+
+export interface TSearchForm {
+  search?: string;
+}
+export interface TSearch extends TSearchForm {
+  filters: boolean;
+  sendDataToParent?: (data: string) => void;
+}
