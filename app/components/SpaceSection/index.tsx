@@ -9,7 +9,7 @@ function SpaceSection({search}: SpaceSectionType) {
   console.log('This is search in space Section', search);
 
   return (
-    <section className="grid mb-10 col-span-full grid-cols-2 gap-4">
+    <section className="grid mb-10 w-full col-span-full grid-cols-2 gap-4">
       {
         uiData?.map((data: dataType) => {
           const regex = new RegExp(search, 'i'); 
