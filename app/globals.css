@@ -48,27 +48,27 @@ body {
 }
 
 .bg-box-space {
-  background: hsla(0, 0%, 84%, 0.3);
-  transition: all ease-in-out 5000ms;
+  background: hsla(0, 0%, 84%, 0.3) !important;
+  transition: all ease-in-out 5000ms !important;
   background: linear-gradient(
     0deg,
     hsla(0, 0%, 84%, 0.3) 0%,
     hsla(0, 2%, 60%, 0.3) 100%
-  );
+  ) !important;
 
   background: -moz-linear-gradient(
     0deg,
     hsla(0, 0%, 84%, 0.3) 0%,
     hsla(0, 2%, 60%, 0.3) 100%
-  );
+  ) !important;
 
   background: -webkit-linear-gradient(
     0deg,
     hsla(0, 0%, 84%, 0.3) 0%,
     hsla(0, 2%, 60%, 0.3) 100%
-  );
+  ) !important;
 
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#D5D5D5", endColorstr="#9C9898", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#D5D5D5", endColorstr="#9C9898", GradientType=1 ) !important;
 }
 
 a.bg-box-space:hover {
@@ -119,4 +119,25 @@ div.bg-box-space > a > button:hover {
   );
 
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#D5D5D5", endColorstr="#9C9898", GradientType=1 );
+}
+
+.bg-glass {
+  /* From https://css.glass */
+  background: rgba(50, 50, 50, 0.333);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+/* For Chrome, Safari, Edge, and Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
