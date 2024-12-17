@@ -1,5 +1,11 @@
 import { StaticImageData } from "next/image";
-import { ButtonHTMLAttributes } from "react";
+import {
+  ButtonHTMLAttributes,
+  ChangeEvent,
+  FunctionComponent,
+  InputHTMLAttributes,
+} from "react";
+import { UseFormRegister } from "react-hook-form";
 
 export type SpaceCardProps = {
   className: string;
@@ -81,3 +87,22 @@ export interface TSearch extends TSearchForm {
   filters: boolean;
   sendDataToParent?: (data: string) => void;
 }
+
+export interface TInput extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  arrayItems?: string[];
+  mode: "input" | "dropdown";
+  iconFirst?: FunctionComponent;
+  iconEnd?: FunctionComponent;
+  inputClassName?: string;
+  error?: boolean;
+  register?: any;
+  parentClassName?: string;
+}
+
+export type UseFormRegisterReturn = {
+  onChange: (e: ChangeEvent) => void;
+  onBlur: (e: FocusEvent) => void;
+  ref: (instance: HTMLInputElement | null) => void;
+  name: string;
+};
