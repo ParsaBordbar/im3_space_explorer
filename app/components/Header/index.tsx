@@ -3,7 +3,7 @@ import NavBar from "../Navbar";
 import NoiseEffect from "/public/noiseEffect.svg?url";
 import NoiseEffect3 from "/public/noiseEffect3.svg?url";
 
-const Header = ({ mode }: { mode?: "justNavbar" }) => {
+const Header = ({ mode, title }: { mode?: "justNavbar"; title?: string }) => {
   return (
     <header className="relative  w-full h-[170px]  flex-col justify-center">
       {/* <NoiseEffect className=" mx-auto  absolute left-0 right-0 bottom-0 transform translate-x-50  -z-10 top-0" /> */}
@@ -24,7 +24,7 @@ const Header = ({ mode }: { mode?: "justNavbar" }) => {
       <NavBar />
       {mode != "justNavbar" && (
         <h1 className="font-SpaceGrotesk text-white absolute left-[4%] md:left-[12%] top-[100%] md:top-[90%] text-4xl md:text-6xl font-bold">
-          Spacehall
+          {title ?? 'Spacehall'}
         </h1>
       )}
     </header>
