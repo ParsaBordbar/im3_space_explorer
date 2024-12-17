@@ -9,12 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "axios": "^1.7.7",
     "clipboard-copy": "^4.0.1",
     "next": "14.2.13",
     "react": "^18",
     "react-dom": "^18",
-    "sharp": "^0.33.5"
+    "react-hook-form": "^7.54.1",
+    "sharp": "^0.33.5",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
