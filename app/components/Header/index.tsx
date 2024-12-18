@@ -23,7 +23,7 @@ const Header = ({ mode, title }: { mode?: "justNavbar"; title?: string }) => {
       />
       <NavBar />
       {mode != "justNavbar" && (
-        <h1 className="font-SpaceGrotesk text-white absolute left-[4%] md:left-[12%] top-[100%] md:top-[90%] text-4xl md:text-6xl font-bold">
+        <h1 className="font-SpaceGrotesk text-white absolute left-[4%] md:left-[12%] top-[100%] md:top-[90%] text-5xl md:text-6xl font-bold">
           {title ?? 'Spacehall'}
         </h1>
       )}
