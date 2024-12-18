@@ -82,7 +82,7 @@ const ItemInput = (props: {
           }`}
         >
           <ul
-            className={`mt-4 bg- drop-shadow-md overflow-y-auto flex flex-col gap-3 p-4 z-20 rounded-lg w-1/3 mx-auto ${
+            className={`mt-4 bg- drop-shadow-md overflow-y-auto flex flex-col gap-3 p-4 z-20 rounded-lg w-10/12 md:w-2/3 lg:w-8/12 mx-auto ${
               items.length == 0 && "hidden"
             } space-y-2`}
           >
