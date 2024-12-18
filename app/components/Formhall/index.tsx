@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import CheckboxWithIcon from "../CheckBox";
 import ItemInput from "../ListInput";
 import MainInput from "../MainInput";
@@ -15,21 +15,22 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Controller } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const schemaFormHall = yup.object().shape({
   name: yup.string().required("Name is required"),
   slug: yup.string().required("Slug is required"),
   admins: yup.string(),
-  description: yup.string(),
+  description: yup.string().required("Description is required"),
   pr_pb: yup.string(),
   participants: yup.string(),
-  maxParticipants: yup.number(),
-  // logoFile: yup.mixed(),
-  X: yup.string(),
-  LinkedIn: yup.string(),
-  Discord: yup.string(),
-  GitHub: yup.string(),
-  Website: yup.string(),
+  maxParticipants: yup.number().required("maximum participants is required"),
+  logoFile: yup.mixed(),
+  X: yup.string().required("X is required"),
+  LinkedIn: yup.string().required("LinkedIn is required"),
+  Discord: yup.string().required("Discord is required"),
+  GitHub: yup.string().required("GitHub is required"),
+  Website: yup.string().required("Website is required"),
   Web3: yup.string(),
   Decentralization: yup.string(),
   Blockchain: yup.string(),
@@ -44,7 +45,7 @@ const schemaFormHall = yup.object().shape({
 });
 
 const Formhall = () => {
-  const [dataFromChild, setDataFromChild] = useState("Private");
+  const [dataFromChild, setDataFromChild] = useState("Public");
   const [dataFromChildAdmins, setDataFromChildAdmins] = useState([""]);
   const [dataFromChildParticipants, setDataFromChildParticipants] = useState([
     "",
@@ -162,7 +163,7 @@ const Formhall = () => {
             className="col-span-full md:col-span-1"
             onData={handleDataFromChildParticipants}
             {...field}
-            mode={dataFromChild == "Private" ? "disable" : null}
+            mode={dataFromChild == "Public" ? "disable" : null}
             label="Participants of your space"
             registerValue={"participants"}
           />
@@ -180,14 +181,84 @@ const Formhall = () => {
     resolver: yupResolver(schemaFormHall), // Integrate yup validation
   });
 
+  console.log(errors);
+  useEffect(() => {
+    if (errors.name?.message) {
+      toast.error(errors.name.message);
+    }
+    if (!errors.name?.message && errors.slug?.message) {
+      toast.error(errors.slug.message);
+    }
+    if (
+      !errors.name?.message &&
+      !errors.slug?.message &&
+      errors.description?.message
+    ) {
+      toast.error(errors.description?.message);
+    }
+    if (
+      !errors.name?.message &&
+      !errors.slug?.message &&
+      !errors.description?.message &&
+      errors.maxParticipants?.message
+    ) {
+      toast.error(errors.maxParticipants?.message);
+    }
+    if (
+      !errors.name?.message &&
+      !errors.slug?.message &&
+      !errors.description?.message &&
+      !errors.maxParticipants?.message &&
+      errors.logoFile?.message
+    ) {
+      toast.error(errors.logoFile?.message);
+    }
+    if (
+      !errors.name?.message &&
+      !errors.slug?.message &&
+      !errors.description?.message &&
+      !errors.maxParticipants?.message &&
+      !errors.logoFile?.message &&
+      (errors.LinkedIn?.message ||
+        errors.X?.message ||
+        errors.GitHub?.message ||
+        errors.Website?.message ||
+        errors.Discord?.message)
+    ) {
+      toast.error("All of social field is required");
+    }
+  }, [errors]);
+
   const onSubmit = (data: any) => {
+    if (!data.logoFile) {
+      toast.error("Logo file is required");
+      return;
+    }
+
+    const pr_pbValidation = () => {
+      return dataFromChildParticipants.length == 0 && dataFromChild == "Private"
+        ? "Public"
+        : dataFromChild;
+      // return !dataFromChild ? "Private" : "Public";
+    };
+
     Object.assign(
       data,
       { admins: dataFromChildAdmins },
-      { participants: dataFromChildParticipants },
-      { tags: dataFromChildTags }
+      {
+        participants:
+          pr_pbValidation() == "Private" ? dataFromChildParticipants : [],
+      },
+      { tags: dataFromChildTags },
+      {
+        pr_pb: pr_pbValidation(),
+      }
     );
-    console.log("Form Data:", data);
+    if (data.tags.length < 3) {
+      toast.error("At Least 3 Tags");
+      console.log("Form Data:", data);
+      return;
+    }
     // const mergeData = [...data, ...dataFromChildAdmins];
   };
 
@@ -264,7 +335,7 @@ const Formhall = () => {
             className="max-md:col-span-full"
             {...field}
             onData={handleDataFromChild}
-            itemsArray={["Private", "Public"]}
+            itemsArray={["Public", "Private"]}
             label="Private / Public"
             mode={"input"}
           />
@@ -288,7 +359,17 @@ const Formhall = () => {
         )}
       />
 
-      {/* <FileUpload /> */}
+      <Controller
+        name="logoFile"
+        control={control}
+        render={({ field, fieldState }) => (
+          <FileUpload
+            label="Logo of your space"
+            field={field}
+            error={fieldState.error?.message}
+          />
+        )}
+      />
       {socialField()}
       {tagsField()}
       <MainButton
