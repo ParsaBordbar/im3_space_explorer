@@ -8,7 +8,10 @@ const NavBar = () => {
         <Logo />
       </Link>
       <ul>
-        <Link href={'/create/space'} className="text-white transition-all duration-200 ease-in-out hover:bg-[#5b5b5d3e] rounded-[11px] p-2 font-SpaceGrotesk ">
+        <Link
+          href={"/create/space"}
+          className="text-white transition-all duration-200 ease-in-out hover:bg-[#5b5b5d3e] rounded-[11px] p-2 font-SpaceGrotesk "
+        >
           Create Space
         </Link>
       </ul>
