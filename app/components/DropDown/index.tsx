@@ -7,7 +7,7 @@ interface TDropDown extends TInput {
   onData: (data: string) => void;
 }
 const Dropdown = (props: TDropDown) => {
-  const [selected, setSelected] = useState("Private");
+  const [selected, setSelected] = useState("Public");
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelect = (value: string) => {
