@@ -62,7 +62,7 @@ const MainInput = forwardRef<
       return (
         <input
           {...props.register}
-          className={`${props.inputClassName} placeholder:text-sm w-full text-white font-Nunito border-none outline-none bg-transparent`}
+          className={`${props.inputClassName} placeholder:text-base w-full text-white font-Nunito border-none outline-none bg-transparent`}
           {...props}
           ref={ref}
           autoComplete="off"
