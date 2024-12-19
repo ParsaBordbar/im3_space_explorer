@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 const schemaFormHall = yup.object().shape({
   name: yup.string().required("Name is required"),
   slug: yup.string().required("Slug is required"),
+  url: yup.string(),
   admins: yup.string(),
   description: yup.string().required("Description is required"),
   pr_pb: yup.string(),
@@ -250,15 +251,14 @@ const Formhall = () => {
           pr_pbValidation() == "Private" ? dataFromChildParticipants : [],
       },
       { tags: dataFromChildTags },
-      {
-        pr_pb: pr_pbValidation(),
-      }
+      { pr_pb: pr_pbValidation() },
+      { url: `space.ime.live/rooms/${data.slug}` }
     );
     if (data.tags.length < 3) {
       toast.error("At Least 3 Tags");
-      console.log("Form Data:", data);
       return;
     }
+    console.log("Form Data:", data);
     // const mergeData = [...data, ...dataFromChildAdmins];
   };
 
@@ -374,9 +374,9 @@ const Formhall = () => {
       {tagsField()}
       <MainButton
         // onClick={handleSubmit(onSubmit)}
-        mode={"submit"}
+        mode={"pro"}
         value={"Create the new space"}
-        className="bg-box-space !rounded-lg p-3 col-span-full"
+        className="!font-normal !rounded-lg p-3 col-span-full"
       />
     </form>
   );
