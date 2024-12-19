@@ -1,5 +1,7 @@
 import { StaticImageData } from "next/image";
 import {
+  AllHTMLAttributes,
+  AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   ChangeEvent,
   FunctionComponent,
@@ -106,3 +108,8 @@ export type UseFormRegisterReturn = {
   ref: (instance: HTMLInputElement | null) => void;
   name: string;
 };
+
+export interface TNavLinks extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  value: string;
+  link: string;
+}
