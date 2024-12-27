@@ -16,7 +16,7 @@ const ConvertTimestamp = ({
       year: "numeric",
       month: "short",
       day: "numeric",
-      hour: "2-digit",
+      hour: "numeric",
       minute: "2-digit",
       second: "2-digit",
     });
@@ -28,7 +28,7 @@ const ConvertTimestamp = ({
     }).format(date);
   }
   return (
-    <p className={`${className} text-white font-Nunito text-base`}>
+    <p className={`${className} text-white font-SpaceGrotesk text-base`}>
       {formattedDate}
     </p>
   );
