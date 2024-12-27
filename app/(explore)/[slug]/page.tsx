@@ -27,48 +27,33 @@ import {
 import Tag from "@/app/components/Tag";
 import { dataType, ParamsType } from "@/app/types";
 import ConvertTimestamp from "@/app/components/ConvertTimesTamp";
+import RankBox from "@/app/components/RankBox";
+import Loading from "@/app/components/Loading";
+import LiveMeet from "@/app/components/LiveMeet";
+import useParamsSlug from "@/hooks/usePramsSlug";
+import MeetContent from "@/app/components/MeetContent";
 
 const ExploreSpace = ({ params }: { params: ParamsType }) => {
   const [data, setData] = useState<dataType>();
-  const [dataMeet, setDataMeet] = useState<any>();
 
-  const [isLoading, setIsLoading] = useState(true);
-  const handelParamsSlug = (url: string) => {
-    return url.replace(/_/g, " ");
-  };
-  const validParamsSlug = handelParamsSlug(params?.slug);
-  const uiData = useGetConfigData(
+  const validParamsSlug = useParamsSlug(params?.slug);
+  const { configData, error, isLoading } = useGetConfigData(
     `/rooms/get-all-room-configs/sort?sort=${
       validParamsSlug == "im3" ? "default" : "all"
     }`
   );
 
-  const uiDataMeet = useGetConfigData(
-    `/participants/list-participants?room=${params?.slug}`
-  );
-  console.log(uiDataMeet);
-  //localhost:3000/api/v1/participants/stored-participants/muon
   http: useEffect(() => {
-    if (Array.isArray(uiData)) {
-      uiData?.map((conf) => {
+    if (Array.isArray(configData)) {
+      configData?.map((conf) => {
         if (conf.slug == validParamsSlug) {
           setData(conf);
-          setIsLoading(false);
         }
       });
     } else {
-      console.log(uiData);
-      setData(uiData);
-      setIsLoading(false);
+      setData(configData);
     }
-  }, [uiData]);
-
-  http: useEffect(() => {
-    if (Array.isArray(uiDataMeet)) {
-      setDataMeet(uiDataMeet);
-      setIsLoading(false);
-    }
-  }, [uiDataMeet]);
+  }, [configData]);
 
   const showsPrivateRoom = useCallback(() => {
     console.log(!!data?.config?.ui?.privateRoom);
@@ -83,212 +68,107 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
       </>
     );
   }, [data]);
-  const leaderBoard = useCallback(() => {
-    return [...dataMeet].reverse().map((data: any, index: number) => {
-      const findName = data.name.split("-")[0];
-      console.log(findName , data.joinedAt);
-      return (
-        <li className="flex flex-col odd:border-b hover:bg-box-space pb-2 odd:border-zinc-600 gap-3">
-          <div className="flex items-center justify-between">
-            <h1 className="text-white text-lg font-Nunito">
-              {index + 1 + ". " + findName}
-            </h1>
-            <ConvertTimestamp time={+data.joinedAt} />
-          </div>
-          <section className="flex items-center gap-2 text-sm">
-            {data.permission.canPublish == true && (
-              <p className="text-white select-none text-sm capitalize font-Nunito">
-                Can subscribe
-              </p>
-            )}
-            {data.permission.canPublish == true && (
-              <p className="text-white select-none text-sm capitalize font-Nunito">
-                Can Publish
-              </p>
-            )}
-            {data.permission.canPublishData == true && (
-              <p className="text-white select-none text-sm capitalize font-Nunito">
-                Can Publish Data
-              </p>
-            )}
-            {data.permission.recorder == true && (
-              <p className="text-white select-none text-sm capitalize font-Nunito">
-                recorder
-              </p>
-            )}
-          </section>
-        </li>
-      );
-    });
-  }, [dataMeet]);
-
-  const informationsSlug = useCallback(() => {
-    return (
-      dataMeet && (
-        <>
-          <section className="flex items-center justify-between gap-4">
-            <h1 className="text-white font-SpaceGrotesk text-5xl">Live Meet</h1>
-            {/* <ConvertTimestamp className="!text-lg self-end" time={dataMeet && dataMeet.fetchedAt} /> */}
-          </section>
-          <section className="bg-box-space rounded-lg p-4">
-            <ul className="flex flex-col gap-2">{leaderBoard()}</ul>
-          </section>
-        </>
-      )
-    );
-  }, [dataMeet]);
 
   return (
-    !isLoading && (
-      <>
-        <div className="flex relative flex-col max-md:gap-10 bg-box-slug p-6 md:p-10 rounded-[40px]">
-          <Image
-            className="absolute object-cover h-full w-full  z-0 bottom-0 top-0 left-0 "
-            width={5000}
-            height={5000}
-            src={NoiseEffect}
-            alt=""
-          />
-          <div className="flex max-md:flex-col z-20 justify-between items-start">
-            <div className="flex flex-row max-md:w-full  items-start gap-2 sm:gap-4 md:gap-9">
-              {data ? (
-                <>
-                  <Image
-                    className="min-[400px]:inline-block p-4 bg-black  rounded-2xl h-[96px] hidden"
-                    src={data?.config?.ui?.logo}
-                    width={96}
-                    height={96}
-                    alt="logo"
-                  />
-                  <Image
-                    className="min-[400px]:hidden p-4 bg-black  rounded-2xl h-[60px]"
-                    src={data?.config?.ui?.logo}
-                    width={60}
-                    height={500}
-                    alt="logo"
-                  />
-                </>
-              ) : null}
-              <section className="flex flex-col w-[85%] sm:w-[75%] gap-2 md:gap-6 justify-between ">
-                <div className="flex flex-wrap items-center gap-2">
-                  <section className="flex items-center gap-2">
-                    <h1 className="text-white font-bold md:text-4xl text-xl line-clamp-1 break-all capitalize font-SpaceGrotesk">
-                      {data?.slug ?? "IM3"}
-                    </h1>
-                    {data?.config?.verified && <Verify className="md:w-8" />}
-                    {!data?.config.ui?.privateRoom ? (
-                      <Image
-                        className="sm:hidden"
-                        src={Lock}
-                        width={16}
-                        height={16}
-                        alt="public_icon"
-                      />
-                    ) : (
-                      <Image
-                        className="sm:hidden"
-                        src={UnLock}
-                        width={16}
-                        height={16}
-                        alt="private_icon"
-                      />
-                    )}
-                  </section>
-                  {showsPrivateRoom()}
-                </div>
-                <ul className="flex items-center gap-2 flex-wrap">
-                  {data ? (
-                    <DetailMiniBox
-                      title="max_member"
-                      className="!col-span-1 justify-center"
-                      value={data?.config?.maxParticipants}
-                      icon={Members}
+    <>
+      <div className="flex relative flex-col max-md:gap-10 bg-box-slug p-6 md:p-10 rounded-[40px]">
+        <Image
+          className="absolute object-cover h-full w-full  z-0 bottom-0 top-0 left-0 "
+          width={5000}
+          height={5000}
+          src={NoiseEffect}
+          alt=""
+        />
+        <div className="flex max-md:flex-col z-20 justify-between items-start">
+          <div className="flex flex-row max-md:w-full  items-start gap-2 sm:gap-4 md:gap-9">
+            {data ? (
+              <>
+                <Image
+                  className="min-[400px]:inline-block p-4 bg-black  rounded-2xl h-[96px] hidden"
+                  src={data?.config?.ui?.logo}
+                  width={96}
+                  height={96}
+                  alt="logo"
+                />
+                <Image
+                  className="min-[400px]:hidden p-4 bg-black  rounded-2xl h-[60px]"
+                  src={data?.config?.ui?.logo}
+                  width={60}
+                  height={500}
+                  alt="logo"
+                />
+              </>
+            ) : null}
+            <section className="flex flex-col w-[85%] sm:w-[75%] gap-2 md:gap-6 justify-between ">
+              <div className="flex flex-wrap items-center gap-2">
+                <section className="flex items-center gap-2">
+                  <h1 className="text-white font-bold md:text-4xl text-xl line-clamp-1 break-all capitalize font-SpaceGrotesk">
+                    {data?.slug ?? "IM3"}
+                  </h1>
+                  {data?.config?.verified && <Verify className="md:w-8" />}
+                  {!data?.config.ui?.privateRoom ? (
+                    <Image
+                      className="sm:hidden"
+                      src={Lock}
+                      width={16}
+                      height={16}
+                      alt="public_icon"
                     />
-                  ) : null}
-                  {data
-                    ? data?.config?.whiteListParticipants?.length > 0 && (
-                        <DetailMiniBox
-                          title="member"
-                          className="!col-span-1 justify-center"
-                          value={data?.config?.whiteListParticipants?.length}
-                          icon={Members}
-                        />
-                      )
-                    : null}
-                </ul>
-                <ul className="flex max-md:hidden items-center flex-wrap gap-1.5">
-                  {data?.config?.ui?.tags?.map((tag: string) => (
-                    <Tag tag={tag} key={tag} />
-                  ))}
-                </ul>
-              </section>
-            </div>
-            <Link href={`https://space.im3.live/${data?.slug}`}>
-              {data?.slug && (
-                <MainButton
-                  mode="pro"
-                  className="py-3 max-md:hidden w-max px-4 rounded-xl"
-                  value={"Join Room"}
-                />
-              )}
-            </Link>
+                  ) : (
+                    <Image
+                      className="sm:hidden"
+                      src={UnLock}
+                      width={16}
+                      height={16}
+                      alt="private_icon"
+                    />
+                  )}
+                </section>
+                {showsPrivateRoom()}
+              </div>
+              <ul className="flex items-center gap-2 flex-wrap">
+                {data ? (
+                  <DetailMiniBox
+                    title="max_member"
+                    className="!col-span-1 justify-center"
+                    value={data?.config?.maxParticipants}
+                    icon={Members}
+                  />
+                ) : null}
+                {data
+                  ? data?.config?.whiteListParticipants?.length > 0 && (
+                      <DetailMiniBox
+                        title="member"
+                        className="!col-span-1 justify-center"
+                        value={data?.config?.whiteListParticipants?.length}
+                        icon={Members}
+                      />
+                    )
+                  : null}
+              </ul>
+              <ul className="flex max-md:hidden items-center flex-wrap gap-1.5">
+                {data?.config?.ui?.tags?.map((tag: string) => (
+                  <Tag tag={tag} key={tag} />
+                ))}
+              </ul>
+            </section>
           </div>
+          <Link href={`https://space.im3.live/${data?.slug}`}>
+            {data?.slug && (
+              <MainButton
+                mode="pro"
+                className="py-3 max-md:hidden w-max px-4 rounded-xl"
+                value={"Join Room"}
+              />
+            )}
+          </Link>
+        </div>
 
-          <section className="flex gap-4 md:mt-10 items-center flex-wrap justify-between">
-            <p className=" z-10 font-Nunito text-xl md:text-2xl text-white">
-              {data?.config?.ui?.desc}
-            </p>
-            <ul className="flex z-10 flex-wrap max-md:hidden items-center gap-4">
-              {data?.config?.ui?.socials.x && (
-                <SocialInfo
-                  width={24}
-                  height={24}
-                  icon={X}
-                  value={`${data?.config?.ui?.socials.x}`}
-                  link={`${data?.config?.ui?.socials.x}`}
-                  title={"X"}
-                />
-              )}
-
-              {data?.config?.ui?.socials.github && (
-                <SocialInfo
-                  width={24}
-                  height={24}
-                  icon={Github}
-                  value={`${data?.config?.ui?.socials.github}`}
-                  link={`${data?.config?.ui?.socials.github}`}
-                  title={"Github"}
-                />
-              )}
-              {data?.config?.ui?.socials.website && data?.slug == "muon" && (
-                <SocialInfo
-                  className="bg-[#F4F4F4]  rounded-full py-1.5 p-1"
-                  width={16}
-                  height={16}
-                  icon={data?.config?.ui?.logo}
-                  value={`${data?.config?.ui?.socials.website}`}
-                  link={`${data?.config?.ui?.socials.website}`}
-                  title={"Website"}
-                />
-              )}
-              {data?.config?.ui?.socials.discord && (
-                <SocialInfo
-                  width={24}
-                  height={24}
-                  icon={Discord}
-                  value={`${data?.config?.ui?.socials.discord}`}
-                  link={`${data?.config?.ui?.socials.discord}`}
-                  title={"Discord"}
-                />
-              )}
-            </ul>
-          </section>
-          <ul className="flex md:hidden items-center flex-wrap gap-1.5">
-            {data?.config?.ui?.tags?.map((tag: string) => (
-              <Tag tag={tag} key={tag} />
-            ))}
-          </ul>
-          <ul className="flex z-10 md:hidden self-center flex-wrap items-center gap-4">
+        <section className="flex gap-4 md:mt-10 items-center flex-wrap justify-between">
+          <p className=" z-10 font-Nunito text-xl md:text-2xl text-white">
+            {data?.config?.ui?.desc}
+          </p>
+          <ul className="flex z-10 flex-wrap max-md:hidden items-center gap-4">
             {data?.config?.ui?.socials.x && (
               <SocialInfo
                 width={24}
@@ -332,22 +212,78 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
               />
             )}
           </ul>
-          <Link
-            className="self-center md:hidden z-10"
-            href={`https://space.im3.live/${data?.slug}`}
-          >
-            {data?.slug && (
-              <MainButton
-                mode="pro"
-                className="py-3  w-auto px-4 rounded-xl"
-                value={"Join Room"}
-              />
-            )}
-          </Link>
-        </div>
-        <div className="flex flex-col gap-10 mt-20">{informationsSlug()}</div>
-      </>
-    )
+        </section>
+        <ul className="flex md:hidden items-center flex-wrap gap-1.5">
+          {data?.config?.ui?.tags?.map((tag: string) => (
+            <Tag tag={tag} key={tag} />
+          ))}
+        </ul>
+        <ul className="flex z-10 md:hidden self-center flex-wrap items-center gap-4">
+          {data?.config?.ui?.socials.x && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={X}
+              value={`${data?.config?.ui?.socials.x}`}
+              link={`${data?.config?.ui?.socials.x}`}
+              title={"X"}
+            />
+          )}
+
+          {data?.config?.ui?.socials.github && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={Github}
+              value={`${data?.config?.ui?.socials.github}`}
+              link={`${data?.config?.ui?.socials.github}`}
+              title={"Github"}
+            />
+          )}
+          {data?.config?.ui?.socials.website && data?.slug == "muon" && (
+            <SocialInfo
+              className="bg-[#F4F4F4]  rounded-full py-1.5 p-1"
+              width={16}
+              height={16}
+              icon={data?.config?.ui?.logo}
+              value={`${data?.config?.ui?.socials.website}`}
+              link={`${data?.config?.ui?.socials.website}`}
+              title={"Website"}
+            />
+          )}
+          {data?.config?.ui?.socials.discord && (
+            <SocialInfo
+              width={24}
+              height={24}
+              icon={Discord}
+              value={`${data?.config?.ui?.socials.discord}`}
+              link={`${data?.config?.ui?.socials.discord}`}
+              title={"Discord"}
+            />
+          )}
+        </ul>
+        <Link
+          className="self-center md:hidden z-10"
+          href={`https://space.im3.live/${data?.slug}`}
+        >
+          {data?.slug && (
+            <MainButton
+              mode="pro"
+              className="py-3  w-auto px-4 rounded-xl"
+              value={"Join Room"}
+            />
+          )}
+        </Link>
+      </div>
+      <LiveMeet
+        title="Live Meet"
+        params={params.slug}
+      />
+      <MeetContent
+        title="Meets"
+        params={params.slug}
+      />
+    </>
   );
 };
 
