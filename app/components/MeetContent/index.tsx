@@ -25,7 +25,6 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
   //
 
   // get admins data for the specific room
-
   const leaderBoard = useCallback(() => {
     return (
       dataMeet &&
@@ -84,6 +83,9 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             medal={"gold"}
             className={"col-span-full md:col-span-7 "}
             identity={dataMeet.participants.slice(-1)[0].identity}
+            meet={{
+              slug: params,
+            }}
           />
           <TopThreeRank
             joinedAt={dataMeet.participants.slice(-2)[0].joinedAt}
@@ -91,6 +93,9 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             medal={"silver"}
             className={"col-span-full md:col-span-5"}
             identity={dataMeet.participants.slice(-2)[0].identity}
+            meet={{
+              slug: params,
+            }}
           />
           <TopThreeRank
             joinedAt={dataMeet.participants.slice(-3)[0].joinedAt}
@@ -98,6 +103,9 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             medal={"bronze"}
             className={"col-span-full md:col-span-5"}
             identity={dataMeet.participants.slice(-3)[0].identity}
+            meet={{
+              slug: params,
+            }}
           />
         </div>
         <section className="bg-box-space relative z-0 rounded-xl p-4">

@@ -45,13 +45,16 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
                   rank: index,
                   name: findName,
                   joinedAt: +data.joinedAt,
-                  isAdmin: data.isAdmin == isAdmin, // particiapant is admin or not base on identity
+                  identity: data.identity, // particiapant is admin or not base on identity
                 }}
                 permission={{
                   canSubscribe: data.permission.canSubscribe,
                   canPublish: data.permission.canPublish,
                   canPublishData: data.permission.canPublishData,
                   recorder: data.permission.recorder,
+                }}
+                meet={{
+                  slug: params,
                 }}
               />
             </>

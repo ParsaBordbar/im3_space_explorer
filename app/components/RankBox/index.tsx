@@ -2,20 +2,12 @@ import { useMemo, useState } from "react";
 import ConvertTimestamp from "../ConvertTimesTamp";
 import useGetConfigData from "@/hooks/useGetConfig";
 import { AdminData, RankBoxType } from "@/app/types";
+import useIsAdmin from "@/hooks/useIsAdmin";
 
 const RankBox = ({ user, permission, meet }: RankBoxType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const admins = useGetConfigData(
-    `admin/admins/sort?sort=room&room=${meet.slug}`
-  );
-  const isAdmin = useMemo(() => {
-    if (Array.isArray(admins.configData)) {
-      const ad = admins.configData.find(
-        (admin) => admin.identity == user.identity
-      );
-      return !!ad;
-    }
-  }, [admins]);
+  //calling the this hook to find out is admin or not
+  const { isAdmin } = useIsAdmin(user.identity, meet.slug);
   const toggleInfoBox = () => {
     setIsOpen(!isOpen);
   };
