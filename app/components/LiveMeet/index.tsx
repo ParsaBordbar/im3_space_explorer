@@ -1,24 +1,37 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Loading from "../Loading";
 import RankBox from "../RankBox";
 import useGetConfigData from "@/hooks/useGetConfig";
 import Image from "next/image";
 import NoiseEffect from "/public/noiseEffect2.svg?url";
+import { AdminData } from "@/app/types";
 
 const LiveMeet = ({ params, title }: { params: string; title: string }) => {
   const [dataMeet, setDataMeet] = useState<any>();
   console.log(params);
+  //get the data of live participants in specific room
   const { configData, error, isLoading } = useGetConfigData(
     `/participants/list-participants?room=${params}`
   );
-  // console.log(configData);
 
   http: useEffect(() => {
     if (Array.isArray(configData)) {
       setDataMeet(configData);
     }
   }, [configData]);
+
+  const admins = useGetConfigData(`admin/admins/sort?sort=room&room=${params}`);
+  const isAdmin = useMemo(() => {
+    return (
+      Array.isArray(admins.configData) &&
+      admins.configData.map((admin: AdminData) => {
+        return admin.identity; // return the identity if admins
+      })
+    );
+  }, [admins]);
+
+  //showing the leader board
   const leaderBoard = useCallback(() => {
     return (
       dataMeet &&
@@ -32,6 +45,7 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
                   rank: index,
                   name: findName,
                   joinedAt: +data.joinedAt,
+                  isAdmin: data.isAdmin == isAdmin, // particiapant is admin or not base on identity
                 }}
                 permission={{
                   canSubscribe: data.permission.canSubscribe,
@@ -48,10 +62,8 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
   }, [dataMeet]);
 
   const informationsSlug = useCallback(() => {
-    console.log(isLoading, "this is loading");
-    console.log(dataMeet, "this is dataMeet");
-    if (isLoading) return <Loading />;
-    if (!dataMeet || (dataMeet.length == 0 && isLoading)) return null;
+    if (isLoading) return <Loading />; // loading animations
+    if (!dataMeet || (dataMeet.length == 0 && isLoading)) return null; // if there is not any data don't show anything
 
     return (
       dataMeet && (
@@ -62,7 +74,6 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
               <h1 className="text-white font-SpaceGrotesk text-4xl md:text-5xl">
                 {title}
               </h1>
-              {/* <ConvertTimestamp className="!text-lg self-end" time={dataMeet && dataMeet.fetchedAt} /> */}
             </section>
           </section>
           <section className="bg-box-space relative z-0 rounded-lg p-4">
@@ -79,6 +90,7 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
       )
     );
   }, [dataMeet, isLoading]);
+
   return (
     <>
       <div className="flex flex-col gap-10 mt-20">{informationsSlug()}</div>
