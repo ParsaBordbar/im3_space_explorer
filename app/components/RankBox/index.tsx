@@ -1,30 +1,18 @@
 import { useMemo, useState } from "react";
 import ConvertTimestamp from "../ConvertTimesTamp";
 import useGetConfigData from "@/hooks/useGetConfig";
+import { RankBoxType } from "@/app/types";
 
-interface RankBoxType {
-  user: {
-    rank: number;
-    name: string;
-    joinedAt: string | number;
-  };
-  permission: {
-    canSubscribe: boolean;
-    canPublish: boolean;
-    canPublishData: boolean;
-    recorder: boolean;
-  };
-}
 const RankBox = ({ user, permission }: RankBoxType) => {
-  
-  const [activeSlug, setActiveSlug] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const toggleInfoBox = () => {
-    setActiveSlug(!activeSlug);
+    setIsOpen(!isOpen);
   };
 
+  //show the informations of permissions
   const showInfo = useMemo(() => {
     return (
-      activeSlug && (
+      isOpen && (
         <section className="flex bg-box-space p-2 rounded-lg max-md:flex-col md:items-center gap-2">
           {permission.canPublish == true && (
             <p className="text-white font-SpaceGrotesk select-none capitalize">
@@ -50,11 +38,13 @@ const RankBox = ({ user, permission }: RankBoxType) => {
         </section>
       )
     );
-  }, [activeSlug]);
+  }, [isOpen]);
 
+  // Update value of the button (more / less)
   const valueButton = useMemo(() => {
-    return activeSlug ? "Less" : "More";
-  }, [activeSlug]);
+    return isOpen ? "Less" : "More";
+  }, [isOpen]);
+
   return (
     <li className="flex flex-col justify-center gap-4 ">
       <div className="flex items-center justify-between w-full">
@@ -65,6 +55,7 @@ const RankBox = ({ user, permission }: RankBoxType) => {
             </p>
             <h1 className="text-white max-md:w-[170px] overflow-hidden whitespace-nowrap text-ellipsis text-base font-SpaceGrotesk">
               {user.name}
+              {user.isAdmin && " (admin)"}
             </h1>
           </section>
         </div>
