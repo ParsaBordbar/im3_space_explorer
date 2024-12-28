@@ -6,6 +6,7 @@ import BronzeMedal from "/public/bronze-medal.svg";
 import Image from "next/image";
 import NoiseEffect from "/public/noiseEffect2.svg?url";
 import useIsAdmin from "@/hooks/useIsAdmin";
+import Loading from "../Loading";
 
 const TopThreeRank = ({
   name,
@@ -23,7 +24,7 @@ const TopThreeRank = ({
   identity: string;
 }) => {
   //calling the this hook to find out is admin or not
-  const { isAdmin } = useIsAdmin(identity, meet.slug);
+  const { isAdmin, isLoading } = useIsAdmin(identity, meet.slug);
 
   const validName = useMemo(() => {
     return name.split("-")[0];
@@ -38,9 +39,9 @@ const TopThreeRank = ({
     );
   }, []);
   const nameOfParticipant = useMemo(() => {
-    return `${validName} ${isAdmin ? "(admin)" : ''}`;
+    return `${validName} ${isAdmin ? "(admin)" : ""}`;
   }, [isAdmin]);
-  return (
+  return !isLoading ? (
     <div
       className={`${className} [&>p]:max-md:text-sm bg-box-space relative flex z-0 flex-col gap-2 rounded-xl  p-4`}
     >
@@ -57,7 +58,9 @@ const TopThreeRank = ({
       </h1>
       <ConvertTimestamp time={joinedAt} />
     </div>
+  ) : (
+    <Loading />
   );
 };
 
-export default memo(TopThreeRank);
+export default (TopThreeRank);
