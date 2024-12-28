@@ -2,14 +2,16 @@ import { useMemo } from "react";
 import useGetConfigData from "./useGetConfig";
 
 const useIsAdmin = (identity: string, slug: string) => {
-  const admins = useGetConfigData(`admin/admins/sort?sort=room&room=${slug}`);
+  const { configData, isLoading } = useGetConfigData(
+    `admin/admins/sort?sort=room&room=${slug}`
+  );
   const isAdmin = useMemo(() => {
-    if (Array.isArray(admins.configData)) {
-      const ad = admins.configData.find((admin) => admin.identity == identity);
+    if (Array.isArray(configData)) {
+      const ad = configData.find((admin) => admin.identity == identity);
       return !!ad;
     }
-  }, [admins]);
-  return {isAdmin}
+  }, [configData]);
+  return { isAdmin, isLoading };
 };
 
-export default useIsAdmin
+export default useIsAdmin;
