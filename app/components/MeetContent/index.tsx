@@ -25,15 +25,6 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
   //
 
   // get admins data for the specific room
-  const admins = useGetConfigData(`admin/admins/sort?sort=room&room=${params}`);
-  const isAdmin = useMemo(() => {
-    return (
-      Array.isArray(admins.configData) &&
-      admins.configData.map((admin: AdminData) => {
-        return admin.identity; // return the identity if admins
-      })
-    );
-  }, [admins]);
 
   const leaderBoard = useCallback(() => {
     return (
@@ -50,7 +41,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
                   rank: index + 3,
                   name: findName,
                   joinedAt: +data.joinedAt,
-                  isAdmin: data.identity == isAdmin, // particiapant is admin or not base on identity
+                  identity: data.identity, // particiapant is admin or not base on identity
                 }}
                 permission={{
                   canSubscribe: data.permission.canSubscribe,
@@ -58,12 +49,15 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
                   canPublishData: data.permission.canPublishData,
                   recorder: data.permission.recorder,
                 }}
+                meet={{
+                  slug: params,
+                }}
               />
             </>
           );
         })
     );
-  }, [dataMeet, admins]);
+  }, [dataMeet]);
 
   const informationsSlug = useCallback(() => {
     if (!dataMeet) return null;
@@ -89,18 +83,21 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             name={dataMeet.participants.slice(-1)[0].name}
             medal={"gold"}
             className={"col-span-full md:col-span-7 "}
+            identity={dataMeet.participants.slice(-1)[0].identity}
           />
           <TopThreeRank
             joinedAt={dataMeet.participants.slice(-2)[0].joinedAt}
             name={dataMeet.participants.slice(-2)[0].name}
             medal={"silver"}
             className={"col-span-full md:col-span-5"}
+            identity={dataMeet.participants.slice(-2)[0].identity}
           />
           <TopThreeRank
             joinedAt={dataMeet.participants.slice(-3)[0].joinedAt}
             name={dataMeet.participants.slice(-3)[0].name}
             medal={"bronze"}
             className={"col-span-full md:col-span-5"}
+            identity={dataMeet.participants.slice(-3)[0].identity}
           />
         </div>
         <section className="bg-box-space relative z-0 rounded-xl p-4">
