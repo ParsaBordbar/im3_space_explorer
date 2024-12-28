@@ -32,7 +32,7 @@ const SearchBar = (props: TSearch) => {
       })}
       className="col-span-full w-full flex md:flex-row flex-col border border-[#7B7B7B] rounded-[11px] items-center gap-2"
     >
-      <div className="flex pl-3 items-center p-2 bg-transparent w-full rounded-2xl border border-[#7B7B7B] border-opacity-10">
+      <div className="flex pl-3 items-center p-2 bg-transparent w-full rounded-2xl">
         <section className="flex  w-full items-center gap-2">
           <Search />
           <input
@@ -48,13 +48,13 @@ const SearchBar = (props: TSearch) => {
         link search
       </button>
       {props.filters && (
-        <div className="md:flex hidden px-4 py-2 bg-box-space rounded-[11px] items-center  w-full md:w-fit gap-2">
+        <div className="flex px-2 md:px-4 py-2 md:bg-box-space rounded-[11px] items-center  w-full md:w-fit gap-2">
           <Link href={"/filters/newest"} className="w-full group md:w-[104px]">
             <MainButton
               value={"Newest"}
               mode="simple"
               iconSrc={Star}
-              className="w-full bg-[#9C9898] transition-all duration-300 ease-in-out group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
+              className="w-full bg-[#9C9898] !py-1.5 transition-all duration-300 ease-in-out group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
             />
           </Link>
           <Link href={"/filters/oldest"} className="w-full group md:w-[104px]">
@@ -62,7 +62,7 @@ const SearchBar = (props: TSearch) => {
               value={"Oldest"}
               mode="simple"
               iconSrc={Oldest}
-              className="w-full bg-[#9C9898] transition-all duration-300 ease-in-out group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
+              className="w-full bg-[#9C9898] !py-1.5 transition-all duration-300 ease-in-out group-hover:[&>*]:scale-110  [&>*]:transition-all [&>*]:ease-in-out [&>*]:duration-200 !text-black font-Nunito rounded-lg"
             />
           </Link>
         </div>

@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import Loading from "../Loading";
 import RankBox from "../RankBox";
 import useGetConfigData from "@/hooks/useGetConfig";
@@ -21,16 +21,6 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
     }
   }, [configData]);
 
-  const admins = useGetConfigData(`admin/admins/sort?sort=room&room=${params}`);
-  const isAdmin = useMemo(() => {
-    return (
-      Array.isArray(admins.configData) &&
-      admins.configData.map((admin: AdminData) => {
-        return admin.identity; // return the identity if admins
-      })
-    );
-  }, [admins]);
-
   //showing the leader board
   const leaderBoard = useCallback(() => {
     return (
@@ -41,6 +31,7 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
           dataMeet && (
             <>
               <RankBox
+                key={index}
                 user={{
                   rank: index,
                   name: findName,
@@ -101,4 +92,4 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
   );
 };
 
-export default LiveMeet;
+export default memo(LiveMeet);

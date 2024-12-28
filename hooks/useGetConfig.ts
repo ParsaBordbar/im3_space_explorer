@@ -13,9 +13,7 @@ const useGetConfigData = (slug: string) => {
       Array.isArray(response.data) && response.data.length === 0
         ? setConfigData(0)
         : setConfigData(response.data);
-      console.log("Response from Hook:", response, slug);
     } catch (err) {
-      console.error("Error fetching config data:", err);
       setError(
         err instanceof Error ? err.message : "An unknown error occurred"
       );

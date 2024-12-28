@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import Loading from "../Loading";
 import RankBox from "../RankBox";
 import useGetConfigData from "@/hooks/useGetConfig";
@@ -29,13 +29,13 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
     return (
       dataMeet &&
       [...dataMeet.participants]
-        .reverse()
         .slice(3) // get the data of the participents just after 3 first data
         .map((data: any, index: number) => {
           const findName = data.name.split("-")[0];
           return (
             <>
               <RankBox
+                key={index}
                 user={{
                   rank: index + 3,
                   name: findName,
@@ -78,31 +78,31 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             desc="Total participants"
           />
           <TopThreeRank
-            joinedAt={dataMeet.participants.slice(-1)[0].joinedAt}
-            name={dataMeet.participants.slice(-1)[0].name}
+            joinedAt={dataMeet.participants.slice(0)[0].joinedAt}
+            name={dataMeet.participants.slice(0)[0].name}
             medal={"gold"}
             className={"col-span-full md:col-span-7 "}
-            identity={dataMeet.participants.slice(-1)[0].identity}
+            identity={dataMeet.participants.slice(0)[0].identity}
             meet={{
               slug: params,
             }}
           />
           <TopThreeRank
-            joinedAt={dataMeet.participants.slice(-2)[0].joinedAt}
-            name={dataMeet.participants.slice(-2)[0].name}
+            joinedAt={dataMeet.participants.slice(2)[0].joinedAt}
+            name={dataMeet.participants.slice(2)[0].name}
             medal={"silver"}
             className={"col-span-full md:col-span-5"}
-            identity={dataMeet.participants.slice(-2)[0].identity}
+            identity={dataMeet.participants.slice(2)[0].identity}
             meet={{
               slug: params,
             }}
           />
           <TopThreeRank
-            joinedAt={dataMeet.participants.slice(-3)[0].joinedAt}
-            name={dataMeet.participants.slice(-3)[0].name}
+            joinedAt={dataMeet.participants.slice(3)[0].joinedAt}
+            name={dataMeet.participants.slice(3)[0].name}
             medal={"bronze"}
             className={"col-span-full md:col-span-5"}
-            identity={dataMeet.participants.slice(-3)[0].identity}
+            identity={dataMeet.participants.slice(3)[0].identity}
             meet={{
               slug: params,
             }}
@@ -116,7 +116,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             src={NoiseEffect}
             alt=""
           />
-          <ul className="flex flex-col gap-6">
+          <ul className="flex overflow-y-auto scrollable h-[460px] flex-col gap-6">
             {leaderBoard() ?? (
               <p className="text-white font-SpaceGrotesk">
                 There is no {title}!
@@ -136,4 +136,4 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
   );
 };
 
-export default MeetContent;
+export default memo(MeetContent);

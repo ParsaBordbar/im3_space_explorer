@@ -99,7 +99,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                 />
               </>
             ) : null}
-            <section className="flex flex-col w-[85%] sm:w-[75%] gap-2 md:gap-6 justify-between ">
+            <section className="flex flex-col w-full gap-2 md:gap-6 justify-between ">
               <div className="flex flex-wrap items-center gap-2">
                 <section className="flex items-center gap-2">
                   <h1 className="text-white font-bold md:text-4xl text-xl line-clamp-1 break-all capitalize font-SpaceGrotesk">

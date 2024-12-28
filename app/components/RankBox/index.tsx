@@ -49,14 +49,14 @@ const RankBox = ({ user, permission, meet }: RankBoxType) => {
   }, [isOpen]);
 
   return (
-    <li className="flex flex-col justify-center gap-4 ">
+    <li className="flex flex-col mr-3 justify-center gap-4 ">
       <div className="flex items-center justify-between w-full">
-        <div className="flex gap-2 items-center">
-          <section className="flex items-center gap-2">
+        <div className="flex gap-2 w-[80%] items-center">
+          <section className="flex w-full items-center gap-2">
             <p className="font-SpaceGrotesk text-base text-white bg-box-space px-2 rounded-full">
               {user.rank + 1}
             </p>
-            <h1 className="text-white max-md:w-[170px] overflow-hidden whitespace-nowrap text-ellipsis text-base font-SpaceGrotesk">
+            <h1 className="text-white  max-md:w-[80%] overflow-hidden whitespace-nowrap text-ellipsis text-base font-SpaceGrotesk">
               {user.name}
               {isAdmin && " (admin)"}
             </h1>
