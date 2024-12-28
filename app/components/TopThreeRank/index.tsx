@@ -22,11 +22,11 @@ const TopThreeRank = ({
   }, []);
   const showMedal = useMemo(() => {
     return medal == "gold" ? (
-      <GoldMedal className="absolute top-0 right-0 w-32 h-32" />
+      <GoldMedal className="absolute top-0 z-10 right-0 w-32 h-32" />
     ) : medal == "silver" ? (
-      <SilverMedal className="absolute top-0 right-0 w-32 h-32" />
+      <SilverMedal className="absolute top-0 z-10 right-0 w-32 h-32" />
     ) : (
-      <BronzeMedal className="absolute top-0 right-0 w-32 h-32" />
+      <BronzeMedal className="absolute top-0 z-10 right-0 w-32 h-32" />
     );
   }, []);
   return (
