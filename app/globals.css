@@ -206,7 +206,6 @@ input[type="number"] {
 
 /*live meet - recording animations*/
 
-
 .recording-circle {
   width: 1em;
   height: 1em;
@@ -232,4 +231,29 @@ input[type="number"] {
   100% {
     background-color: #fafafa77;
   }
+}
+
+/*scrollbar*/
+/* Customize the scrollbar */
+.scrollable::-webkit-scrollbar {
+  margin-left: 2px;
+  width: 4px; /* Width of the scrollbar */
+  overflow: hidden;
+}
+
+/* Scrollbar track */
+.scrollable::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+/* Scrollbar thumb */
+.scrollable::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+/* Scrollbar thumb hover */
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker color when hovered */
 }
