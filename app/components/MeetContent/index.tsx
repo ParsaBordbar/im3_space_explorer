@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Loading from "../Loading";
 import RankBox from "../RankBox";
 import useGetConfigData from "@/hooks/useGetConfig";
@@ -8,25 +8,39 @@ import TopThreeRank from "../TopThreeRank";
 import NoiseEffect from "/public/noiseEffect2.svg?url";
 import Image from "next/image";
 import InfoMiniBox from "../infoMiniBox";
+import { AdminData } from "@/app/types";
 
 const MeetContent = ({ params, title }: { params: string; title: string }) => {
   const [dataMeet, setDataMeet] = useState<any>();
-  console.log(params);
-  const { configData, error, isLoading } = useGetConfigData(
+
+  //get the stored pariticipants of the specific room
+  const { configData, isLoading } = useGetConfigData(
     `participants/stored-participants/${params}`
   );
-  console.log(configData);
 
   http: useEffect(() => {
     setDataMeet(configData);
   }, [configData]);
+
+  //
+
+  // get admins data for the specific room
+  const admins = useGetConfigData(`admin/admins/sort?sort=room&room=${params}`);
+  const isAdmin = useMemo(() => {
+    return (
+      Array.isArray(admins.configData) &&
+      admins.configData.map((admin: AdminData) => {
+        return admin.identity; // return the identity if admins
+      })
+    );
+  }, [admins]);
 
   const leaderBoard = useCallback(() => {
     return (
       dataMeet &&
       [...dataMeet.participants]
         .reverse()
-        .slice(3)
+        .slice(3) // get the data of the participents just after 3 first data
         .map((data: any, index: number) => {
           const findName = data.name.split("-")[0];
           return (
@@ -36,6 +50,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
                   rank: index + 3,
                   name: findName,
                   joinedAt: +data.joinedAt,
+                  isAdmin: data.identity == isAdmin, // particiapant is admin or not base on identity
                 }}
                 permission={{
                   canSubscribe: data.permission.canSubscribe,
@@ -43,17 +58,14 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
                   canPublishData: data.permission.canPublishData,
                   recorder: data.permission.recorder,
                 }}
-                
               />
             </>
           );
         })
     );
-  }, [dataMeet]);
+  }, [dataMeet, admins]);
 
   const informationsSlug = useCallback(() => {
-    console.log(isLoading, "this is loading");
-    console.log(dataMeet, "this is dataMeet");
     if (!dataMeet) return null;
     return !isLoading ? (
       <>
@@ -114,7 +126,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
   }, [dataMeet, isLoading]);
   return (
     <>
-      <div className="flex flex-col gap-10 mt-20">{informationsSlug()}</div>
+      <div className="flex flex-col gap-10 my-20">{informationsSlug()}</div>
     </>
   );
 };
