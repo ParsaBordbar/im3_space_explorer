@@ -17,7 +17,7 @@ const TopThreeRank = ({
   meet,
 }: {
   name: string;
-  joinedAt: string;
+  joinedAt: string | number;
   meet: { slug: string };
   medal: "gold" | "silver" | "bronze";
   className: string;
@@ -56,11 +56,11 @@ const TopThreeRank = ({
       <h1 className="text-white font-SpaceGrotesk w-[63%] text-ellipsis overflow-hidden whitespace-nowrap text-xl">
         {nameOfParticipant}
       </h1>
-      <ConvertTimestamp time={joinedAt} />
+      <ConvertTimestamp time={String(joinedAt)} />
     </div>
   ) : (
     <Loading />
   );
 };
 
-export default (TopThreeRank);
+export default TopThreeRank;
