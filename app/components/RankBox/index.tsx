@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import ConvertTimestamp from "../ConvertTimesTamp";
-import useGetConfigData from "@/hooks/useGetConfig";
-import { AdminData, RankBoxType } from "@/app/types";
+import { RankBoxType } from "@/app/types";
 import useIsAdmin from "@/hooks/useIsAdmin";
 
 const RankBox = ({ user, permission, meet }: RankBoxType) => {
