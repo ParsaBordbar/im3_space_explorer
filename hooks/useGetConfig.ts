@@ -1,34 +1,15 @@
-import { useEffect, useState } from "react";
 import { spaceApi } from "../api/base";
 
-const useGetConfigData = (slug: string) => {
-  const [configData, setConfigData] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const fetchConfigData = async (slug: string) => {
-    setIsLoading(true);
-    try {
-      const response = await spaceApi.get(slug);
-      Array.isArray(response.data) && response.data.length === 0
-        ? setConfigData(0)
-        : setConfigData(response.data);
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An unknown error occurred"
-      );
-    } finally {
-      setIsLoading(false);
+const useGetConfigData = async (slug: string): Promise<any> => {
+  try {
+    const response = await spaceApi.get(slug);
+    if (Array.isArray(response.data) && response.data.length === 0) {
+      return 0; // Return 0 if data is an empty array
     }
-  };
-
-  useEffect(() => {
-    if (slug) {
-      fetchConfigData(slug);
-    }
-  }, [slug]);
-
-  return { configData, error, isLoading };
+    return response.data; // Return the fetched data
+  } catch (err) {
+    throw err instanceof Error ? err.message : "An unknown error occurred";
+  }
 };
 
 export default useGetConfigData;
