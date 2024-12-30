@@ -1,25 +1,30 @@
 "use client";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
-import Loading from "../Loading";
+import { memo, useCallback, useEffect, useState } from "react";
 import RankBox from "../RankBox";
 import useGetConfigData from "@/hooks/useGetConfig";
 import Image from "next/image";
 import NoiseEffect from "/public/noiseEffect2.svg?url";
-import { AdminData } from "@/app/types";
 
 const LiveMeet = ({ params, title }: { params: string; title: string }) => {
   const [dataMeet, setDataMeet] = useState<any>();
   console.log(params);
   //get the data of live participants in specific room
-  const { configData, error, isLoading } = useGetConfigData(
-    `/participants/list-participants?room=${params}`
-  );
-
+  useEffect(() => {
+    const handleFetchData = async () => {
+      try {
+        const result = await useGetConfigData(
+          `/participants/list-participants?room=${params}`
+        );
+        setDataMeet(result);
+      } catch (err) {}
+    };
+    handleFetchData();
+  }, []);
   http: useEffect(() => {
-    if (Array.isArray(configData)) {
-      setDataMeet(configData);
+    if (Array.isArray(dataMeet)) {
+      setDataMeet(dataMeet);
     }
-  }, [configData]);
+  }, [dataMeet]);
 
   //showing the leader board
   const leaderBoard = useCallback(() => {
@@ -29,9 +34,8 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
         const findName = data.name.split("-")[0];
         return (
           dataMeet && (
-            <>
+            <div key={index + findName}>
               <RankBox
-                key={index}
                 user={{
                   rank: index,
                   name: findName,
@@ -48,7 +52,7 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
                   slug: params,
                 }}
               />
-            </>
+            </div>
           )
         );
       })
@@ -56,8 +60,8 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
   }, [dataMeet]);
 
   const informationsSlug = useCallback(() => {
-    if (isLoading) return <Loading />; // loading animations
-    if (!dataMeet || (dataMeet.length == 0 && isLoading)) return null; // if there is not any data don't show anything
+    // if (isLoading) return <Loading />; // loading animations
+    if (!dataMeet || dataMeet.length == 0) return null; // if there is not any data don't show anything
 
     return (
       dataMeet && (
@@ -83,7 +87,7 @@ const LiveMeet = ({ params, title }: { params: string; title: string }) => {
         </>
       )
     );
-  }, [dataMeet, isLoading]);
+  }, [dataMeet]);
 
   return (
     <>
