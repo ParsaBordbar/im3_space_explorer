@@ -1,12 +1,10 @@
 import { useMemo, useState } from "react";
 import ConvertTimestamp from "../ConvertTimesTamp";
 import { RankBoxType } from "@/app/types";
-import useIsAdmin from "@/hooks/useIsAdmin";
 
 const RankBox = ({ user, permission, meet }: RankBoxType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   //calling the this hook to find out is admin or not
-  const { isAdmin } = useIsAdmin(user.identity, meet.slug);
   const toggleInfoBox = () => {
     setIsOpen(!isOpen);
   };
@@ -57,7 +55,6 @@ const RankBox = ({ user, permission, meet }: RankBoxType) => {
             </p>
             <h1 className="text-white  max-md:w-[80%] overflow-hidden whitespace-nowrap text-ellipsis text-base font-SpaceGrotesk">
               {user.name}
-              {isAdmin && " (admin)"}
             </h1>
           </section>
         </div>
