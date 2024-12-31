@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import Image from "next/image";
 import MainButton from "@/app/components/MainButton";
 import UnLock from "/public/unlock.svg?url";
@@ -25,7 +25,6 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
   const [dataSpace, setDataSpace] = useState<dataType>();
   const [isLoading, setIsLoading] = useState(true); // Loading state
 
-
   const handleFetchData = async () => {
     setIsLoading(true); // Start loading
     try {
@@ -40,6 +39,8 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
       setIsLoading(false); // End loading
     }
   };
+
+ 
 
   const useDebouncedEffect = (
     callback: () => void,
@@ -137,14 +138,13 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                       />
                     ) : null}
                     {dataSpace
-                      ? dataSpace?.config?.whiteListParticipants
-                          ?.length > 0 && (
+                      ? dataSpace?.config?.whiteListParticipants?.length >
+                          0 && (
                           <DetailMiniBox
                             title="member"
                             className="!col-span-1 justify-center"
                             value={
-                              dataSpace?.config?.whiteListParticipants
-                                ?.length
+                              dataSpace?.config?.whiteListParticipants?.length
                             }
                             icon={Members}
                           />
