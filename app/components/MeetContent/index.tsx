@@ -9,6 +9,7 @@ import TopThreeRank from "../TopThreeRank";
 import NoiseEffect from "/public/noiseEffect2.svg?url";
 import Image from "next/image";
 import InfoMiniBox from "../infoMiniBox";
+import { RoomStructure } from "@/app/types";
 
 interface Participant {
   name: string;
@@ -29,12 +30,11 @@ interface MeetData {
 
 const MeetContent = ({ params, title }: { params: string; title: string }) => {
   const [dataMeet, setDataMeet] = useState<MeetData | null>(null);
+  const [meet, setMeet] = useState<RoomStructure>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const handleFetchData = async () => {
-    setLoading(true);
-    setError(null);
     try {
       const result = await useGetConfigData(
         `participants/stored-participants/${params}`
@@ -43,7 +43,21 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
     } catch (err) {
       setError("Failed to fetch participants.");
     } finally {
-      setLoading(false);
+    }
+  };
+
+  const handleFetchDataMeet = async () => {
+    setLoading(true); // Start loading
+    try {
+      const result = await useGetConfigData(
+        `/rooms/get-collected-data/room?name=${params}`
+      );
+      console.log(result);
+      setMeet(result);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
@@ -61,6 +75,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
   useDebouncedEffect(
     () => {
       handleFetchData();
+      handleFetchDataMeet();
     },
     300,
     [params]
@@ -73,32 +88,39 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
     return (
       <div className="grid grid-cols-10 mb-12 gap-4 gap-y-14">
         <InfoMiniBox
-          className="col-span-full md:col-span-3"
+          className={`col-span-full ${
+            !!meet ? "md:col-span-5" : "md:col-span-3"
+          }`}
           title={dataMeet.participants.length}
           desc="Total participants"
         />
-        {topThree.map((participant, idx) => (
+        {!!meet && (
+          <InfoMiniBox
+            className="col-span-full md:col-span-5"
+            title={meet?.count}
+            desc="Number created"
+          />
+        )}
+        {topThree.map((participant, index) => (
           <TopThreeRank
-            key={idx}
+            key={index}
             joinedAt={participant.joinedAt}
             name={participant.name}
-            medal={"gold"}
-            className={`col-span-full md:col-span-${idx === 0 ? 7 : 5}`}
-            identity={participant.identity}
+            medal={index == 0 ? "gold" : index == 1 ? "silver" : "bronze"}
+            className={`col-span-full ${index == 0 && !meet ? 'md:col-span-7' : 'md:col-span-full'}  ${index > 0 && 'md:!col-span-5'}`}
             meet={{ slug: params }}
           />
         ))}
       </div>
     );
-  }, [dataMeet, params]);
+  }, [dataMeet, meet, params]);
 
-  const leaderBoard = useMemo(() => {
-    console.log(dataMeet); // Debugging log
+  const leaderBoardAllMeet = useMemo(() => {
 
     if (!dataMeet) return null; // Handle the case where data is not available
     const participants = dataMeet.participants.slice(3); // Exclude the top 3 participants
 
-    // Map over the remaining participants to generate the leaderboard
+    // Map over the remaining participants to generate the leaderboardAllMeet
     return (
       <>
         {participants.map((data, index) => {
@@ -106,7 +128,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             <div key={index}>
               <RankBox
                 user={{
-                  rank: index + 4,
+                  rank: index + 3,
                   name: data.name.split("-")[0],
                   joinedAt: data.joinedAt,
                   identity: data.identity,
@@ -143,11 +165,13 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             src={NoiseEffect}
             alt=""
           />
-          <ul className="flex overflow-auto h-[580px] scrollable flex-col gap-6">{leaderBoard}</ul>
+          <ul className="flex overflow-auto h-[580px] scrollable flex-col gap-6">
+            {leaderBoardAllMeet}
+          </ul>
         </section>
       </>
     );
-  }, [dataMeet, leaderBoard, showInformationMeet, title]);
+  }, [dataMeet, leaderBoardAllMeet, showInformationMeet, title]);
 
   if (loading) return <Loading />;
   if (error) return <div>{error}</div>;
