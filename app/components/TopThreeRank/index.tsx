@@ -1,28 +1,23 @@
 import ConvertTimestamp from "../ConvertTimesTamp";
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import GoldMedal from "/public/gold-medal.svg";
 import SilverMedal from "/public/silver-medal.svg";
 import BronzeMedal from "/public/bronze-medal.svg";
 import Image from "next/image";
 import NoiseEffect from "/public/noiseEffect2.svg?url";
-import Loading from "../Loading";
 
 const TopThreeRank = ({
   name,
   joinedAt,
   medal,
   className,
-  identity,
-  meet,
 }: {
   name: string;
   joinedAt: string | number;
   meet: { slug: string };
   medal: "gold" | "silver" | "bronze";
   className: string;
-  identity: string;
 }) => {
-  //calling the this hook to find out is admin or not
 
   const validName = useMemo(() => {
     return name.split("-")[0];
