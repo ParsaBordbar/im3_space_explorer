@@ -120,9 +120,10 @@ export interface RankBoxType {
     rank: number;
     name: string;
     joinedAt: string | number;
+    leaveAt?: string | number;
     identity: string;
   };
-  permission: {
+  permission?: {
     canSubscribe: boolean;
     canPublish: boolean;
     canPublishData: boolean;
@@ -138,4 +139,19 @@ export interface AdminData {
   start: string;
   end: string;
   __v: number;
+}
+
+interface Session {
+  userName: string;
+  startedBy: string;
+  startedAt: number;
+  endedAt: number;
+  _id: string;
+}
+
+export interface RoomStructure {
+  name: string;
+  count: number;
+  sessions: Session[];
+  id: string;
 }
