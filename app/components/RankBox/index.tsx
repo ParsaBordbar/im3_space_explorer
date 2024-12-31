@@ -12,7 +12,8 @@ const RankBox = ({ user, permission, meet }: RankBoxType) => {
   //show the informations of permissions
   const showInfo = useMemo(() => {
     return (
-      isOpen && (
+      isOpen &&
+      permission && (
         <section className="flex bg-box-space p-2 rounded-lg max-md:flex-col md:items-center gap-2">
           {permission.canPublish == true && (
             <p className="text-white font-SpaceGrotesk select-none capitalize">
