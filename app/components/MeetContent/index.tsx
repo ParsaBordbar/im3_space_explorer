@@ -50,7 +50,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
     setLoading(true); // Start loading
     try {
       const result = await useGetConfigData(
-        `/rooms/get-collected-data/room?name=${params}`
+        `/rooms/get-collected-data/room?name=uuro-4tgo`
       );
       console.log(result);
       setMeet(result);
@@ -99,6 +99,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             className="col-span-full md:col-span-5"
             title={meet?.count}
             desc="Number created"
+            link={`/${params}/meets`}
           />
         )}
         {topThree.map((participant, index) => (
@@ -107,7 +108,9 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             joinedAt={participant.joinedAt}
             name={participant.name}
             medal={index == 0 ? "gold" : index == 1 ? "silver" : "bronze"}
-            className={`col-span-full ${index == 0 && !meet ? 'md:col-span-7' : 'md:col-span-full'}  ${index > 0 && 'md:!col-span-5'}`}
+            className={`col-span-full ${
+              index == 0 && !meet ? "md:col-span-7" : "md:col-span-full"
+            }  ${index > 0 && "md:!col-span-5"}`}
             meet={{ slug: params }}
           />
         ))}
@@ -116,7 +119,6 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
   }, [dataMeet, meet, params]);
 
   const leaderBoardAllMeet = useMemo(() => {
-
     if (!dataMeet) return null; // Handle the case where data is not available
     const participants = dataMeet.participants.slice(3); // Exclude the top 3 participants
 
@@ -127,6 +129,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
           return (
             <div key={index}>
               <RankBox
+                meet={{ slug: params }}
                 user={{
                   rank: index + 3,
                   name: data.name.split("-")[0],
@@ -134,7 +137,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
                   identity: data.identity,
                 }}
                 permission={data.permission}
-                meet={{ slug: params }}
+                options={{ isRank: true, infoBox: false }}
               />
             </div>
           );
@@ -157,7 +160,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
           />
         </section>
         {showInformationMeet()}
-        <section className="bg-box-space relative z-0 rounded-xl p-4">
+        <section className="bg-[#5b5b5d3e]  relative z-0 rounded-xl p-4">
           <Image
             className="absolute object-cover h-full w-full -z-10 bottom-0 top-0 left-0"
             width={5000}
@@ -165,7 +168,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             src={NoiseEffect}
             alt=""
           />
-          <ul className="flex overflow-auto h-[580px] scrollable flex-col gap-6">
+          <ul className="flex overflow-auto h-[580px] scrollable flex-col gap-2">
             {leaderBoardAllMeet}
           </ul>
         </section>
