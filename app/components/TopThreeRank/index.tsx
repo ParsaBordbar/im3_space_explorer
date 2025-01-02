@@ -34,7 +34,7 @@ const TopThreeRank = ({
 
   return (
     <div
-      className={`${className} [&>p]:max-md:text-sm bg-box-space relative flex z-0 flex-col gap-2 rounded-xl  p-4`}
+      className={`${className} [&>p]:max-md:text-sm bg-[#5b5b5d3e]  relative flex z-0 flex-col gap-2 rounded-xl  p-4`}
     >
       <Image
         className="absolute object-cover h-full w-full  z-10 bottom-0 top-0 left-0 "
