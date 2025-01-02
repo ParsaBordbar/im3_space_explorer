@@ -79,7 +79,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
           <Loading />
         ) : (
           <>
-            <div className="flex max-md:flex-col z-20 justify-between items-start">
+            <div className="flex  max-md:flex-col z-20 justify-between items-start">
               <div className="flex flex-row max-md:w-full  items-start gap-2 sm:gap-4 md:gap-9">
                 {dataSpace ? (
                   <>
