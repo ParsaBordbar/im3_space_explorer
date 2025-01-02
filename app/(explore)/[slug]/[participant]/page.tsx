@@ -5,6 +5,7 @@ import RankBox from "@/app/components/RankBox";
 import { RoomStructure } from "@/app/types";
 import useGetConfigData from "@/hooks/useGetConfig";
 import { count } from "console";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 const ParticipantsMeetsSpace = ({ params }: any) => {
@@ -70,11 +71,16 @@ const ParticipantsMeetsSpace = ({ params }: any) => {
   }, [loading]);
   return (
     <div className="flex flex-col items-start gap-20">
-      <h1 className="font-SpaceGrotesk w-2/3 whitespace-nowrap overflow-clip text-ellipsis capitalize text-white text-5xl md:text-6xl font-bold">
+      <h1 className="font-SpaceGrotesk w-2/3 whitespace-nowrap overflow-clip text-ellipsis capitalize text-white text-base sm:text-4xl lg:text-6xl font-bold">
         the meets of {params.participant}
       </h1>
       <main className="bg-[#5b5b5d3e] p-2 flex flex-col rounded-xl gap-2 w-full mx-auto ">
-        {showMeets}
+        {showMeets ?? (
+          <section className="[&>span]:opacity-55 flex items-center font-SpaceGrotesk gap-1">
+            <span>There is nothing here</span>
+            <Link href={`/${params.slug}`}>go to space</Link>
+          </section>
+        )}
       </main>
     </div>
   );

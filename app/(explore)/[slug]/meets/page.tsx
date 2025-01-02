@@ -70,7 +70,7 @@ const MeetsSpace = ({ params }: { params: { slug: string } }) => {
   }, [loading]);
   return (
     <div className="flex flex-col items-start gap-20">
-      <h1 className="font-SpaceGrotesk capitalize text-white text-5xl md:text-6xl font-bold">
+      <h1 className="font-SpaceGrotesk capitalize text-white text-2xl sm:text-4xl lg:text-6xl font-bold">
         {params.slug} Meets Owners
       </h1>
       <main className="bg-[#5b5b5d3e] p-2 text-white  rounded-xl gap-6 w-full mx-auto ">
