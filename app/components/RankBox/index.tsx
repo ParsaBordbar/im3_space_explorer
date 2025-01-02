@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
 import ConvertTimestamp from "../ConvertTimesTamp";
 import { RankBoxType } from "@/app/types";
+import Link from "next/link";
 
-const RankBox = ({ user, permission, meet }: RankBoxType) => {
+const RankBox = ({ user, permission, options, meet }: RankBoxType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   //calling the this hook to find out is admin or not
   const toggleInfoBox = () => {
@@ -47,29 +48,42 @@ const RankBox = ({ user, permission, meet }: RankBoxType) => {
   }, [isOpen]);
 
   return (
-    <li className="flex flex-col mr-3 justify-center gap-4 ">
-      <div className="flex items-center justify-between w-full">
-        <div className="flex gap-2 w-[80%] items-center">
-          <section className="flex w-full items-center gap-2">
-            <p className="font-SpaceGrotesk text-base text-white bg-box-space px-2 rounded-full">
-              {user.rank + 1}
-            </p>
+    <Link
+      href={`/${meet?.slug}/${user.identity}`}
+      className="flex flex-col hover:bg-[#5b5b5d3e]  transition-all ease-in-out duration-200 p-2 rounded-lg justify-center gap-4 "
+    >
+      <div className="flex items-center justify-evenly w-full">
+        <div
+          className={`flex justify-between flex-wrap gap-2 ${
+            options.infoBox ? "w-[80%]" : "w-full"
+          } items-center`}
+        >
+          <section className="flex w-fit items-center gap-2">
+            {options.isRank && (
+              <p className="font-SpaceGrotesk text-base text-white bg-box-space px-2 rounded-full">
+                {user.rank + 1}
+              </p>
+            )}
             <h1 className="text-white  max-md:w-[80%] overflow-hidden whitespace-nowrap text-ellipsis text-base font-SpaceGrotesk">
               {user.name}
             </h1>
           </section>
+          {meet?.count && <span className="text-white font-SpaceGrotesk">{meet.count} Number Created</span>}
+          <ConvertTimestamp time={user.joinedAt} />
         </div>
-        <section className="flex items-center justify-between gap-2 [&>p]:text-base">
-          <button
-            className="text-white text-sm font-SpaceGrotesk bg-box-space px-2 rounded-md"
-            onClick={toggleInfoBox}
-          >
-            {valueButton}
-          </button>
-        </section>
+        {options.infoBox && (
+          <section className="flex items-center justify-between gap-2 [&>p]:text-base">
+            <button
+              className="text-white text-sm font-SpaceGrotesk bg-box-space px-2 rounded-md"
+              onClick={toggleInfoBox}
+            >
+              {valueButton}
+            </button>
+          </section>
+        )}
       </div>
-      {showInfo}
-    </li>
+      {options.infoBox && showInfo}
+    </Link>
   );
 };
 
