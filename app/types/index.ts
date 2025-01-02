@@ -115,13 +115,17 @@ export interface TNavLinks extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export interface RankBoxType {
-  meet: { slug: string };
+  meet?: { count?: number; slug: string };
+  options: {
+    isRank: boolean;
+    infoBox: boolean;
+  };
   user: {
     rank: number;
     name: string;
     joinedAt: string | number;
     leaveAt?: string | number;
-    identity: string;
+    identity?: string;
   };
   permission?: {
     canSubscribe: boolean;
