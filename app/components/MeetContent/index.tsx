@@ -50,7 +50,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
     setLoading(true); // Start loading
     try {
       const result = await useGetConfigData(
-        `/rooms/get-collected-data/room?name=uuro-4tgo`
+        `/rooms/get-collected-data/room?name=${params}`
       );
       console.log(result);
       setMeet(result);

@@ -27,6 +27,8 @@ const ConvertTimestamp = ({
       timeStyle: "medium",
     }).format(date);
   }
+  console.log('from convert time stamp ',time , formattedDate)
+
   return (
     <p className={`${className} text-white font-SpaceGrotesk text-base`}>
       {formattedDate}

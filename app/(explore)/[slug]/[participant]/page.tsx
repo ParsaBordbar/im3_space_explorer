@@ -49,6 +49,7 @@ const ParticipantsMeetsSpace = ({ params }: any) => {
   const showMeets = useMemo(() => {
     if (loading) return <Loading />;
     return meets?.map((meet, index) => {
+      console.log(meet.sessions[0].startedAt)
       return (
         <>
           <RankBox
