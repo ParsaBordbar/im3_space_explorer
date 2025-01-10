@@ -3,18 +3,31 @@ import Loading from "@/app/components/Loading";
 import SpaceCard from "@/app/components/SpaceCard";
 import { dataType } from "@/app/types";
 import useGetConfigData from "@/hooks/useGetConfig";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 function Filter({ params }: { params: { filter: string } }) {
-  const { configData, isLoading } = useGetConfigData(
-    `/rooms/get-all-room-configs/sort?sort=${params.filter}`
-  );
-  const showData = useMemo(() => {
-    if (isLoading) return <Loading />; // loading animations
-    if (!configData || (configData.length == 0 && isLoading)) return null; // if there is not any data don't show anything
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getAllSlugs = async () => {
+    setIsLoading(true);
+    const result = await useGetConfigData(
+      `/rooms/get-all-room-configs/sort?sort=${params.filter}`
+    );
+    setData(result);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getAllSlugs();
+  }, []);
+
+  const showSpaces = useMemo(() => {
+    if (isLoading) return <Loading />; 
+    if (!data || (data.length == 0 && isLoading)) return null;
     return (
-      Array.isArray(configData) &&
-      configData?.map((data: dataType) => {
+      Array.isArray(data) &&
+      data?.map((data: dataType) => {
         return (
           <SpaceCard
             className={"col-span-full md:col-span-1"}
@@ -35,13 +48,15 @@ function Filter({ params }: { params: { filter: string } }) {
         );
       })
     );
-  }, [configData]);
+  }, [data]);
   return (
     <div className="flex flex-col my-40 w-11/12 lg:w-[75%] mx-auto gap-4 items-start">
       <h1 className="text-white text-lg font-bold font-SpaceGrotesk capitalize">
         {params.filter} Spaces
       </h1>
-      <main className="grid gap-4 w-full mx-auto grid-cols-2">{showData}</main>
+      <main className="grid gap-4 w-full mx-auto grid-cols-2">
+        {showSpaces}
+      </main>
     </div>
   );
 }
