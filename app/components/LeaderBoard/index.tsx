@@ -143,7 +143,7 @@ const LeaderBoard = ({
           medal={index === 0 ? "gold" : index === 1 ? "silver" : "bronze"}
           className={`${
             index === 0
-              ? "col-span-full lg:col-span-3"
+              ? "col-span-full xl:col-span-3"
               : "col-span-full md:col-span-2"
           }  [&>h1]:!text-2xl`}
         />
@@ -191,7 +191,7 @@ const LeaderBoard = ({
       {loading ? (
         <Loading />
       ) : (
-        <ul className="grid grid-cols-4 lg:grid-cols-7 gap-4">{topThree}</ul>
+        <ul className="grid grid-cols-4 xl:grid-cols-7 gap-4">{topThree}</ul>
       )}
     </div>
   );
