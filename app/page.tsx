@@ -1,23 +1,19 @@
-"use client";
-import Header from "./components/Header";
-import SpaceSection from "./components/SpaceSection";
+"use client";;
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-import SearchBar from "./components/SearchBar";
 import Tab from "./components/Tab";
-import Tabs from "./components/Tabs";
 import LeaderBoard from "./components/LeaderBoard";
 import InfoMiniBox from "./components/infoMiniBox";
 import Image from "next/image";
 import NoiseEffect from "/public/noiseEffect.svg?url";
 import NoiseEffect3 from "/public/noiseEffect3.svg?url";
 import NavBar from "./components/Navbar";
+import { useSearchParams } from "next/navigation";
+import ExploreSpaces from "./components/ExploreSpaces";
 export default function Home() {
   const [data, setData] = useState({ count: "", maxParticipants: 0 });
-  const [search, setSearch] = useState<string>("");
-  const handleDataFromChild = (data: string) => {
-    setSearch(data);
-  };
+  const searchParams = useSearchParams();
+
+  const tab = searchParams.get("tab");
 
   const handleDataFromLeaderBoard = (
     count: string,
@@ -76,19 +72,34 @@ export default function Home() {
         </section>
       </header>
       <main className={`grid w-11/12 md:w-[75%] gap-10 mx-auto grid-cols-8`}>
-        <Tabs
+        <div
           className={`col-span-full ${
             data.count && data.maxParticipants ? "my-80 lg:my-48" : "my-40"
           }  space-y-4`}
         >
-          <Tab className="flex flex-col mt-14 gap-4" title="Explore Spaces">
-            <SearchBar filters sendDataToParent={handleDataFromChild} />
-            <SpaceSection search={search ?? " "} />
-          </Tab>
-          <Tab title="Leader Board">
-            <LeaderBoard onSendData={handleDataFromLeaderBoard} />
-          </Tab>
-        </Tabs>
+          <nav className="flex space-x-2 ">
+            <Tab
+              className={`${
+                (tab == "exploreSpaces" || !tab) && "bg-box-space"
+              }`}
+              link={"/?tab=exploreSpaces"}
+              tabName={"Explore Spaces"}
+            />
+            <Tab
+              className={`${tab == "leaderBoard" && "bg-box-space"}`}
+              link={"/?tab=leaderBoard"}
+              tabName={"Leader Board"}
+            />
+          </nav>
+
+          {/* Render Component Based on the Route */}
+          <div className="mt-4 w-full">
+            {tab === "leaderBoard" && (
+              <LeaderBoard onSendData={handleDataFromLeaderBoard} />
+            )}
+            {(!tab || tab === "exploreSpaces") && <ExploreSpaces />}
+          </div>
+        </div>
       </main>
     </>
   );
