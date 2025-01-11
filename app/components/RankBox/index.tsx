@@ -67,7 +67,7 @@ const RankBox = ({ user, permission, options, meet }: RankBoxType) => {
             options.infoBox ? "w-[80%]" : "w-full"
           } items-center`}
         >
-          <section className="flex w-fit items-center gap-2">
+          <section className="flex w-fit max-md:w-[40%] items-center gap-2">
             {options.isRank && (
               <p className="font-SpaceGrotesk text-base w-fit text-white bg-box-space px-2 rounded-full">
                 {user.rank + 1}
