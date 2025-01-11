@@ -9,7 +9,6 @@ import {
 } from "react";
 import Loading from "../Loading";
 import TopThreeRank from "../TopThreeRank";
-import InfoMiniBox from "../infoMiniBox";
 import RankBox from "../RankBox";
 
 const LeaderBoard = ({
@@ -30,17 +29,9 @@ const LeaderBoard = ({
     );
 
     const uniqueSlugs = Array.from(
-      new Set(
-        result.map((space: any) =>
-          space.slug === "muon"
-            ? "uuro-4tgo"
-            : space.slug === "theLead"
-            ? "i7l5-18lx"
-            : "tauf-s6n1"
-        )
-      )
+      new Set(result.map((space: any) => space.slug ?? "im3"))
     );
-
+    console.log(uniqueSlugs);
     setSlugs(uniqueSlugs);
   };
 
