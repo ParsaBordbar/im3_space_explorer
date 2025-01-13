@@ -21,14 +21,18 @@ const SearchBar = (props: TSearch) => {
   };
 
   const sendData = (data: string) => {
-    props.sendDataToParent && props.sendDataToParent(data);
+    if (props.sendDataToParent) {
+      props.sendDataToParent(data);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit(() => {
         console.log("this is searc=h", search);
-        search != "" && push(`/search/${search}`);
+        if (search != "") {
+          push(`/search/${search}`);
+        }
       })}
       className="col-span-full w-full flex md:flex-row flex-col border border-[#7B7B7B] rounded-[11px] items-center gap-2"
     >
