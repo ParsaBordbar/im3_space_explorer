@@ -64,9 +64,9 @@ const LeaderBoard = ({
       new Set(result.map((space: Config) => space.slug ?? "im3"))
     );
     console.log(uniqueSlugs);
-    setSlugs(["uuro-4tgo", "i7l5-18lx"]);
+    setSlugs(uniqueSlugs);
     if (uniqueSlugs.length > 0) {
-      getAllSlugsCount(["uuro-4tgo", "i7l5-18lx"]);
+      getAllSlugsCount(uniqueSlugs);
     }
   };
 
