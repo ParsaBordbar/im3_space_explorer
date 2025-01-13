@@ -1,76 +1,67 @@
 "use client";
-import {
-  ChangeEvent,
-  FunctionComponent,
-  InputHTMLAttributes,
-  forwardRef,
-  useCallback,
-  useState,
-} from "react";
-import MainButton from "../MainButton";
+import { ChangeEvent, forwardRef, useCallback } from "react";
 import { TInput } from "@/app/types";
-import Dropdown from "../DropDown";
 
 const MainInput = forwardRef<
   HTMLInputElement,
   TInput & { onChange?: (event: ChangeEvent<HTMLInputElement>) => void }
 >((props, ref) => {
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
 
   const FirstIcon = useCallback(() => {
-    if (props.type === "password") {
-      return (
-        <div onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? (
-            <img
-              src="/svg/eye-slash.svg"
-              alt="Close Eye"
-              className="opacity-50"
-            />
-          ) : (
-            <img src="/svg/eye.svg" alt="Open Eye" className="opacity-50" />
-          )}
-        </div>
-      );
-    } else {
-      return props.iconFirst && <props.iconFirst />;
-    }
-  }, [showPassword]);
+    // if (props.type === "password") {
+    //   return (
+    //     <div onClick={() => setShowPassword(!showPassword)}>
+    //       {showPassword ? (
+    //         <Image
+    //           src="/svg/eye-slash.svg"
+    //           alt="Close Eye"
+    //           className="opacity-50"
+    //         />
+    //       ) : (
+    //         <Image src="/svg/eye.svg" alt="Open Eye" className="opacity-50" />
+    //       )}
+    //     </div>
+    //   );
+    // } else {
+    // }
+    return props.iconFirst && <props.iconFirst />;
+  }, [props]);
 
   const EndIcon = useCallback(() => {
-    if (props.type === "password") {
-      return (
-        <div onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? (
-            <img
-              src="/svg/eye-slash.svg"
-              alt="Close Eye"
-              className="opacity-50"
-            />
-          ) : (
-            <img src="/svg/eye.svg" alt="Open Eye" className="opacity-50" />
-          )}
-        </div>
-      );
-    } else {
-      return props.iconEnd && <props.iconEnd />;
-    }
-  }, [showPassword]);
+    // if (props.type === "password") {
+    //   return (
+    //     <div onClick={() => setShowPassword(!showPassword)}>
+    //       {showPassword ? (
+    //         <Image
+    //           src="/svg/eye-slash.svg"
+    //           alt="Close Eye"
+    //           className="opacity-50"
+    //         />
+    //       ) : (
+    //         <Image src="/svg/eye.svg" alt="Open Eye" className="opacity-50" />
+    //       )}
+    //     </div>
+    //   );
+    // } else {
+    // }
+    return props.iconEnd && <props.iconEnd />;
+  }, [props]);
 
   const InputMode = useCallback(() => {
     if (props.mode == "input") {
       return (
         <input
-          {...props.register}
           className={`${props.inputClassName} placeholder:text-base w-full text-white font-Nunito border-none outline-none bg-transparent`}
           {...props}
           ref={ref}
           autoComplete="off"
-          type={showPassword ? "text" : props.type}
+          type={props.type ?? "text"}
+          // type={showPassword ? "text" : props.type}
         />
       );
     }
-  }, []);
+  }, [ref, props]);
 
   return (
     <>
