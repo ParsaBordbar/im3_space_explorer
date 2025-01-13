@@ -142,7 +142,6 @@ const LeaderBoard = ({
     }
   }, [finalData]);
 
-
   const topThree = useMemo(() => {
     console.log(participants);
     if (!participants[0]?.roomName) return;
@@ -157,6 +156,11 @@ const LeaderBoard = ({
         item.count >= 0 &&
         item.participant?.length !== undefined
       ) {
+        console.log(
+          item.count,
+          item.participant.length,
+          item.count * item.participant.length
+        );
         item.formula = item.count * item.participant.length;
       }
       return item;
@@ -219,10 +223,7 @@ const LeaderBoard = ({
               rank: index,
               name: spaces?.roomName ?? "",
               joinedAt: "",
-              points:
-                spaces?.participant?.length && spaces?.count
-                  ? +spaces.participant.length * +spaces.count
-                  : 0,
+              points: spaces.formula ? spaces.formula : 0,
             }}
           />
         </li>
