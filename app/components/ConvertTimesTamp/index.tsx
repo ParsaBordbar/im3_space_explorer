@@ -9,7 +9,7 @@ const ConvertTimestamp = ({
   className?: string;
 }) => {
   const timestamp = time; // Unix timestamp
-  var formattedDate;
+  let formattedDate = null;
   if (typeof timestamp == "number") {
     const date = new Date(timestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
     formattedDate = date.toLocaleString("en-US", {
@@ -27,7 +27,7 @@ const ConvertTimestamp = ({
       timeStyle: "medium",
     }).format(date);
   }
-  console.log('from convert time stamp ',time , formattedDate)
+  console.log("from convert time stamp ", time, formattedDate);
 
   return (
     <p className={`${className} text-white font-SpaceGrotesk text-base`}>
