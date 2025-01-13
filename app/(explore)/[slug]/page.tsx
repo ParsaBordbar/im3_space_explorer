@@ -25,15 +25,24 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
   const [dataSpace, setDataSpace] = useState<dataType>();
   const [isLoading, setIsLoading] = useState(true); // Loading state
 
+  console.log(params);
   useEffect(() => {
     const handleFetchData = async () => {
       setIsLoading(true); // Start loading
       try {
         const result = await GetConfigData(
-          `/rooms/get-all-room-configs/sort?sort=${params?.slug}`
+          `/rooms/get-all-room-configs/sort?sort=${
+            params.slug == "im3" || params.slug == "default"
+              ? "default"
+              : params.slug
+          }`
         );
         console.log(result);
-        setDataSpace(result[0]);
+        if (params.slug == "im3") {
+          setDataSpace(result);
+        } else {
+          setDataSpace(result[0]);
+        }
       } catch (err) {
         console.error("Error fetching data:", err);
       } finally {
@@ -44,6 +53,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
   }, [params]);
 
   const showSlug = useCallback(() => {
+    console.log(dataSpace);
     return (
       <>
         {isLoading ? ( // Show loading indicator while loading
@@ -271,7 +281,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
         )}
       </>
     );
-  }, [dataSpace, isLoading]);
+  }, [dataSpace]);
 
   return (
     <>
