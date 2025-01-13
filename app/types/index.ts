@@ -1,13 +1,11 @@
 import { StaticImageData } from "next/image";
 import {
-  AllHTMLAttributes,
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   ChangeEvent,
   FunctionComponent,
   InputHTMLAttributes,
 } from "react";
-import { UseFormRegister } from "react-hook-form";
 
 export type SpaceCardProps = {
   className: string;
@@ -98,7 +96,6 @@ export interface TInput extends InputHTMLAttributes<HTMLInputElement> {
   iconEnd?: FunctionComponent;
   inputClassName?: string;
   error?: boolean;
-  register?: any;
   parentClassName?: string;
 }
 
@@ -159,4 +156,29 @@ export interface RoomStructure {
   count: number;
   sessions: Session[];
   id: string;
+}
+
+export interface Participant {
+  name: string;
+  joinedAt: number;
+  identity: string;
+  permission: {
+    canSubscribe: boolean;
+    canPublish: boolean;
+    canPublishData: boolean;
+    recorder: boolean;
+  };
+}
+
+export interface MeetData {
+  roomName: string;
+  participants: Participant[];
+  fetchedAt: number;
+}
+
+export interface LeadreBoardMeetData {
+  roomName: string;
+  count: number;
+  formula?: number;
+  participant?: Participant[];
 }
