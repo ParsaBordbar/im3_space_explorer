@@ -1,6 +1,6 @@
 import { spaceApi } from "../api/base";
 
-const useGetConfigData = async (slug: string): Promise<any> => {
+const GetConfigData = async (slug: string): Promise<any> => {
   try {
     const response = await spaceApi.get(slug);
     if (Array.isArray(response.data) && response.data.length === 0) {
@@ -12,4 +12,4 @@ const useGetConfigData = async (slug: string): Promise<any> => {
   }
 };
 
-export default useGetConfigData;
+export default GetConfigData;
