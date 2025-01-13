@@ -1,12 +1,6 @@
 "use client";
 import GetConfigData from "@/hooks/useGetConfig";
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Loading from "../Loading";
 import TopThreeRank from "../TopThreeRank";
 import RankBox from "../RankBox";
@@ -99,9 +93,9 @@ const LeaderBoard = ({
 
   // Fetch participants data
   const getParticipants = async (uniqueSlugs: string[]) => {
-    console.log("uniqueSlugs in get participiants", uniqueSlugs);
     const participantsData = await Promise.all(
       uniqueSlugs.map(async (slug) => {
+        console.log("uniqueSlugs in get participiants", uniqueSlugs);
         const result = await GetConfigData(
           `/participants/stored-participants/${slug}`
         );
