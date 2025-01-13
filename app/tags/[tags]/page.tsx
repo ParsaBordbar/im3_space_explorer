@@ -20,7 +20,7 @@ const TagsPage = ({ params }: { params: { tags: [string] } }) => {
 
   useEffect(() => {
     getAllSlugs();
-  });
+  }, [params]);
 
   const showSpaces = useMemo(() => {
     if (isLoading) return <Loading />;
