@@ -42,11 +42,7 @@ const LeaderBoard = ({
 }: {
   onSendData: (value1: number, value2: number) => void;
 }) => {
-  const [slugs, setSlugs] = useState<string[]>([
-    "uuro-4tgo",
-    "tauf-s6n1",
-    "i7l5-18lx",
-  ]);
+  const [slugs, setSlugs] = useState<string[]>([]);
   const [maxParticipant, setMaxParticipant] = useState<number>(0);
   const [participants, setParticipants] = useState<LeadreBoardMeetData[]>([]);
   const [finalData, setFinalData] = useState<
@@ -74,7 +70,7 @@ const LeaderBoard = ({
       new Set(result.map((space: Config) => space.slug ?? "im3"))
     );
     console.log(uniqueSlugs);
-    setSlugs(["uuro-4tgo", "tauf-s6n1", "i7l5-18lx"]);
+    setSlugs(uniqueSlugs);
   };
 
   // Fetch the room count data
@@ -107,7 +103,7 @@ const LeaderBoard = ({
           `/participants/stored-participants/${slug}`
         );
         const validParticipants: Participant[] = result.participants
-          .flat()
+          ?.flat()
           .filter(
             (participant: Participant[]) =>
               participant !== undefined && participant !== null
