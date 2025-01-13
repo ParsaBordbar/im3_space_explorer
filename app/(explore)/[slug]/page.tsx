@@ -38,7 +38,7 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
           }`
         );
         console.log(result);
-        if (params.slug == "im3") {
+        if (params.slug == "im3" || params.slug == "default") {
           setDataSpace(result);
         } else {
           setDataSpace(result[0]);
