@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { useMemo, useState } from "react";
 import Tab from "./components/Tab";
 import LeaderBoard from "./components/LeaderBoard";
@@ -10,13 +10,13 @@ import NavBar from "./components/Navbar";
 import { useSearchParams } from "next/navigation";
 import ExploreSpaces from "./components/ExploreSpaces";
 export default function Home() {
-  const [data, setData] = useState({ count: "", maxParticipants: 0 });
+  const [data, setData] = useState({ count: 0, maxParticipants: 0 });
   const searchParams = useSearchParams();
 
   const tab = searchParams.get("tab");
 
   const handleDataFromLeaderBoard = (
-    count: string,
+    count: number,
     maxParticipants: number
   ) => {
     setData({ count, maxParticipants });
