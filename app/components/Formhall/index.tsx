@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CheckboxWithIcon from "../CheckBox";
 import ItemInput from "../ListInput";
 import MainInput from "../MainInput";
@@ -11,7 +11,7 @@ import Website from "/public/global.svg";
 import Discord from "/public/discord.svg";
 import FileUpload from "../FileUpload";
 import MainButton from "../MainButton";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Controller } from "react-hook-form";
@@ -20,7 +20,6 @@ import toast from "react-hot-toast";
 const schemaFormHall = yup.object().shape({
   name: yup.string().required("Name is required"),
   slug: yup.string().required("Slug is required"),
-  url: yup.string(),
   admins: yup.string(),
   description: yup.string().required("Description is required"),
   pr_pb: yup.string(),
@@ -43,7 +42,38 @@ const schemaFormHall = yup.object().shape({
   Web3Community: yup.string(),
   Individual: yup.string(),
   Crypto: yup.string(),
+  tags: yup.array().of(yup.string()),
 });
+
+interface SpaceFormData {
+  name: string;
+  slug: string;
+  admins?: string | string[];
+  description: string;
+  pr_pb?: string;
+  participants?: string | string[];
+  maxParticipants: number;
+  logoFile?: FileList | File | null;
+  X: string;
+  LinkedIn: string;
+  Discord: string;
+  GitHub: string;
+  Website: string;
+  Web3?: string;
+  Decentralization?: string;
+  Blockchain?: string;
+  SmartContract?: string;
+  GameFi?: string;
+  DeFi?: string;
+  Organization?: string;
+  dApps?: string;
+  Web3Community?: string;
+  Individual?: string;
+  Crypto?: string;
+  tags?: (undefined | string)[] | undefined;
+}
+
+type SpaceFormDataFromSchema = yup.InferType<typeof schemaFormHall>;
 
 const Formhall = () => {
   const [dataFromChild, setDataFromChild] = useState("Public");
@@ -64,7 +94,10 @@ const Formhall = () => {
     setDataFromChildParticipants(data); // Update state with data from child
   };
 
-  const platforms = [
+  const socials: Array<{
+    socialName: keyof SpaceFormDataFromSchema;
+    icon: React.FC;
+  }> = [
     { socialName: "X", icon: X },
     { socialName: "LinkedIn", icon: LinkedIn },
     { socialName: "Discord", icon: Discord },
@@ -96,12 +129,15 @@ const Formhall = () => {
           {allTags.map((tag) => {
             return (
               <CheckboxWithIcon
+                key={tag}
                 value={tag}
                 sendDataToParent={(data: string, isChecked: boolean) => {
                   const updatedData = dataFromChildTags.filter(
                     (item) => item !== ""
                   );
-                  isChecked && setDataFromChildTags([...updatedData, data]);
+                  if (isChecked) {
+                    setDataFromChildTags([...updatedData, data]);
+                  }
                   if (!isChecked) {
                     const updatedDataTags = updatedData.filter(
                       (item) => item !== data
@@ -124,31 +160,32 @@ const Formhall = () => {
           Socials of your space
         </h2>
         <ul className="grid grid-cols-4 md:grid-cols-5 w-full gap-2 rounded-lg shadow-lg z-10 ">
-          {platforms.map((platform: any) => (
-            <li
-              title={platform.socialName}
-              key={platform.socialName}
-              className=" flex col-span-full sm:col-span-2 last:sm:col-span-full last:md:col-span-1 md:col-span-1 flex-col gap-1 "
-            >
-              <Controller
-                control={control}
-                name={platform.socialName}
-                render={({ field }) => (
-                  <MainInput
-                    {...field}
-                    inputClassName="!text-sm"
-                    parentClassName={` ${
-                      platform.socialName == "Website"
-                        ? "[&>section>div>svg>*]:stroke-white"
-                        : "[&>section>div>svg>*]:fill-white"
-                    } [&>section>div>svg>*]:opacity-70`}
-                    iconFirst={platform.icon}
-                    mode="input"
-                  />
-                )}
-              />
-            </li>
-          ))}
+          {socials.map(({ socialName, icon }) => {
+            return (
+              <li
+                key={socialName}
+                className=" flex col-span-full sm:col-span-2 last:sm:col-span-full last:md:col-span-1 md:col-span-1 flex-col gap-1 "
+              >
+                <Controller
+                  name={socialName}
+                  control={control}
+                  render={({ field }) => (
+                    <MainInput
+                      {...field}
+                      inputClassName="!text-sm"
+                      parentClassName={` ${
+                        socialName == "Website"
+                          ? "[&>section>div>svg>*]:stroke-white"
+                          : "[&>section>div>svg>*]:fill-white"
+                      } [&>section>div>svg>*]:opacity-70`}
+                      iconFirst={icon}
+                      mode="input"
+                    />
+                  )}
+                />
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
@@ -174,7 +211,6 @@ const Formhall = () => {
   }, [dataFromChild]);
 
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },
@@ -210,15 +246,6 @@ const Formhall = () => {
       !errors.slug?.message &&
       !errors.description?.message &&
       !errors.maxParticipants?.message &&
-      errors.logoFile?.message
-    ) {
-      toast.error(errors.logoFile?.message);
-    }
-    if (
-      !errors.name?.message &&
-      !errors.slug?.message &&
-      !errors.description?.message &&
-      !errors.maxParticipants?.message &&
       !errors.logoFile?.message &&
       (errors.LinkedIn?.message ||
         errors.X?.message ||
@@ -230,7 +257,7 @@ const Formhall = () => {
     }
   }, [errors]);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: SpaceFormData) => {
     if (!data.logoFile) {
       toast.error("Logo file is required");
       return;
@@ -254,11 +281,12 @@ const Formhall = () => {
       { pr_pb: pr_pbValidation() },
       { url: `space.ime.live/rooms/${data.slug}` }
     );
-    if (data.tags.length < 3) {
+    if (data.tags && data.tags.length < 3) {
       toast.error("At Least 3 Tags");
       return;
+    } else {
+      console.log("Form Data:", data);
     }
-    console.log("Form Data:", data);
     // const mergeData = [...data, ...dataFromChildAdmins];
   };
 
