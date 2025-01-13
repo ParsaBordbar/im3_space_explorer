@@ -127,18 +127,20 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
           />
         </section>
         {showInformationMeet()}
-        <section className="bg-[#5b5b5d3e]  relative z-0 rounded-xl p-4">
-          <Image
-            className="absolute object-cover h-full w-full -z-10 bottom-0 top-0 left-0"
-            width={5000}
-            height={5000}
-            src={NoiseEffect}
-            alt=""
-          />
-          <ul className="flex overflow-auto h-[580px] scrollable flex-col gap-2">
-            {leaderBoardAllMeet}
-          </ul>
-        </section>
+        {leaderBoardAllMeet && (
+          <section className="bg-[#5b5b5d3e]  relative z-0 rounded-xl p-4">
+            <Image
+              className="absolute object-cover h-full w-full -z-10 bottom-0 top-0 left-0"
+              width={5000}
+              height={5000}
+              src={NoiseEffect}
+              alt=""
+            />
+            <ul className="flex overflow-auto h-[580px] scrollable flex-col gap-2">
+              {leaderBoardAllMeet}
+            </ul>
+          </section>
+        )}
       </>
     );
   }, [dataMeet, leaderBoardAllMeet, showInformationMeet, title]);
