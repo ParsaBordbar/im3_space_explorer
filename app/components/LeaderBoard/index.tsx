@@ -70,8 +70,10 @@ const LeaderBoard = ({
       new Set(result.map((space: Config) => space.slug ?? "im3"))
     );
     console.log(uniqueSlugs);
-    setSlugs(uniqueSlugs);
-    getAllSlugsCount(uniqueSlugs);
+    // setSlugs(uniqueSlugs);
+    if (uniqueSlugs.length > 0) {
+      getAllSlugsCount(uniqueSlugs);
+    }
   };
 
   // Fetch the room count data
@@ -93,55 +95,56 @@ const LeaderBoard = ({
     };
 
     fetchCounts();
-  }, [slugs]);
+    getParticipants(uniqueSlugs);
+  }, []);
 
   // Fetch participants data
-  const getParticipants = useCallback(async () => {
-    const participantsData = await Promise.all(
-      slugs.map(async (slug) => {
-        const result = await GetConfigData(
-          `/participants/stored-participants/${slug}`
-        );
-        const validParticipants: Participant[] = result.participants
-          ?.flat()
-          .filter(
-            (participant: Participant[]) =>
-              participant !== undefined && participant !== null
+  const getParticipants = useCallback(
+    async (uniqueSlugs: string[]) => {
+      console.log("uniqueSlugs in get participiants", uniqueSlugs);
+      const participantsData = await Promise.all(
+        uniqueSlugs.map(async (slug) => {
+          const result = await GetConfigData(
+            `/participants/stored-participants/${slug}`
           );
+          const validParticipants: Participant[] = result.participants
+            ?.flat()
+            .filter(
+              (participant: Participant[]) =>
+                participant !== undefined && participant !== null
+            );
 
-        return {
-          roomName: slug,
-          count: 0,
-          participants: validParticipants,
-          formula: 0,
-        };
-      })
-    );
-    console.log("finalData : ", finalData);
-
-    const updatedData = finalData.map((data) => {
-      const participantInfo = participantsData.find(
-        (parti) => parti.roomName === data.roomName
+          return {
+            roomName: slug,
+            count: 0,
+            participants: validParticipants,
+            formula: 0,
+          };
+        })
       );
+      console.log("finalData : ", finalData);
 
-      return participantInfo
-        ? { ...data, participant: participantInfo.participants, formula: 0 }
-        : data;
-    });
-    console.log("update data : ", updatedData);
-    setParticipants(updatedData);
-  }, [finalData, slugs]);
+      const updatedData = finalData.map((data) => {
+        const participantInfo = participantsData.find(
+          (parti) => parti.roomName === data.roomName
+        );
+
+        return participantInfo
+          ? { ...data, participant: participantInfo.participants, formula: 0 }
+          : data;
+      });
+      console.log("update data : ", updatedData);
+      setParticipants(updatedData);
+    },
+    [finalData]
+  );
 
   // Fetch all slugs and participants data on component mount
   useLayoutEffect(() => {
     getAllSlugs();
   }, []);
 
-  useEffect(() => {
-    if (finalData.length > 0) {
-      getParticipants();
-    }
-  }, [finalData]);
+  useEffect(() => {}, [finalData]);
 
   const topThree = useMemo(() => {
     console.log(participants);
