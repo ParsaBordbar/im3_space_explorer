@@ -25,7 +25,7 @@ const TopThreeRank = ({
 }) => {
   const validName = useMemo(() => {
     return name.split("-")[0];
-  }, []);
+  }, [name]);
   const showMedal = useMemo(() => {
     return medal == "gold" ? (
       <GoldMedal className="absolute -top-1.5 z-10 right-0 w-32 h-32" />
@@ -34,7 +34,7 @@ const TopThreeRank = ({
     ) : (
       <BronzeMedal className="absolute -top-1.5 z-10 right-0 w-32 h-32" />
     );
-  }, []);
+  }, [medal]);
 
   const styles = useMemo(() => {
     if (medal == "gold")
@@ -43,7 +43,7 @@ const TopThreeRank = ({
       return "hover:border-[#b2c1c0] hover:border-opacity-50";
     if (medal == "bronze")
       return "hover:border-[#d3976e] hover:border-opacity-50";
-  }, []);
+  }, [medal]);
 
   return (
     <div
