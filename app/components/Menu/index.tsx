@@ -1,9 +1,8 @@
-"use client";
+"use client";;
 import { useCallback, useState } from "react";
 import Menu from "/public/menu.svg";
 import Logo from "/public/logo.svg";
 import Add from "/public/add.svg";
-import Link from "next/link";
 import NavLinks from "../NavLinks";
 
 const MenuHamburger = () => {

@@ -2,7 +2,7 @@
 import Loading from "@/app/components/Loading";
 import SpaceCard from "@/app/components/SpaceCard";
 import { dataType } from "@/app/types";
-import useGetConfigData from "@/hooks/useGetConfig";
+import GetConfigData from "@/hooks/useGetConfig";
 import { useEffect, useMemo, useState } from "react";
 
 const TagsPage = ({ params }: { params: { tags: [string] } }) => {
@@ -11,7 +11,7 @@ const TagsPage = ({ params }: { params: { tags: [string] } }) => {
 
   const getAllSlugs = async () => {
     setIsLoading(true);
-    const result = await useGetConfigData(
+    const result = await GetConfigData(
       `/rooms/get-all-room-configs/sort?sort=${params.tags}`
     );
     setData(result);
@@ -20,11 +20,11 @@ const TagsPage = ({ params }: { params: { tags: [string] } }) => {
 
   useEffect(() => {
     getAllSlugs();
-  }, []);
+  });
 
   const showSpaces = useMemo(() => {
-    if (isLoading) return <Loading />; 
-    if (!data || (data.length == 0 && isLoading)) return null; 
+    if (isLoading) return <Loading />;
+    if (!data || (data.length == 0 && isLoading)) return null;
     return (
       data &&
       data?.map((data: dataType) => {
@@ -48,7 +48,7 @@ const TagsPage = ({ params }: { params: { tags: [string] } }) => {
         );
       })
     );
-  }, [data]);
+  }, [isLoading, data]);
   return (
     <div className="flex flex-col my-40 w-11/12 lg:w-[75%] mx-auto gap-4 items-start">
       <h1 className="text-white text-lg font-bold font-SpaceGrotesk">

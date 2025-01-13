@@ -2,7 +2,7 @@
 import Loading from "@/app/components/Loading";
 import SpaceCard from "@/app/components/SpaceCard";
 import { dataType } from "@/app/types";
-import useGetConfigData from "@/hooks/useGetConfig";
+import GetConfigData from "@/hooks/useGetConfig";
 import React, { useEffect, useMemo, useState } from "react";
 
 function Filter({ params }: { params: { filter: string } }) {
@@ -11,7 +11,7 @@ function Filter({ params }: { params: { filter: string } }) {
 
   const getAllSlugs = async () => {
     setIsLoading(true);
-    const result = await useGetConfigData(
+    const result = await GetConfigData(
       `/rooms/get-all-room-configs/sort?sort=${params.filter}`
     );
     setData(result);
@@ -20,10 +20,10 @@ function Filter({ params }: { params: { filter: string } }) {
 
   useEffect(() => {
     getAllSlugs();
-  }, []);
+  },[params]);
 
   const showSpaces = useMemo(() => {
-    if (isLoading) return <Loading />; 
+    if (isLoading) return <Loading />;
     if (!data || (data.length == 0 && isLoading)) return null;
     return (
       Array.isArray(data) &&
@@ -48,7 +48,7 @@ function Filter({ params }: { params: { filter: string } }) {
         );
       })
     );
-  }, [data]);
+  }, [data, isLoading]);
   return (
     <div className="flex flex-col my-40 w-11/12 lg:w-[75%] mx-auto gap-4 items-start">
       <h1 className="text-white text-lg font-bold font-SpaceGrotesk capitalize">

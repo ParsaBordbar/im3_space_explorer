@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import Add from "/public/add.svg";
 import Minus from "/public/minus.svg";
 import More from "/public/more-circle.svg";
+import { FieldValues, RegisterOptions } from "react-hook-form";
 
 const ItemInput = (props: {
   label: string;
   mode?: "disable" | null;
-  register?: any;
+  register?: <TFieldValues extends FieldValues>(
+    name: keyof TFieldValues,
+    options?: RegisterOptions
+  ) => FieldValues;
   registerValue: string;
   className?: string;
   onData: (data: string[]) => void;
@@ -24,20 +28,13 @@ const ItemInput = (props: {
     }
   };
 
-  
-
-  const sendDataToParent = (inputValue: string[]) => {
-    props.onData(inputValue); // Pass the current state to the parent
-  };
-
   const handleDeleteItem = (index: number) => {
     setItems(items.filter((_, i) => i !== index));
   };
 
   useEffect(() => {
-    console.log("this the items in admins ", items);
-    sendDataToParent(items);
-  }, [items]);
+    props.onData(items);
+  }, [items, props]);
 
   return (
     <div
@@ -82,23 +79,23 @@ const ItemInput = (props: {
           }`}
         >
           <ul
-            className={`mt-4 bg- drop-shadow-md overflow-y-auto flex flex-col gap-3 p-4 z-20 rounded-lg w-10/12 md:w-2/3 lg:w-8/12 mx-auto ${
+            className={`mt-4 bg- drop-shadow-md overflow-y-auto flex flex-col gap-2.5 md:gap-3 p-4 z-20 rounded-lg w-10/12 md:w-2/3 lg:w-8/12 mx-auto ${
               items.length == 0 && "hidden"
-            } space-y-2`}
+            } `}
           >
-            <nav className="flex gap-4 items-center w-full">
+            <nav className="flex gap-4 mb-2 items-center w-full">
               <Add
                 onClick={() => setOpen(false)}
                 className="[&>path]:stroke-white [&>path]:hover:stroke-slate-300 transition-all duration-200 ease-in-out cursor-pointer rotate-45"
               />
-              <h1 className="font-SpaceGrotesk text-3xl text-white">
+              <h1 className="font-SpaceGrotesk text-sm md:text-3xl text-white">
                 {props.label}
               </h1>
             </nav>
             {items.map((item, index) => (
               <li
                 key={index}
-                className="flex justify-between text-white items-center px-4 py-3 bg-box-space  rounded-lg"
+                className="flex justify-between text-white items-center p-2.5 md:px-4 md:py-3 bg-box-space  rounded-lg"
               >
                 <p className="text-sm font-Nunito">{index + 1 + ". " + item}</p>
                 <div

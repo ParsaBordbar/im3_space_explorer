@@ -1,7 +1,4 @@
-import CheckboxWithIcon from "@/app/components/CheckBox";
 import Formhall from "@/app/components/Formhall";
-import ItemInput from "@/app/components/ListInput";
-import MainInput from "@/app/components/MainInput";
 
 const CreteSpacePage = () => {
   return (

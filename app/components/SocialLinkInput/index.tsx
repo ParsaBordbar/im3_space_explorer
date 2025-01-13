@@ -1,4 +1,3 @@
-import { useState } from "react";
 import MainInput from "../MainInput";
 import X from "/public/x.svg";
 import LinkedIn from "/public/linkedin.svg";

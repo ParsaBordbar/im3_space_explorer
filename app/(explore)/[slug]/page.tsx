@@ -10,7 +10,7 @@ import Discord from "/public/discord.svg?url";
 import Github from "/public/github.svg?url";
 import SocialInfo from "@/app/components/SocialInfo";
 import Link from "next/link";
-import useGetConfigData from "@/hooks/useGetConfig";
+import GetConfigData from "@/hooks/useGetConfig";
 import Verify from "/public/verify.svg";
 import NoiseEffect from "/public/noiseEffect2.svg?url";
 
@@ -25,52 +25,23 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
   const [dataSpace, setDataSpace] = useState<dataType>();
   const [isLoading, setIsLoading] = useState(true); // Loading state
 
-  const handleFetchData = async () => {
-    setIsLoading(true); // Start loading
-    try {
-      const result = await useGetConfigData(
-        `/rooms/get-all-room-configs/sort?sort=${params?.slug}`
-      );
-      console.log(result);
-      setDataSpace(result[0]);
-    } catch (err) {
-      console.error("Error fetching data:", err);
-    } finally {
-      setIsLoading(false); // End loading
-    }
-  };
-
- 
-
-  const useDebouncedEffect = (
-    callback: () => void,
-    delay: number,
-    deps: any[]
-  ) => {
-    useEffect(() => {
-      const handler = setTimeout(callback, delay);
-      return () => clearTimeout(handler);
-    }, [...deps]);
-  };
-
-  useDebouncedEffect(
-    () => {
-      handleFetchData();
-    },
-    300,
-    [params]
-  );
-
-  const showsPrivateRoom = useCallback(() => {
-    return (
-      <DetailMiniBox
-        className="[&>*]:opacity-60 max-sm:hidden [&>p]:md:!text-base [&>img]:w-2"
-        icon={!!dataSpace?.config?.ui?.privateRoom ? UnLock : Lock}
-        value={dataSpace?.config?.ui?.privateRoom ? "Private" : "Public"}
-        title={dataSpace?.config?.ui?.privateRoom ? "Private" : "Public"}
-      />
-    );
-  }, [dataSpace]);
+  useEffect(() => {
+    const handleFetchData = async () => {
+      setIsLoading(true); // Start loading
+      try {
+        const result = await GetConfigData(
+          `/rooms/get-all-room-configs/sort?sort=${params?.slug}`
+        );
+        console.log(result);
+        setDataSpace(result[0]);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      } finally {
+        setIsLoading(false); // End loading
+      }
+    };
+    handleFetchData();
+  }, [params]);
 
   const showSlug = useCallback(() => {
     return (
@@ -126,7 +97,22 @@ const ExploreSpace = ({ params }: { params: ParamsType }) => {
                         />
                       )}
                     </section>
-                    {showsPrivateRoom()}
+                    <DetailMiniBox
+                      className="[&>*]:opacity-60 max-sm:hidden [&>p]:md:!text-base [&>img]:w-2"
+                      icon={
+                        !!dataSpace?.config?.ui?.privateRoom ? UnLock : Lock
+                      }
+                      value={
+                        dataSpace?.config?.ui?.privateRoom
+                          ? "Private"
+                          : "Public"
+                      }
+                      title={
+                        dataSpace?.config?.ui?.privateRoom
+                          ? "Private"
+                          : "Public"
+                      }
+                    />
                   </div>
                   <ul className="flex items-center gap-2 flex-wrap">
                     {dataSpace ? (

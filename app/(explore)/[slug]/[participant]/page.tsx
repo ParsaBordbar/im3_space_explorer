@@ -1,55 +1,45 @@
 "use client";
-
 import Loading from "@/app/components/Loading";
 import RankBox from "@/app/components/RankBox";
 import { RoomStructure } from "@/app/types";
-import useGetConfigData from "@/hooks/useGetConfig";
-import { count } from "console";
+import GetConfigData from "@/hooks/useGetConfig";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-const ParticipantsMeetsSpace = ({ params }: any) => {
+const ParticipantsMeetsSpace = ({
+  params,
+}: {
+  params: {
+    participant: string;
+    slug: string;
+  };
+}) => {
   const [loading, setLoading] = useState(true);
   const [meets, setMeets] = useState<RoomStructure[]>([]);
 
   console.log(params.participant);
-  const handleFetchDataMeet = async () => {
-    setLoading(true); // Start loading
-    try {
-      const result = await useGetConfigData(
-        `/rooms/get-collected-data/participant?name=${params.participant}`
-      );
-      setMeets(result);
-    } catch (err) {
-      console.error("Error fetching data:", err);
-    } finally {
-      setLoading(false); // End loading
-    }
-  };
 
-  const useDebouncedEffect = (
-    callback: () => void,
-    delay: number,
-    deps: any[]
-  ) => {
-    useEffect(() => {
-      const handler = setTimeout(callback, delay);
-      return () => clearTimeout(handler);
-    }, [...deps]);
-  };
-
-  useDebouncedEffect(
-    () => {
-      handleFetchDataMeet();
-    },
-    300,
-    [params]
-  );
+  useEffect(() => {
+    const handleFetchDataMeet = async () => {
+      setLoading(true); // Start loading
+      try {
+        const result = await GetConfigData(
+          `/rooms/get-collected-data/participant?name=${params.participant}`
+        );
+        setMeets(result);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false); // End loading
+      }
+    };
+    handleFetchDataMeet();
+  }, [params]);
 
   const showMeets = useMemo(() => {
     if (loading) return <Loading />;
     return meets?.map((meet, index) => {
-      console.log(meet.sessions[0].startedAt)
+      console.log(meet.sessions[0].startedAt);
       return (
         <>
           <RankBox
@@ -69,7 +59,7 @@ const ParticipantsMeetsSpace = ({ params }: any) => {
         </>
       );
     });
-  }, [loading]);
+  }, [loading, meets, params.slug]);
   return (
     <div className="flex flex-col items-start gap-20">
       <h1 className="font-SpaceGrotesk w-2/3 whitespace-nowrap overflow-clip text-ellipsis capitalize text-white text-base sm:text-4xl lg:text-6xl font-bold">
