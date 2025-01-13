@@ -11,7 +11,7 @@ interface FileUploadProps {
   error?: string;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ field, error, label }) => {
+const FileUpload = ({ field, label }: FileUploadProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 
@@ -25,9 +25,9 @@ const FileUpload: React.FC<FileUploadProps> = ({ field, error, label }) => {
       }
 
       toast.success("File uploaded.");
-      field.onChange(files); // Pass the valid FileList to react-hook-form
+      field.onChange(files);
     } else {
-      field.onChange(null); // Clear the value if no file is selected
+      field.onChange(null);
     }
   };
 
@@ -57,9 +57,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ field, error, label }) => {
               d="M12 4v16m8-8H4"
             />
           </svg>
-          <span className="font-Nunito">
-            Drag and Drop or Browse to Upload SVG
-          </span>
+          <span className="font-Nunito">Upload SVG</span>
         </div>
       </div>
     </div>
