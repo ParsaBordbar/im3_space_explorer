@@ -1,26 +1,26 @@
 // components/Dropdown.tsx
 import { TInput } from "@/app/types";
 import { useMemo, useState } from "react";
+import { FieldValues, RegisterOptions } from "react-hook-form";
 interface TDropDown extends TInput {
   itemsArray: string[];
   className?: string;
   onData: (data: string) => void;
+  register?: <TFieldValues extends FieldValues>(
+    name: keyof TFieldValues,
+    options?: RegisterOptions
+  ) => FieldValues;
 }
 const Dropdown = (props: TDropDown) => {
   const [selected, setSelected] = useState("Public");
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSelect = (value: string) => {
-    setSelected(value);
-    sendDataToParent(value);
-    setIsOpen(false);
-  };
-
-  const sendDataToParent = (value: string) => {
-    props.onData(value); // Pass the current state to the parent
-  };
-
   const renderItems = useMemo(() => {
+    const handleSelect = (value: string) => {
+      setSelected(value);
+      props.onData(value);
+      setIsOpen(false);
+    };
     return props.itemsArray.map((item: string) => {
       return (
         <li
@@ -32,7 +32,7 @@ const Dropdown = (props: TDropDown) => {
         </li>
       );
     });
-  }, []);
+  }, [props]);
 
   const updateDropDown = useMemo(() => {
     return (
@@ -42,7 +42,7 @@ const Dropdown = (props: TDropDown) => {
         </ul>
       )
     );
-  }, [isOpen]);
+  }, [isOpen, renderItems]);
 
   const updateSelected = useMemo(() => {
     return <p className="text-white font-Nunito">{selected}</p>;
