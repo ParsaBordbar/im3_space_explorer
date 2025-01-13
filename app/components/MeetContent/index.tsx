@@ -86,9 +86,8 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
   }, [dataMeet, meet, params]);
 
   const leaderBoardAllMeet = useMemo(() => {
-    if (!dataMeet) return null; // Handle the case where data is not available
+    if (!dataMeet || dataMeet.participants.slice(3).length == 0) return null; // Handle the case where data is not available
     const participants = dataMeet.participants.slice(3); // Exclude the top 3 participants
-
     // Map over the remaining participants to generate the leaderboardAllMeet
     return (
       <>
