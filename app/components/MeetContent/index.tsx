@@ -1,32 +1,15 @@
 "use client";
 
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import Loading from "../Loading";
 import RankBox from "../RankBox";
-import useGetConfigData from "@/hooks/useGetConfig";
+import GetConfigData from "@/hooks/useGetConfig";
 import ConvertTimestamp from "../ConvertTimesTamp";
 import TopThreeRank from "../TopThreeRank";
 import NoiseEffect from "/public/noiseEffect2.svg?url";
 import Image from "next/image";
 import InfoMiniBox from "../infoMiniBox";
-import { RoomStructure } from "@/app/types";
-
-interface Participant {
-  name: string;
-  joinedAt: number;
-  identity: string;
-  permission: {
-    canSubscribe: boolean;
-    canPublish: boolean;
-    canPublishData: boolean;
-    recorder: boolean;
-  };
-}
-
-interface MeetData {
-  participants: Participant[];
-  fetchedAt: number;
-}
+import { MeetData, RoomStructure } from "@/app/types";
 
 const MeetContent = ({ params, title }: { params: string; title: string }) => {
   const [dataMeet, setDataMeet] = useState<MeetData | null>(null);
@@ -34,52 +17,36 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const handleFetchData = async () => {
-    try {
-      const result = await useGetConfigData(
-        `participants/stored-participants/${params}`
-      );
-      setDataMeet(result);
-    } catch (err) {
-      setError("Failed to fetch participants.");
-    } finally {
-    }
-  };
+  useEffect(() => {
+    const handleFetchData = async () => {
+      try {
+        const result = await GetConfigData(
+          `participants/stored-participants/${params}`
+        );
+        setDataMeet(result);
+      } catch (err) {
+        setError("Failed to fetch participants." + err);
+      } finally {
+      }
+    };
 
-  const handleFetchDataMeet = async () => {
-    setLoading(true); // Start loading
-    try {
-      const result = await useGetConfigData(
-        `/rooms/get-collected-data/room?name=${params}`
-      );
-      console.log(result);
-      setMeet(result);
-    } catch (err) {
-      console.error("Error fetching data:", err);
-    } finally {
-      setLoading(false); // End loading
-    }
-  };
-
-  const useDebouncedEffect = (
-    callback: () => void,
-    delay: number,
-    deps: any[]
-  ) => {
-    useEffect(() => {
-      const handler = setTimeout(callback, delay);
-      return () => clearTimeout(handler);
-    }, [...deps]);
-  };
-
-  useDebouncedEffect(
-    () => {
-      handleFetchData();
-      handleFetchDataMeet();
-    },
-    300,
-    [params]
-  );
+    const handleFetchDataMeet = async () => {
+      setLoading(true); // Start loading
+      try {
+        const result = await GetConfigData(
+          `/rooms/get-collected-data/room?name=${params}`
+        );
+        console.log(result);
+        setMeet(result);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false); // End loading
+      }
+    };
+    handleFetchData();
+    handleFetchDataMeet();
+  }, [params]);
 
   const showInformationMeet = useCallback(() => {
     if (!dataMeet) return null;
@@ -144,7 +111,7 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
         })}
       </>
     );
-  }, [dataMeet]);
+  }, [dataMeet, params]);
 
   const informationsSlug = useMemo(() => {
     if (!dataMeet) return null;
