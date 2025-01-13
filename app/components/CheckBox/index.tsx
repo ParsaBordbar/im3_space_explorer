@@ -1,6 +1,6 @@
 // components/CheckboxWithIcon.tsx
 "use client";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const CheckboxWithIcon = ({
   value,
@@ -10,7 +10,7 @@ const CheckboxWithIcon = ({
   sendDataToParent: (data: string, isChecked: boolean) => void;
 }) => {
   const [isChecked, setIsChecked] = useState(false);
-  
+
   const toggleCheckbox = () => {
     setIsChecked(!isChecked);
   };
