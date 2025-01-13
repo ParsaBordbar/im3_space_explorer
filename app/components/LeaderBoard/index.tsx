@@ -42,6 +42,7 @@ const LeaderBoard = ({
 }: {
   onSendData: (value1: number, value2: number) => void;
 }) => {
+  const [slugs, setSlugs] = useState<string[]>([]);
   const [maxParticipant, setMaxParticipant] = useState<number>(0);
   const [participants, setParticipants] = useState<LeadreBoardMeetData[]>([]);
   const [finalData, setFinalData] = useState<
@@ -69,9 +70,9 @@ const LeaderBoard = ({
       new Set(result.map((space: Config) => space.slug ?? "im3"))
     );
     console.log(uniqueSlugs);
-    // setSlugs(uniqueSlugs);
+    setSlugs(["uuro-4tgo", "i7l5-18lx"]);
     if (uniqueSlugs.length > 0) {
-      getAllSlugsCount(uniqueSlugs);
+      getAllSlugsCount(["uuro-4tgo", "i7l5-18lx"]);
     }
   };
 
@@ -94,56 +95,59 @@ const LeaderBoard = ({
     };
 
     fetchCounts();
-    getParticipants(uniqueSlugs);
   }, []);
 
   // Fetch participants data
-  const getParticipants = useCallback(
-    async (uniqueSlugs: string[]) => {
-      console.log("uniqueSlugs in get participiants", uniqueSlugs);
-      const participantsData = await Promise.all(
-        uniqueSlugs.map(async (slug) => {
-          const result = await GetConfigData(
-            `/participants/stored-participants/${slug}`
-          );
-          const validParticipants: Participant[] = result.participants
-            ?.flat()
-            .filter(
-              (participant: Participant[]) =>
-                participant !== undefined && participant !== null
-            );
-
-          return {
-            roomName: slug,
-            count: 0,
-            participants: validParticipants,
-            formula: 0,
-          };
-        })
-      );
-      console.log("finalData : ", finalData);
-
-      const updatedData = finalData.map((data) => {
-        const participantInfo = participantsData.find(
-          (parti) => parti.roomName === data.roomName
+  const getParticipants = async (uniqueSlugs: string[]) => {
+    console.log("uniqueSlugs in get participiants", uniqueSlugs);
+    const participantsData = await Promise.all(
+      uniqueSlugs.map(async (slug) => {
+        const result = await GetConfigData(
+          `/participants/stored-participants/${slug}`
         );
+        const validParticipants: Participant[] = result.participants
+          ?.flat()
+          .filter(
+            (participant: Participant[]) =>
+              participant !== undefined && participant !== null
+          );
 
-        return participantInfo
-          ? { ...data, participant: participantInfo.participants, formula: 0 }
-          : data;
-      });
-      console.log("update data : ", updatedData);
-      setParticipants(updatedData);
-    },
-    [finalData]
-  );
+        return {
+          roomName: slug,
+          count: 0,
+          participants: validParticipants,
+          formula: 0,
+        };
+      })
+    );
+    console.log("finalData : ", finalData);
+
+    const updatedData = finalData.map((data) => {
+      const participantInfo = participantsData.find(
+        (parti) => parti.roomName === data.roomName
+      );
+
+      return participantInfo
+        ? { ...data, participant: participantInfo.participants, formula: 0 }
+        : data;
+    });
+    console.log("update data : ", updatedData);
+    setParticipants(updatedData);
+  };
 
   // Fetch all slugs and participants data on component mount
-  useLayoutEffect(() => {
+  useEffect(() => {
     getAllSlugs();
   }, []);
 
-  useEffect(() => {}, [finalData]);
+  useEffect(() => {
+    console.log("this is slugs", slugs);
+    console.log("final data in effect ", finalData);
+    if (finalData[0].roomName !== "") {
+      getParticipants(slugs);
+    }
+  }, [finalData]);
+
 
   const topThree = useMemo(() => {
     console.log(participants);
