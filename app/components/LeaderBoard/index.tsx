@@ -71,12 +71,14 @@ const LeaderBoard = ({
     );
     console.log(uniqueSlugs);
     setSlugs(uniqueSlugs);
+    getAllSlugsCount(uniqueSlugs);
   };
 
   // Fetch the room count data
-  const getAllSlugsCount = useCallback(() => {
+  const getAllSlugsCount = useCallback((uniqueSlugs: string[]) => {
+    console.log("get all slugs count", uniqueSlugs);
     const fetchCounts = async () => {
-      const dataPromises = slugs.map(async (roomSlug) => {
+      const dataPromises = uniqueSlugs.map(async (roomSlug) => {
         console.log("roomSlug", roomSlug);
         const result = await GetConfigData(
           `/rooms/get-collected-data/room?name=${roomSlug}`
@@ -90,9 +92,7 @@ const LeaderBoard = ({
       setFinalData(data);
     };
 
-    if (slugs.length > 0) {
-      fetchCounts();
-    }
+    fetchCounts();
   }, [slugs]);
 
   // Fetch participants data
@@ -135,7 +135,6 @@ const LeaderBoard = ({
   // Fetch all slugs and participants data on component mount
   useLayoutEffect(() => {
     getAllSlugs();
-    getAllSlugsCount();
   }, []);
 
   useEffect(() => {
