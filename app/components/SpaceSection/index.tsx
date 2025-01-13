@@ -1,6 +1,5 @@
 "use client";
-
-import useGetConfigData from "@/hooks/useGetConfig";
+import GetConfigData from "@/hooks/useGetConfig";
 import React, { useCallback, useEffect, useState } from "react";
 import SpaceCard from "../SpaceCard";
 import { dataType, SpaceSectionType } from "@/app/types";
@@ -13,7 +12,7 @@ function SpaceSection({ search }: SpaceSectionType) {
   useEffect(() => {
     const fetchSpaces = async () => {
       try {
-        const result = await useGetConfigData(
+        const result = await GetConfigData(
           `/rooms/get-all-room-configs/sort?sort=all`
         );
         setData(result);
