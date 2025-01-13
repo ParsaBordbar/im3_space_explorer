@@ -66,7 +66,6 @@ const MeetContent = ({ params, title }: { params: string; title: string }) => {
             className="col-span-full md:col-span-5"
             title={meet?.count}
             desc="Number created"
-            link={`/${params}/meets`}
           />
         )}
         {topThree.map((participant, index) => (

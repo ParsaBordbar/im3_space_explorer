@@ -42,7 +42,6 @@ const LeaderBoard = ({
 }: {
   onSendData: (value1: number, value2: number) => void;
 }) => {
-  const [slugs, setSlugs] = useState<string[]>([]);
   const [maxParticipant, setMaxParticipant] = useState<number>(0);
   const [participants, setParticipants] = useState<LeadreBoardMeetData[]>([]);
   const [finalData, setFinalData] = useState<
