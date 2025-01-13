@@ -150,7 +150,6 @@ const LeaderBoard = ({
 
     const updatedParticipants = participants?.map((item) => {
       if (
-        item.formula &&
         item.formula >= 0 &&
         item.count &&
         item.count >= 0 &&

@@ -179,6 +179,6 @@ export interface MeetData {
 export interface LeadreBoardMeetData {
   roomName: string;
   count: number;
-  formula?: number;
+  formula: number;
   participant?: Participant[];
 }
