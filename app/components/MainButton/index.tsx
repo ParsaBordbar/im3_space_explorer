@@ -14,12 +14,12 @@ const MainButton = (props: TButton) => {
     } else if (props.mode == "pro") {
       return "bg-[#036DE7] hover:bg-sky-700 font-bold";
     }
-  }, []);
+  }, [props.mode]);
 
   const checkIcon = useCallback(() => {
     if (props.iconSrc)
       return <Image src={props.iconSrc} height={16} width={16} alt="" />;
-  }, []);
+  }, [props.iconSrc]);
   return (
     <button
       {...props}
