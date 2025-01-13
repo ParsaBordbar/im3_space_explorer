@@ -3,51 +3,57 @@ import ConvertTimestamp from "../ConvertTimesTamp";
 import { RankBoxType } from "@/app/types";
 import Star from "/public/star.svg";
 
-// Hook to handle permissions display logic
-const usePermissionsInfo = (
-  isOpen: boolean,
-  permission: any,
-  joinedAt: string | number | undefined
-) => {
-  return useMemo(() => {
-    if (!isOpen || !permission) return null;
-
-    return (
-      <section className="flex bg-box-space p-2 rounded-lg max-md:flex-col [&>*]:max-sm:text-sm md:items-center gap-2">
-        {permission.canSubscribe && (
-          <p className="text-white font-SpaceGrotesk select-none capitalize">
-            Can Subscribe
-          </p>
-        )}
-        {permission.canPublish && (
-          <p className="text-white font-SpaceGrotesk select-none capitalize">
-            Can Publish
-          </p>
-        )}
-        {permission.canPublishData && (
-          <p className="text-white font-SpaceGrotesk select-none capitalize">
-            Can Publish Data
-          </p>
-        )}
-        {permission.recorder && (
-          <p className="text-white font-SpaceGrotesk select-none capitalize">
-            Recorder
-          </p>
-        )}
-        {joinedAt && <ConvertTimestamp time={joinedAt} />}
-      </section>
-    );
-  }, [isOpen, permission, joinedAt]);
-};
-
-// Hook to determine the button text
-const useToggleButtonText = (isOpen: boolean) => {
-  return useMemo(() => (isOpen ? "Less" : "More"), [isOpen]);
-};
-
 const RankBox = ({ user, permission, options, meet }: RankBoxType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  // Hook to handle permissions display logic
+  const usePermissionsInfo = (
+    isOpen: boolean,
+    permission:
+      | {
+          canSubscribe: boolean;
+          canPublish: boolean;
+          canPublishData: boolean;
+          recorder: boolean;
+        }
+      | undefined,
+    joinedAt: string | number | undefined
+  ) => {
+    console.log("permissionp", permission);
+    return useMemo(() => {
+      if (!isOpen || !permission) return null;
 
+      return (
+        <section className="flex bg-box-space p-2 rounded-lg max-md:flex-col [&>*]:max-sm:text-sm md:items-center gap-2">
+          {permission.canSubscribe && (
+            <p className="text-white font-SpaceGrotesk select-none capitalize">
+              Can Subscribe
+            </p>
+          )}
+          {permission.canPublish && (
+            <p className="text-white font-SpaceGrotesk select-none capitalize">
+              Can Publish
+            </p>
+          )}
+          {permission.canPublishData && (
+            <p className="text-white font-SpaceGrotesk select-none capitalize">
+              Can Publish Data
+            </p>
+          )}
+          {permission.recorder && (
+            <p className="text-white font-SpaceGrotesk select-none capitalize">
+              Recorder
+            </p>
+          )}
+          {joinedAt && <ConvertTimestamp time={joinedAt} />}
+        </section>
+      );
+    }, [isOpen, permission, joinedAt]);
+  };
+
+  // Hook to determine the button text
+  const useToggleButtonText = (isOpen: boolean) => {
+    return useMemo(() => (isOpen ? "Less" : "More"), [isOpen]);
+  };
   // Hook for displaying permission info
   const showInfo = usePermissionsInfo(isOpen, permission, user.joinedAt);
 
