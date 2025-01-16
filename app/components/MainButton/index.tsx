@@ -24,7 +24,7 @@ const MainButton = (props: TButton) => {
     <button
       {...props}
       className={`${props.className}  ${declearModleOfButton} ${
-        props.iconSrc && "flex justify-center items-center gap-2"
+        props.iconSrc && "flex justify-center transition-all duration-200 ease-in-out items-center gap-2"
       } text-center text-white `}
     >
       {checkIcon()}
