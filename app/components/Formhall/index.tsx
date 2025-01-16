@@ -404,7 +404,7 @@ const Formhall = () => {
         // onClick={handleSubmit(onSubmit)}
         mode={"pro"}
         value={"Create the new space"}
-        className="!font-normal !rounded-lg p-3 col-span-full"
+        className="!font-normal !rounded-lg p-3 col-span-full md:w-fit md:place-self-end"
       />
     </form>
   );
