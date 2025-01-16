@@ -188,7 +188,7 @@ const LeaderBoard = ({
 
     return sortedParticipants.map((spaces, index) => {
       if (index == 9) return;
-      if(spaces?.participant && +spaces?.participant?.length * +spaces?.count == 0) return;
+      if (spaces?.participant?.length == 0 || spaces.count == 0) return;
       return index <= 2 ? (
         <TopThreeRank
           link={spaces.roomName}

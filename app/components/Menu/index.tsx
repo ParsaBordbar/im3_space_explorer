@@ -21,7 +21,7 @@ const MenuHamburger = () => {
           />
           <Logo />
         </section>
-        <main>
+        <main className="flex flex-col space-y-4">
           <li onClick={() => setOpen(false)}>
             <NavLinks value="create space" link="/create/space" />
           </li>
