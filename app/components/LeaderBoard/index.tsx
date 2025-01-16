@@ -190,6 +190,7 @@ const LeaderBoard = ({
       if (index == 9) return;
       return index <= 2 ? (
         <TopThreeRank
+          link={spaces.roomName}
           count={spaces?.count}
           countParticipants={spaces?.participant?.length}
           key={spaces?.roomName}

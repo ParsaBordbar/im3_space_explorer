@@ -6,6 +6,7 @@ import BronzeMedal from "/public/bronze-medal-number.svg";
 import Star from "/public/star.svg";
 import Image from "next/image";
 import NoiseEffect from "/public/noiseEffect2.svg?url";
+import Link from "next/link";
 
 const TopThreeRank = ({
   name,
@@ -13,9 +14,11 @@ const TopThreeRank = ({
   medal,
   className,
   count,
+  link,
   countParticipants,
 }: {
   name: string;
+  link?: string;
   count?: number;
   countParticipants?: number;
   joinedAt?: string | number;
@@ -57,9 +60,18 @@ const TopThreeRank = ({
         alt=""
       />
       {showMedal}
-      <h1 className="text-white font-SpaceGrotesk w-[63%] text-ellipsis overflow-hidden whitespace-nowrap text-xl">
-        {validName}
-      </h1>
+      {link ? (
+        <Link
+          href={`${link}`}
+          className="text-white font-SpaceGrotesk w-[63%] text-ellipsis overflow-hidden whitespace-nowrap text-xl"
+        >
+          {validName}
+        </Link>
+      ) : (
+        <h1 className="text-white font-SpaceGrotesk w-[63%] text-ellipsis overflow-hidden whitespace-nowrap text-xl">
+          {validName}
+        </h1>
+      )}
       {count && countParticipants && (
         <section
           title="point"
