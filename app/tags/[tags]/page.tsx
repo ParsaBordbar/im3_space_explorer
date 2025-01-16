@@ -8,12 +8,13 @@ import { useEffect, useMemo, useState } from "react";
 const TagsPage = ({ params }: { params: { tags: [string] } }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  console.log(params);
   const getAllSlugs = async () => {
     setIsLoading(true);
     const result = await GetConfigData(
       `/rooms/get-all-room-configs/sort?sort=${params.tags}`
     );
+    console.log(result);
     setData(result);
     setIsLoading(false);
   };
@@ -51,7 +52,7 @@ const TagsPage = ({ params }: { params: { tags: [string] } }) => {
   }, [isLoading, data]);
   return (
     <div className="flex flex-col my-40 w-11/12 lg:w-[75%] mx-auto gap-4 items-start">
-      <h1 className="text-white text-lg font-bold font-SpaceGrotesk">
+      <h1 className="text-white capitalize text-lg font-bold font-SpaceGrotesk">
         {params.tags} Tags
       </h1>
       <main className="grid gap-4 w-full mx-auto grid-cols-2">
