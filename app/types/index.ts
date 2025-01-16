@@ -116,6 +116,7 @@ export interface RankBoxType {
   options: {
     isRank: boolean;
     infoBox: boolean;
+    isLink?: boolean;
   };
   user: {
     rank: number;
@@ -124,6 +125,7 @@ export interface RankBoxType {
     joinedAt?: string | number;
     leaveAt?: string | number;
     identity?: string;
+    link?: string;
   };
   permission?: {
     canSubscribe: boolean;

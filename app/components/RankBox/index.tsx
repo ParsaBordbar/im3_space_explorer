@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import ConvertTimestamp from "../ConvertTimesTamp";
 import { RankBoxType } from "@/app/types";
 import Star from "/public/star.svg";
+import Link from "next/link";
 
 const RankBox = ({ user, permission, options, meet }: RankBoxType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -79,9 +80,18 @@ const RankBox = ({ user, permission, options, meet }: RankBoxType) => {
                 {user.rank + 1}
               </p>
             )}
-            <h1 className="text-white flex-grow max-md:w-[80%] overflow-hidden whitespace-nowrap text-ellipsis text-base font-SpaceGrotesk">
-              {user.name}
-            </h1>
+            {options.isLink ? (
+              <Link
+                href={`${user.link}`}
+                className="text-white flex-grow max-md:w-[80%] overflow-hidden whitespace-nowrap text-ellipsis text-base font-SpaceGrotesk"
+              >
+                {user.name}
+              </Link>
+            ) : (
+              <h1 className="text-white flex-grow max-md:w-[80%] overflow-hidden whitespace-nowrap text-ellipsis text-base font-SpaceGrotesk">
+                {user.name}
+              </h1>
+            )}
           </section>
           {meet?.count && (
             <span className="text-white font-SpaceGrotesk">

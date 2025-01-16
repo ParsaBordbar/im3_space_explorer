@@ -217,8 +217,10 @@ const LeaderBoard = ({
             options={{
               isRank: true,
               infoBox: false,
+              isLink: true,
             }}
             user={{
+              link: spaces.roomName,
               rank: index,
               name: spaces?.roomName ?? "",
               joinedAt: "",
