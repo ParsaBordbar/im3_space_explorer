@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { useCallback, useState } from "react";
 import Menu from "/public/menu.svg";
 import Logo from "/public/logo.svg";
@@ -24,6 +24,9 @@ const MenuHamburger = () => {
         <main>
           <li onClick={() => setOpen(false)}>
             <NavLinks value="create space" link="/create/space" />
+          </li>
+          <li onClick={() => setOpen(false)}>
+            <NavLinks value="Leader board" link="/?tab=leaderBoard" />
           </li>
         </main>
       </div>
