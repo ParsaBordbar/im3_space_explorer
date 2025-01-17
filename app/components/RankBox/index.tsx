@@ -93,23 +93,23 @@ const RankBox = ({ user, permission, options, meet }: RankBoxType) => {
               </h1>
             )}
           </section>
-          {meet?.count && (
+          {meet?.count && meet?.count >= 0 && (
             <span className="text-white font-SpaceGrotesk">
-              {meet.count} Number Created
+              {meet.count ?? 0} Number Created
             </span>
           )}
-          {meet?.countParticipants && (
+          {meet?.countParticipants && meet.countParticipants >= 0 && (
             <span className="text-white font-SpaceGrotesk">
-              {meet.countParticipants} Total Participants
+              {meet.countParticipants ?? 0} Total Participants
             </span>
           )}
-          {user.points && (
+          {user.points && user.points >= 0 && (
             <section
               title="Points"
               className="flex items-center gap-2 [&_p]:text-white font-SpaceGrotesk text-lg w-fit"
             >
               <Star className="size-6" />
-              <p>{user.points}</p>
+              <p>{user.points ?? 0}</p>
             </section>
           )}
           {user.joinedAt && <ConvertTimestamp time={user.joinedAt} />}
