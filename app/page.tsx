@@ -23,27 +23,24 @@ export default function Home() {
   };
 
   const informationsMeets = useMemo(() => {
-    return (
-      data.count &&
-      data.maxParticipants && (
-        <div className="flex items-center max-sm:flex-col gap-4">
-          <InfoMiniBox
-            title={data.count}
-            desc={"The total number of held meetings"}
-            className={
-              "[&>h1]:!text-4xl [&>section>p]:max-md:!text-sm [&>h1]:md:!text-7xl"
-            }
-          />
-          <InfoMiniBox
-            title={data.maxParticipants}
-            desc={"The total number of particapants"}
-            className={
-              "[&>h1]:!text-4xl [&>section>p]:max-md:!text-sm [&>h1]:md:!text-7xl"
-            }
-          />
-        </div>
-      )
-    );
+    return data.count && data.maxParticipants ? (
+      <div className="flex items-center max-sm:flex-col gap-4">
+        <InfoMiniBox
+          title={data.count}
+          desc={"The total number of held meetings"}
+          className={
+            "[&>h1]:!text-4xl [&>section>p]:max-md:!text-sm [&>h1]:md:!text-7xl"
+          }
+        />
+        <InfoMiniBox
+          title={data.maxParticipants}
+          desc={"The total number of particapants"}
+          className={
+            "[&>h1]:!text-4xl [&>section>p]:max-md:!text-sm [&>h1]:md:!text-7xl"
+          }
+        />
+      </div>
+    ) : null;
   }, [data]);
 
   return (
