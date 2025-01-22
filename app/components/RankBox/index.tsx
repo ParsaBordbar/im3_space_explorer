@@ -74,7 +74,7 @@ const RankBox = ({ user, permission, options, meet }: RankBoxType) => {
             options.infoBox ? "w-[80%]" : "w-full"
           } items-center`}
         >
-          <section className="flex w-fit max-md:w-[40%] items-center gap-2">
+          <section className="flex w-[70%] max-md:w-full items-center gap-2">
             {options.isRank && (
               <p className="font-SpaceGrotesk text-base w-fit text-white bg-box-space px-2 rounded-full">
                 {user.rank + 1}
@@ -98,12 +98,12 @@ const RankBox = ({ user, permission, options, meet }: RankBoxType) => {
               {meet.count ?? 0} Number Created
             </span>
           )}
-          {meet?.countParticipants && meet.countParticipants >= 0 && (
+          {meet?.countParticipants != undefined && meet.countParticipants >= 0 && (
             <span className="text-white font-SpaceGrotesk">
               {meet.countParticipants ?? 0} Total Participants
             </span>
           )}
-          {user.points && user.points >= 0 && (
+          {user.points != undefined && user.points >= 0 && (
             <section
               title="Points"
               className="flex items-center gap-2 [&_p]:text-white font-SpaceGrotesk text-lg w-fit"
