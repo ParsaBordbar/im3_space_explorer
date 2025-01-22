@@ -225,7 +225,6 @@ const LeaderBoard = ({
               link: spaces.roomName,
               rank: index,
               name: spaces?.roomName ?? "",
-              joinedAt: "",
               points: spaces.formula ? spaces.formula : 0,
             }}
           />
