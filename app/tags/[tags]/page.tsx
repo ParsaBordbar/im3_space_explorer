@@ -51,11 +51,11 @@ const TagsPage = ({ params }: { params: { tags: [string] } }) => {
     );
   }, [isLoading, data]);
   return (
-    <div className="flex flex-col my-40 w-11/12 lg:w-[75%] mx-auto gap-4 items-start">
+    <div className="flex flex-col mt-40 w-11/12 lg:w-[75%] mx-auto gap-4 items-start">
       <h1 className="text-white capitalize text-lg font-bold font-SpaceGrotesk">
         {params.tags} Tags
       </h1>
-      <main className="grid gap-4 w-full mx-auto grid-cols-2">
+      <main className="grid  mb-40 gap-4 w-full mx-auto grid-cols-2">
         {showSpaces}
       </main>
     </div>
