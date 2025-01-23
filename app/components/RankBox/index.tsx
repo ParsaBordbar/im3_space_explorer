@@ -95,12 +95,12 @@ const RankBox = ({ user, permission, options, meet }: RankBoxType) => {
           </section>
           {meet?.count && meet?.count >= 0 && (
             <span className="text-white font-SpaceGrotesk">
-              {meet.count ?? 0} Number Created
+              {meet.count} Number Created
             </span>
           )}
           {meet?.countParticipants != undefined && meet.countParticipants >= 0 && (
             <span className="text-white font-SpaceGrotesk">
-              {meet.countParticipants ?? 0} Total Participants
+              {meet.countParticipants} Total Participants
             </span>
           )}
           {user.points != undefined && user.points >= 0 && (

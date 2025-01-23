@@ -211,10 +211,9 @@ const LeaderBoard = ({
         >
           <RankBox
             meet={{
-              count: spaces?.count && +spaces?.count,
+              count: spaces?.count ?? 0,
               slug: spaces?.roomName ?? "",
-              countParticipants:
-                spaces?.participant?.length && +spaces?.participant?.length,
+              countParticipants: spaces?.participant?.length ?? 0,
             }}
             options={{
               isRank: true,
